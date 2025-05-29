@@ -10,8 +10,12 @@ typedef union
 
 typedef struct treeElmmt
 {
+    infotye info;
+    DataType tipe;
     /* data */
 }Tree;
+
+
 
 
 #endif
