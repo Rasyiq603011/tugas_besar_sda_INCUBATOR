@@ -1,5 +1,5 @@
 #include "../data_struct.h"
 
-struct data_kota{
+struct data_negara{
 
 };

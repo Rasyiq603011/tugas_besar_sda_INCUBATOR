@@ -1,16 +1,16 @@
 #ifndef DATA_STRUCT_H
 #define DATA_STRUCT_H
 
+
 // ================================================
 // ==================== NEGARA ====================
 // ================================================
 
-typedef struct data_negara
-{
-    /* data */
-    unsigned long int jumlah_pendapatan;
+typedef struct data_negara Negara;
 
-}Negara;
+Negara *get_negara();
+
+void set_negara(Negara N);
 
 
 
@@ -19,10 +19,7 @@ typedef struct data_negara
 // =================== PROVINSI ===================
 // ================================================
 
-typedef struct data_provinsi
-{
-    /* data */
-}Provinsi;
+typedef struct data_provinsi Provinsi;
 
 
 
@@ -33,10 +30,7 @@ typedef struct data_provinsi
 // ===================== KOTA =====================
 // ================================================
 
-typedef struct data_kota
-{
-    /* data */
-}Kota;
+typedef struct data_kota Kota;
 
 
 
@@ -46,10 +40,7 @@ typedef struct data_kota
 // =================== BIOSKOP ===================
 // ===============================================
 
-typedef struct data_bioskop
-{
-    /* data */
-}Bioskop;
+typedef struct data_bioskop Bioskop;
 
 
 
@@ -58,10 +49,7 @@ typedef struct data_bioskop
 // ===================== FILM =====================
 // ================================================
 
-typedef struct data_film
-{
-    /* data */
-}Film;
+typedef struct data_film Film;
 
 
 
@@ -70,10 +58,7 @@ typedef struct data_film
 // ==================== Jadwal ====================
 // ================================================
 
-typedef struct data_jadwal
-{
-    /* data */
-}Jadwal;
+typedef struct data_jadwal Jadwal;
 
 
 
@@ -81,10 +66,7 @@ typedef struct data_jadwal
 // ==================== Kursi =====================
 // ================================================
 
-typedef struct data_kursi
-{
-    /* data */
-}Kursi;
+typedef struct data_kursi Kursi;
 
 
 

@@ -7,11 +7,19 @@ typedef union
     /* data */
 }infotype;
 
+typedef enum{
 
+}DataType;
+
+
+typedef struct treeElmmt* Addrees;
 typedef struct treeElmmt
 {
-    infotye info;
+    infotype info;
     DataType tipe;
+    Addrees first_child;
+    Addrees next_brother;
+
     /* data */
 }Tree;
 

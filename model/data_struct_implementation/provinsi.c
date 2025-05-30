@@ -1,1 +1,5 @@
-#include "data_struct.h"
+#include "../data_struct.h"
+
+struct data_provinsi{
+
+};
