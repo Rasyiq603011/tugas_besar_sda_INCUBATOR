@@ -1,5 +1,8 @@
 #ifndef DATA_STRUCT_H
 #define DATA_STRUCT_H
+#define MAX_CHAR
+
+typedef char String[MAX_CHAR];
 
 
 // ================================================

@@ -8,7 +8,14 @@ typedef union
 }infotype;
 
 typedef enum{
-
+    TYPE_NEGARA,
+    TYPE_PROVINSI,
+    TYPE_KOTA,
+    TYPE_BIOSKOP,
+    TYPE_FILM,
+    TYPE_JADWAL,
+    TYPE_KURSI,
+    TYPE_USER
 }DataType;
 
 

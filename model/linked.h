@@ -2,7 +2,7 @@
 	File name    : linked.h
  	Made by      : Muhammad Nabil Syauqi Rasyiq
    	Date         : 30 March 2025
-   	Description  : Header file for linked list implementation supporting both int and char* types
+   	Description  : Header file for linked list implementation supporting any types
 */
 
 #ifndef LINKED_H

@@ -6,6 +6,7 @@
 #include <stdio.h>
 #include <math.h>
 #include <string.h>
+#include <time.h>
 
 /***************************/
 /* Type data */
@@ -21,6 +22,8 @@ typedef struct { int Tgl; int Bln; int Thn;} date;
 /*********** Operasi Primitif ************/
 void CreateDate (date * D);
 /* Constructor Membentuk sebuah DATE, dengan nilai default adalah 1/01/1900 */
+
+date getTodayDate();
 
 /******* Selector komponen **********/
 int GetTgl (date D);

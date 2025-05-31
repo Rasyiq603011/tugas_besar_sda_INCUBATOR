@@ -15,6 +15,15 @@ void CreateDate (date * D){
 	SetThn (1900, &(* D));
 }
 
+// date getTodayDate(){
+// 	date today;
+// 	today.Tgl = time_t;
+// 	today.Tgl ;
+// 	today.Thn;
+
+// 	return today;
+// }
+
 /******* Selector komponen **********/
 /* Mengambil bagian Tgl dari date */
 int GetTgl (date D){
