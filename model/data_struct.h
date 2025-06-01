@@ -3,38 +3,8 @@
 #define MAX_CHAR
 #include <stdbool.h>
 
-// ================================================
-// ==================== TREE ======================
-// ================================================
-
 // typedef char String[MAX_CHAR];
 typedef char* String;
-
-typedef enum {
-    PROVINSI,
-    KOTA,
-    BIOSKOP,
-    FILM,
-    TANGGAL,
-    JADWAL
-} Datatype;
-
-typedef union {
-    Provinsi* provinsi;
-    Kota* kota;
-    Bioskop* bioskop;
-    Film* film;
-    Tanggal* tanggal;
-    Jadwal* jadwal;
-} Infotype;
-
-typedef struct tElmtList* address;
-typedef struct tElmtList {
-    Infotype info;
-    Datatype type;
-    address first_son;
-    address next_brother;
-} ElmtList;
 
 // ================================================
 // ==================== NEGARA ====================
