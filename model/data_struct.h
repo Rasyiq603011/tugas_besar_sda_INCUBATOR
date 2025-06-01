@@ -1,9 +1,40 @@
 #ifndef DATA_STRUCT_H
 #define DATA_STRUCT_H
 #define MAX_CHAR
+#include <stdbool.h>
 
-typedef char String[MAX_CHAR];
+// ================================================
+// ==================== TREE ======================
+// ================================================
 
+// typedef char String[MAX_CHAR];
+typedef char* String;
+
+typedef enum {
+    PROVINSI,
+    KOTA,
+    BIOSKOP,
+    FILM,
+    TANGGAL,
+    JADWAL
+} Datatype;
+
+typedef union {
+    Provinsi* provinsi;
+    Kota* kota;
+    Bioskop* bioskop;
+    Film* film;
+    Tanggal* tanggal;
+    Jadwal* jadwal;
+} Infotype;
+
+typedef struct tElmtList* address;
+typedef struct tElmtList {
+    Infotype info;
+    Datatype type;
+    address first_son;
+    address next_brother;
+} ElmtList;
 
 // ================================================
 // ==================== NEGARA ====================
@@ -22,7 +53,7 @@ void set_negara(Negara N);
 // =================== PROVINSI ===================
 // ================================================
 
-typedef struct data_provinsi Provinsi;
+typedef struct Provinsi Provinsi;
 
 
 
@@ -33,7 +64,7 @@ typedef struct data_provinsi Provinsi;
 // ===================== KOTA =====================
 // ================================================
 
-typedef struct data_kota Kota;
+typedef struct Kota Kota;
 
 
 
@@ -43,7 +74,7 @@ typedef struct data_kota Kota;
 // =================== BIOSKOP ===================
 // ===============================================
 
-typedef struct data_bioskop Bioskop;
+typedef struct Bioskop Bioskop;
 
 
 
@@ -52,7 +83,7 @@ typedef struct data_bioskop Bioskop;
 // ===================== FILM =====================
 // ================================================
 
-typedef struct data_film Film;
+typedef struct Film Film;
 
 
 
@@ -61,7 +92,7 @@ typedef struct data_film Film;
 // ==================== Jadwal ====================
 // ================================================
 
-typedef struct data_jadwal Jadwal;
+typedef struct Jadwal Jadwal;
 
 
 
@@ -69,7 +100,7 @@ typedef struct data_jadwal Jadwal;
 // ==================== Kursi =====================
 // ================================================
 
-typedef struct data_kursi Kursi;
+typedef struct Kursi Kursi;
 
 
 

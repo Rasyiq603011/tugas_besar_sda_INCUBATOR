@@ -1,8 +1,7 @@
 #include "../data_struct.h"
 
-struct data_bioskop{
+struct Bioskop{
+    String nama;
     int total_pendapatan;
-    String film_terlaris[10];
-
-
+    String film_terlaris[3];
 };
