@@ -11,7 +11,7 @@ typedef struct
 
 
 
-cJSON *kursi_to_json(infotype k)
+cJSON *kursi_to_json(Kursi k)
 {
     cJSON *obj = cJSON_CreateObject();
     cJSON_AddNumberToObject(obj, "komponen 1", k.info);
@@ -20,7 +20,7 @@ cJSON *kursi_to_json(infotype k)
     return obj;
 }
 
-cJSON *jadwal_to_json(infotype k)
+cJSON *jadwal_to_json()
 {
     cJSON *obj = cJSON_CreateObject();
     cJSON_AddNumberToObject(obj, "komponen 1", k.info);
