@@ -1,7 +1,12 @@
 #ifndef TIME_H
 #define TIME_H
 
-typedef struct data_time Time;
+typedef struct time
+{
+    int jam;
+    int menit;
+    int detik;
+}Time;
 
 
 #endif

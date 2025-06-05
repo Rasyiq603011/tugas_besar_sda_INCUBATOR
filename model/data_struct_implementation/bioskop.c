@@ -1,6 +1,6 @@
 #include "../data_struct.h"
 
-struct data_bioskop{
+struct DataBioskop{
     String nama;
     int total_pendapatan;
     String film_terlaris[3];
@@ -19,7 +19,7 @@ Bioskop* constructor_bioskop()
 
 void create_bioskop(Bioskop* new_bioskop)
 {
-    new_bioskop = constructor();
+    new_bioskop = constructor_bioskop();
 }
 
 // ===============================================

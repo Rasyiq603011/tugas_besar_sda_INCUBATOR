@@ -1,7 +1,19 @@
 #ifndef DATA_STRUCT_H
 #define DATA_STRUCT_H
 #define MAX_CHAR
+#include "boolean.h"
 #include <stdbool.h>
+#include <string.h>
+#include "date.h"
+#include "time.h"
+#define MAX_ROW 10
+#define MAX_COL 30
+
+typedef enum{
+    TYPE_BRONZE,
+    TYPE_SILVER,
+    TYPE_GOLD
+}KursiType;
 
 typedef char* String;
 
@@ -9,7 +21,7 @@ typedef char* String;
 // ==================== NEGARA ====================
 // ================================================
 
-typedef struct data_negara Negara;
+typedef struct DataNegara Negara;
 
 Negara *get_negara();
 
@@ -22,7 +34,7 @@ void set_negara(Negara N);
 // =================== PROVINSI ===================
 // ================================================
 
-typedef struct data_provinsi Provinsi;
+typedef struct DataNegara Provinsi;
 
 
 
@@ -33,7 +45,7 @@ typedef struct data_provinsi Provinsi;
 // ===================== KOTA =====================
 // ================================================
 
-typedef struct data_kota Kota;
+typedef struct DataKota Kota;
 
 
 
@@ -43,7 +55,7 @@ typedef struct data_kota Kota;
 // =================== BIOSKOP ===================
 // ===============================================
 
-typedef struct data_bioskop Bioskop;
+typedef struct DataBioskop Bioskop;
 
 Bioskop* constructor_bioskop();
 
@@ -65,7 +77,7 @@ void set_film_telaris(Bioskop* current_bioskop, String film_terlaris[3]);
 // ===================== FILM =====================
 // ================================================
 
-typedef struct data_film Film;
+typedef struct DataFilm Film;
 
 
 
@@ -74,13 +86,13 @@ typedef struct data_film Film;
 // ==================== Jadwal ====================
 // ================================================
 
-typedef struct data_jadwal Jadwal;
+typedef struct DataJadwal Jadwal;
 
 Jadwal* constructor_jadwal();
 
 void create_jadwal(Jadwal* new_jadwal);
 
-Time* get_time(Jadwal current_jadwal);
+Time get_time(Jadwal current_jadwal);
 
 date get_date(Jadwal current_jadwal);
 
@@ -88,19 +100,19 @@ String get_studio_name(Jadwal current_jadwal);
 
 Kursi** get_daftar_kursi(Jadwal current_jadwal);
 
-void set_waktu(Jadwal* current_jadwal, Time* new_time);
+void set_waktu(Jadwal* current_jadwal, Time new_time);
 
 void set_tanggal(Jadwal* current_jadwal, date new_date);
 
 void set_nama_studio(Jadwal* current_jadwal, String new_studio_name);
 
-void set_daftar_kursi(Jadwal* current_jadwal, Kursi** new_kursi_list);
+void set_daftar_kursi(Jadwal* current_jadwal, Kursi* new_kursi_list);
 
 // ================================================
 // ==================== Kursi =====================
 // ================================================
 
-typedef struct data_kursi Kursi;
+typedef struct DataKursi Kursi;
 
 
 
