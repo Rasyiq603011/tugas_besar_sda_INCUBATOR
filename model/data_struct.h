@@ -73,6 +73,23 @@ typedef struct Jadwal Jadwal;
 typedef struct Kursi Kursi;
 
 
+// ================================================
+// ==================== User ======================
+// ================================================
 
+typedef struct User User;
+
+String get_username_user(User* user);
+String get_password_user(User* user);
+int get_saldo_user(User* user);
+void set_username_user(User* user, String username);
+void set_password_user(User* user, String password);
+void set_saldo_user(User* user, int saldo);
+
+// ================================================
+// =================== Riwayat ====================
+// ================================================
+
+typedef struct Riwayat Riwayat;
 
 #endif

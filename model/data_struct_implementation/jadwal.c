@@ -1,11 +1,12 @@
 #include "../data_struct.h"
 #include "../date.h"
+#define BARIS
+#define KOLOM 
 
-
-struct data_jadwal{
+struct Jadwal{
     time waktu;
     date tanggal;
-    List Kursi;
+    Kursi* kursi[BARIS][KOLOM];
 };
 
 
