@@ -2,28 +2,47 @@
 #define TREE_DATA_H
 #include "data_struct.h"
 
-typedef enum {
-    PROVINSI,
-    KOTA,
-    BIOSKOP,
-    FILM,
-    TANGGAL,
-    JADWAL
-} Datatype;
+typedef enum
+{
+    TYPE_PROVINSI,
+    TYPE_KOTA,
+    TYPE_BIOSKOP,
+    TYPE_FILM,
+    TYPE_JADWAL,
+    TYPE_KURSI,
+    TYPE_USER
+}DataType;
 
-typedef union {
+typedef struct treeElmmt* Addrees;
+typedef struct treeElmmt
+{
+    InfoType info;
+    DataType tipe;
+    Addrees first_child;
+    Addrees next_brother;
+}Tree;
+
+typedef struct tree_data
+{
+    Addrees first;
+    int pendapatan;
+}Negara;
+
+
+typedef union 
+{
     Provinsi* provinsi;
     Kota* kota;
     Bioskop* bioskop;
     Film* film;
-    Tanggal* tanggal;
     Jadwal* jadwal;
-} Infotype;
+} InfoType;
 
 typedef struct tElmtList* address;
-typedef struct tElmtList {
-    Infotype info;
-    Datatype tipe;
+typedef struct tElmtList 
+{
+    InfoType info;
+    DataType tipe;
     address first_son;
     address next_brother;
 } ElmtList;

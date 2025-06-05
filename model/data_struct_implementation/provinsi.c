@@ -1,6 +1,6 @@
 #include "../data_struct.h"
 
-struct Provinsi{
+struct DataProvinsi{
     String nama;
     int jumlah_bioskop;
     int total_pendapatan;

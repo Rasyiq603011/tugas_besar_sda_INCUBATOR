@@ -1,4 +1,5 @@
 #include "tree_data.h"
+<<<<<<< HEAD
 
 address create_node(Infotype info, Datatype tipe){
 
@@ -34,3 +35,5 @@ void add_child(address parent, address child){
 }
 }
 
+=======
+>>>>>>> refs/remotes/origin/main
