@@ -1,5 +1,9 @@
 #include "../data_struct.h"
 
-struct data_provinsi{
-
+struct Provinsi{
+    String nama;
+    int jumlah_bioskop;
+    int total_pendapatan;
+    String leaderboard_bioskop[3];
+    String film_terlaris[3];
 };
