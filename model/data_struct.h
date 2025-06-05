@@ -115,6 +115,23 @@ void set_daftar_kursi(Jadwal* current_jadwal, Kursi* new_kursi_list);
 typedef struct DataKursi Kursi;
 
 
+// ================================================
+// ==================== User ======================
+// ================================================
 
+typedef struct DataUser User;
+
+String get_username_user(User* user);
+String get_password_user(User* user);
+int get_saldo_user(User* user);
+void set_username_user(User* user, String username);
+void set_password_user(User* user, String password);
+void set_saldo_user(User* user, int saldo);
+
+// ================================================
+// =================== Riwayat ====================
+// ================================================
+
+typedef struct DataRiwayat Riwayat;
 
 #endif
