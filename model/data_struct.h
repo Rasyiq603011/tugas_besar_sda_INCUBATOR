@@ -3,7 +3,6 @@
 #define MAX_CHAR
 #include <stdbool.h>
 
-// typedef char String[MAX_CHAR];
 typedef char* String;
 
 // ================================================
@@ -23,7 +22,7 @@ void set_negara(Negara N);
 // =================== PROVINSI ===================
 // ================================================
 
-typedef struct Provinsi Provinsi;
+typedef struct data_provinsi Provinsi;
 
 
 
@@ -34,7 +33,7 @@ typedef struct Provinsi Provinsi;
 // ===================== KOTA =====================
 // ================================================
 
-typedef struct Kota Kota;
+typedef struct data_kota Kota;
 
 
 
@@ -44,7 +43,7 @@ typedef struct Kota Kota;
 // =================== BIOSKOP ===================
 // ===============================================
 
-typedef struct Bioskop Bioskop;
+typedef struct data_bioskop Bioskop;
 
 
 
@@ -53,7 +52,7 @@ typedef struct Bioskop Bioskop;
 // ===================== FILM =====================
 // ================================================
 
-typedef struct Film Film;
+typedef struct data_film Film;
 
 
 
@@ -62,7 +61,7 @@ typedef struct Film Film;
 // ==================== Jadwal ====================
 // ================================================
 
-typedef struct Jadwal Jadwal;
+typedef struct data_jadwal Jadwal;
 
 
 
@@ -70,7 +69,7 @@ typedef struct Jadwal Jadwal;
 // ==================== Kursi =====================
 // ================================================
 
-typedef struct Kursi Kursi;
+typedef struct data_kursi Kursi;
 
 
 
