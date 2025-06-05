@@ -1,3 +1,99 @@
 {
-    "Jawa Barat": "kota"
+  "negara": {
+    "nama": "Indonesia",
+    "pendapatan_negara": 500000000,
+    "provinsi": [
+      {
+        "nama": "Jawa Barat",
+        "pendapatan_provinsi": 50000000,
+        "kota": [
+          {
+            "nama": "Bandung",
+            "pendapatan_kota": 5000000,
+            "bioskop": [
+              {
+                "nama": "CGV BTC",
+                "alamat": "Jl. Pasteur No.123",
+                "pendapatan_biokop": 5000000,
+                "film_tayang": [
+                  {
+                    "judul": "Dilan 1990",
+                    "genre": "Drama",
+                    "durasiMenit": 120,
+                    "sinopsis": "Kisah cinta di Bandung...",
+                    "jadwal": [
+                                  {
+                                    "studioName": "Studio 1",
+                                    "dateTime": "2025-06-03 14:00",
+                                    "hargaTiket": 40000.0,
+                                    "kursi": [
+                                      [0, 0, 0, 0, 0],
+                                      [0, 1, 0, 0, 0],
+                                      [0, 0, 0, 0, 0]
+                                    ]
+                                  },
+                                  {
+                                    "studioName": "Studio 2",
+                                    "dateTime": "2025-06-03 18:00",
+                                    "hargaTiket": 50000.0,
+                                    "kursi": [
+                                      [0, 0, 0, 0, 0],
+                                      [0, 0, 0, 0, 0],
+                                      [0, 0, 0, 0, 0]
+                                    ]
+                                  }
+                                ]
+                  },
+                  {
+                    "judul": "Avengers: Endgame",
+                    "genre": "Action",
+                    "durasiMenit": 181,
+                    "sinopsis": "Penyelamatan dunia...",
+                    "jadwal": [
+                      {
+                        "studioName": "Gold Class",
+                        "dateTime": "2025-06-03 19:30",
+                        "hargaTiket": 100000.0,
+                        "kursi": [
+                          [0, 0, 0],
+                          [0, 0, 0]
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "nama": "XXI PVJ",
+                "alamat": "Jl. Sukajadi No.137-139",
+                "film_tayang": [
+                  {
+                    "judul": "Dilan 1990",
+                    "genre": "Drama",
+                    "durasiMenit": 120,
+                    "sinopsis": "Kisah cinta di Bandung...",
+                    "jadwal": [
+                      {
+                        "studioName": "Premier",
+                        "dateTime": "2025-06-03 16:00",
+                        "hargaTiket": 60000.0,
+                        "kursi": [
+                          [0, 0, 0, 0],
+                          [0, 0, 0, 0]
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "nama": "Cimahi",
+        "kota": []
+      }
+    ]
+  }
 }

@@ -8,7 +8,6 @@ typedef union
 }infotype;
 
 typedef enum{
-    TYPE_NEGARA,
     TYPE_PROVINSI,
     TYPE_KOTA,
     TYPE_BIOSKOP,
@@ -18,7 +17,6 @@ typedef enum{
     TYPE_USER
 }DataType;
 
-
 typedef struct treeElmmt* Addrees;
 typedef struct treeElmmt
 {
@@ -26,9 +24,14 @@ typedef struct treeElmmt
     DataType tipe;
     Addrees first_child;
     Addrees next_brother;
-
-    /* data */
 }Tree;
+
+typedef struct tree_data
+{
+    Addrees first;
+    int pendapatan;
+}Negara;
+
 
 
 
