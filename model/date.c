@@ -15,14 +15,18 @@ void CreateDate (date * D){
 	SetThn (1900, &(* D));
 }
 
-// date getTodayDate(){
-// 	date today;
-// 	today.Tgl = time_t;
-// 	today.Tgl ;
-// 	today.Thn;
+date getTodayDate() {
+    date today;
+    time_t t = time(NULL);               // Ambil waktu sekarang
+    struct tm tm = *localtime(&t);       // Konversi ke format lokal (tanggal, bulan, tahun)
 
-// 	return today;
-// }
+    today.Tgl = tm.tm_mday;
+    today.Bln = tm.tm_mon + 1;           // tm_mon range-nya 0-11, jadi tambahkan 1
+    today.Thn = tm.tm_year + 1900;       // tm_year adalah tahun sejak 1900
+
+    return today;
+}
+
 
 /******* Selector komponen **********/
 /* Mengambil bagian Tgl dari date */

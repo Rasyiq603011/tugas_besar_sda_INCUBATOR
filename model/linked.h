@@ -13,33 +13,16 @@
 #include <string.h>
 #include "boolean.h"
 
+typedef char* string;
+
 typedef enum {
     TYPE_INTEGER,
     TYPE_STRING,
-    TYPE_STRUCT,
-    TYPE_BOOK,
 } DataType;
-
-typedef struct {
-    char *username; 
-    int type; // 1 untuk umum, 2 untuk mahasiswa, 3 untuk dosen
-} User;
-
-typedef struct buku *Pbook;
-typedef struct buku{
-    char* judul;      // Judul buku, requirement minimum
-    int stock;        // stok buku, requirement minimum
-    int pinjam;
-} BookData;
-
-typedef User *Struct;
-typedef char* string;
 
 typedef union {
     int integer;   
     string str;
-    Struct strct;
-    Pbook book;
 }infotype;
 
 typedef struct tElmtList *address;
@@ -53,26 +36,16 @@ typedef struct {
     address First;
 } List;
 
-typedef struct data *library;
-typedef struct data{
-    List *data;
-    library next;
-}elmtlib;
-
 #define Nil NULL
 #define First(L) ((L).First)
 #define Type(P) ((P)->type)
-#define next(P) ((P)->next)
-#define info(P) ((P)->info)
+#define Next(P) ((P)->next)
+#define Info(P) ((P)->info)
 #define info_integer(P) ((P)->info.integer)
 #define info_string(P) ((P)->info.str)
-#define info_struct(P) ((P)->info.strct)
-#define info_buku(P) ((P)->info.book)
-
 #define INT_INFO(x) ((infotype){.integer = (x)})
 #define STR_INFO(x) ((infotype){.str = (x)})
-#define STRUCT_INFO(x) ((infotype){.strct = (x)})
-#define BOOK_INFO(x) ((infotype){.book = (x)})
+
 
 /*========================================================*/
 /*==================== MAIN FUNCTIONS ====================*/
@@ -201,84 +174,5 @@ infotype get_front_value(List L);
 
 // Function untuk mendapatkan nilai di posisi belakang
 infotype get_tail_value(List L);
-
-/*=================================================================*/
-/*================== IMPLEMENTATION STRUCT MODUL ==================*/
-/*=================================================================*/
-
-// Function untuk alokasi node struct
-address alokasi_struct(Struct data);
-
-// Function untuk dealokasi node struct
-void dealokasi_struct(address P);
-
-// Function untuk mencetak struct
-void print_struct(Struct data);
-
-// Function untuk membandingkan struct
-int compare_struct(Struct data1, Struct data2);
-
-/*================================================================*/
-/*======================= KHUSUS BOOK DATA =======================*/
-/*================================================================*/
-
-address AlokasiPbook(Pbook data);
-
-void DeAlokasiPbook(address P);
-
-void InsertFVPbook(address *P, Pbook info);
-
-void InsertLVPbook(address *P, Pbook info);
-
-void DeleteFirstPbook(List *L, Pbook *info);
-
-void DeleteLastPbook(List *L, Pbook *info);
-
-void DeleteByVPbook(List *L, char *judul);
-
-address SearchByVPbook(address P, char *judul);
-
-void printInfoPbook(List L);
-
-Pbook GetFrontValuePbook(List L);
-
-Pbook GetTailValuePbook(List L);
-
-void print_borrowed_book(List L);
-
-/*=================================================================*/
-/*=================== KHUSUS Library MANAGEMENT ===================*/
-/*=================================================================*/
-
-// IS : Library baru terdeskripsi
-// FS : Library baru sudah teralokasi dan siap digunakan, diinisialiasi node untuk data buku, dengan type list: BOOK
-void create_library(library *Perpustakaan);
-
-// IS:
-// FS:
-boolean is_queue_exits(library Perpustakaan);
-
-// IS:
-// FS:
-List *insert_queue(library *Perpustakaan, address *buku);
-
-// IS:
-// FS:
-void delete_queue_by_book(library *Perpustakaan, char *judul);
-
-// Function untuk mendapatkan judul buku dari antrian
-string get_judul_antrian(address P);
-
-// IS:
-// FS:
-void delete_all_queue(library *Perpustakaan);
-
-// IS:
-// FS:
-List *search_queue_by_book(library Perpustakaan, char *judul);
-
-// IS:
-// FS:
-void deallocated_library(library *Perpustakaan);
 
 #endif /* LINKED_H */
