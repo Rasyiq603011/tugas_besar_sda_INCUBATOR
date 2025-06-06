@@ -74,6 +74,13 @@ void set_pendapatan(Bioskop* current_bioskop, int pendapatan);
 void set_film_telaris(Bioskop* current_bioskop, String film_terlaris[3]);
 
 // ================================================
+// ==================== STUDIO ====================
+// ================================================
+
+typedef struct DataStudio Studio;
+
+
+// ================================================
 // ===================== FILM =====================
 // ================================================
 
@@ -114,6 +121,21 @@ void set_daftar_kursi(Jadwal* current_jadwal, Kursi* new_kursi_list);
 
 typedef struct DataKursi Kursi;
 
+Kursi* constructor_kursi();
+
+void create_new_kursi(Kursi* new_kursi);
+
+String get_id_kursi(Kursi current_kursi);
+
+boolean get_status_kursi(Kursi current_kursi);
+
+KursiType get_tipe_kursi(Kursi current_kursi);
+
+void set_id_kursi(Kursi* current_kursi, String new_id);
+
+void set_status_kursi(Kursi* current_kursi, boolean new_status);
+
+void set_tipe_kursi(Kursi* current_kursi, KursiType new_tipe);
 
 // ================================================
 // ==================== User ======================
@@ -122,10 +144,15 @@ typedef struct DataKursi Kursi;
 typedef struct DataUser User;
 
 String get_username_user(User* user);
+
 String get_password_user(User* user);
+
 int get_saldo_user(User* user);
+
 void set_username_user(User* user, String username);
+
 void set_password_user(User* user, String password);
+
 void set_saldo_user(User* user, int saldo);
 
 // ================================================
