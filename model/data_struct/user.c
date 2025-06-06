@@ -1,4 +1,4 @@
-#include "../data_struct.h"
+#include "user.h"
 
 // ===============================================
 // ========= ENUM & STRUCT DEFINITIONS ===========

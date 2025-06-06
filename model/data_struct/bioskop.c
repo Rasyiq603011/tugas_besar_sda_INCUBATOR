@@ -1,4 +1,4 @@
-#include "../data_struct.h"
+#include "bioskop.h"
 
 struct DataBioskop{
     String nama;

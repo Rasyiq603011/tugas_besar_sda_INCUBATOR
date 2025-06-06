@@ -1,4 +1,4 @@
-#include "../data_struct.h"
+#include "provinsi.h"
 
 struct DataProvinsi{
     String nama;

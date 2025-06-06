@@ -1,4 +1,4 @@
-#include "../data_struct.h"
+#include "jadwal.h"
 #include "../date.h"
 #include "../time.h"
 

@@ -1,4 +1,4 @@
-#include "../data_struct.h"
+#include "kursi.h"
 
 struct DataKursi{
     String id;

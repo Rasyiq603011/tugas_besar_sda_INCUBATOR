@@ -1,14 +1,4 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include "cJSON.h"
-#include "../data_struct.h"
-
-typedef struct
-{
-    int info;
-}infotype;
-
+#include "read_json.h"
 
 
 cJSON *kursi_to_json(Kursi k)

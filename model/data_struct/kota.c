@@ -1,4 +1,4 @@
-#include "../data_struct.h"
+#include "kota.h"
 
 struct DataKota{
     String nama;

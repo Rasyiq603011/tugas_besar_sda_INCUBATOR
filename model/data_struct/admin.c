@@ -1,4 +1,4 @@
-#include "../data_struct.h"
+#include "admin.h"
 
 typedef struct DataAdmin{
     String username;

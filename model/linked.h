@@ -12,17 +12,26 @@
 #include <stdlib.h>
 #include <string.h>
 #include "boolean.h"
+#include "data_struct/film.h"
+#include "data_struct/jadwal.h"
+#include "data_struct/event.h"
 
-typedef char* string;
+typedef char* String;
 
 typedef enum {
     TYPE_INTEGER,
     TYPE_STRING,
+    TYPE_JADWAL,
+    TYPE_EVENT,
+    TYPE_FILM,
 } DataType;
 
 typedef union {
     int integer;   
-    string str;
+    String str;
+    Jadwal* jadwal;
+    Event* event;
+    Film* film;
 }infotype;
 
 typedef struct tElmtList *address;

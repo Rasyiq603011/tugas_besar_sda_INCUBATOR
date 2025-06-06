@@ -59,6 +59,10 @@
   "files.associations": {
     "data_struct.h": "c",
     "time.h": "c",
-    "date.h": "c"
+    "date.h": "c",
+    "boolean.h": "c",
+    "film.h": "c",
+    "jadwal.h": "c",
+    "cjson.h": "c"
   }
 }
