@@ -36,7 +36,21 @@ void set_negara(Negara N);
 
 typedef struct DataNegara Provinsi;
 
+Provinsi* constructor_provinsi();
 
+void create_provinsi(Provinsi* new_provinsi);
+
+String get_name_provinsi(Provinsi provinsi);
+
+int get_pendapatan_provinsi(Provinsi current_provinsi);
+
+String* get_film_terlaris_provinsi(Provinsi current_provinsi);
+
+void set_name_provinsi(Provinsi* current_provinsi, String name);
+
+void set_pendapatan_provinsi(Provinsi* current_provinsi, int pendapatan);
+
+void set_film_terlaris_provinsi(Provinsi* current_provinsi, String film_terlaris[3]);
 
 
 
@@ -47,7 +61,21 @@ typedef struct DataNegara Provinsi;
 
 typedef struct DataKota Kota;
 
+Kota* constructor_kota();
 
+void create_kota(Kota* new_kota);
+
+String get_name_kota(Kota current_kota);
+
+int get_pendapatan_kota(Kota current_kota);
+
+String* get_film_terlaris_kota(Kota current_kota);
+
+void set_name_kota(Kota* current_kota, String name);
+
+void set_pendapatan_kota(Kota* current_kota, int pendapatan);
+
+void set_film_terlaris_kota(Kota* current_kota, String film_terlaris[3]);
 
 
 
