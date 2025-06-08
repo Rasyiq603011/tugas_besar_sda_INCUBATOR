@@ -10,16 +10,18 @@ struct DataKursi{
 // ============ CONSTRUCTOR SECTION ==============
 // ===============================================
 
-Kursi* constructor_kursi()
+Kursi* constructor(String id, boolean status, KursiType tipe)
 {
-    Kursi* new_kursi;
-
+    Kursi* new_kursi = (Kursi*)malloc(sizeof(Kursi));
+    new_kursi->id = strdup(id);
+    new_kursi->status = status;
+    new_kursi->tipe = tipe;
     return new_kursi;
 }
 
-void create_new_kursi(Kursi* new_kursi)
+void create_new_kursi(Kursi* new_kursi, String id, boolean status, KursiType tipe)
 {
-    new_kursi = constructor_kursi();
+    new_kursi = constructor_kursi(id, status, tipe);
 }
 
 // ===============================================
@@ -62,3 +64,9 @@ void set_tipe_kursi(Kursi* current_kursi, KursiType new_tipe)
 // ===============================================
 // ============ DESTRUCTOR SECTION ===============
 // ===============================================
+
+void destructor(Kursi* current_kursi)
+{
+    free(current_kursi->id);
+    free(current_kursi->tipe);
+}

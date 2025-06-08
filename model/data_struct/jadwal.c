@@ -1,11 +1,13 @@
 #include "jadwal.h"
+#include "kursi.h"
+#include "film.h"
 #include "../date.h"
 #include "../time.h"
 
 struct DataJadwal{
     Time waktu;
     date tanggal;
-    String nama_studio;
+    Film* film;
     int harga_tiket;
     Kursi* daftar_kursi[MAX_ROW][MAX_COL];
 };
@@ -40,9 +42,14 @@ date get_date(Jadwal current_jadwal)
     return current_jadwal.tanggal;
 }
 
-String get_studio_name(Jadwal current_jadwal)
+Film* get_film(Jadwal current_jadwal)
 {
-    return current_jadwal.nama_studio;
+    return current_jadwal.film;
+}
+
+String get_film_name(Jadwal current_jadwal)
+{
+    return get_name(current_jadwal.film);
 }
 
 int get_harga_tiket(Jadwal current_jadwal)
@@ -74,9 +81,9 @@ void set_tanggal(Jadwal* current_jadwal, date new_date)
     current_jadwal->tanggal = new_date;
 }
 
-void set_nama_studio(Jadwal* current_jadwal, String new_studio_name)
+void set_film(Jadwal* current_jadwal, Film* new_film)
 {
-    current_jadwal->nama_studio = strdup(new_studio_name);
+    current_jadwal->film = new_film;
 }
 
 void set_daftar_kursi(Jadwal* current_jadwal, Kursi* new_kursi_list[MAX_ROW][MAX_COL])
@@ -100,7 +107,10 @@ void set_kursi_by_index(Jadwal* current_jadwal, int row, int col, Kursi* new_val
 // ============ DESTRUCTOR SECTION ===============
 // ===============================================
 
-
+void destructor(Jadwal* current_jadwal)
+{
+    current_jadwal->film = NULL;
+}
 
 
 

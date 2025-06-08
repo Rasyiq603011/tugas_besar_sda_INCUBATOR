@@ -3,23 +3,25 @@
 struct DataBioskop{
     String nama;
     int total_pendapatan;
-    String film_terlaris[3];
+    String alamat;
 };
 
 // ===============================================
 // ============ CONSTRUCTOR SECTION ==============
 // ===============================================
 
-Bioskop* constructor_bioskop()
+Bioskop* constructor(String nama, int total_pendapatan, String alamat)
 {
-    Bioskop* new_bioskop;
-
+    Bioskop* new_bioskop = (Bioskop*) malloc(sizeof(Bioskop));
+    new_bioskop->nama = strdup(nama);
+    new_bioskop->total_pendapatan = total_pendapatan;
+    new_bioskop->alamat = strdup(alamat);
     return new_bioskop;
 }
 
-void create_bioskop(Bioskop* new_bioskop)
+void create_bioskop(Bioskop* new_bioskop, String nama, int total_pendapatan, String alamat)
 {
-    new_bioskop = constructor_bioskop();
+    new_bioskop = constructor_bioskop(nama, total_pendapatan, alamat);
 }
 
 // ===============================================
@@ -36,9 +38,9 @@ int get_pendapatan_bioskop(Bioskop current_bioskop)
     return current_bioskop.total_pendapatan;
 }
 
-String* get_film_terlaris(Bioskop current_bioskop)
+String* get_alamat(Bioskop current_bioskop)
 {
-    return current_bioskop.film_terlaris;
+    return current_bioskop.alamat;
 }
 
 // ===============================================
@@ -55,13 +57,18 @@ void set_pendapatan(Bioskop* current_bioskop, int pendapatan)
     current_bioskop->total_pendapatan;
 }
 
-void set_film_telaris(Bioskop* current_bioskop, String film_terlaris[3])
+void set_alamat(Bioskop* current_bioskop, String alamat)
 {
-    current_bioskop->film_terlaris[0] = film_terlaris[0];
-    current_bioskop->film_terlaris[1] = film_terlaris[1];
-    current_bioskop->film_terlaris[2] = film_terlaris[2];
+    current_bioskop->alamat = alamat;
 }
 
 // ===============================================
 // ============ DESTRUCTOR SECTION ===============
 // ===============================================
+
+void destructor(Bioskop* current_bioskop)
+{
+    free(current_bioskop->nama);
+    free(current_bioskop->total_pendapatan);
+    free(current_bioskop->alamat);
+}

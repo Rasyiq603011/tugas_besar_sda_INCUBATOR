@@ -2,26 +2,41 @@
 #define BIOSKOP_H
 
 typedef char* String;
-// ===============================================
-// =================== BIOSKOP ===================
-// ===============================================
 
 typedef struct DataBioskop Bioskop;
 
-Bioskop* constructor_bioskop();
+// ===============================================
+// ============ CONSTRUCTOR SECTION ==============
+// ===============================================
 
-void create_bioskop(Bioskop* new_bioskop);
+Bioskop* constructor(String nama, int total_pendapatan, String alamat);
+
+void create_bioskop(Bioskop* new_bioskop, String nama, int total_pendapatan, String alamat);
+
+// ===============================================
+// ============== ACCESSOR SECTION ===============
+// ===============================================
 
 String get_name(Bioskop current_bioskop);
 
 int get_pendapatan_bioskop(Bioskop current_bioskop);
 
-String* get_film_terlaris(Bioskop current_bioskop);
+String* get_alamat(Bioskop current_bioskop);
+
+// ===============================================
+// =============== MUTATOR SECTION ===============
+// ===============================================
 
 void set_name(Bioskop* current_bioskop, String name);
 
 void set_pendapatan(Bioskop* current_bioskop, int pendapatan);
 
-void set_film_telaris(Bioskop* current_bioskop, String film_terlaris[3]);
+void set_alamat(Bioskop* current_bioskop, String alamat);
+
+// ===============================================
+// ============ DESTRUCTOR SECTION ===============
+// ===============================================
+
+void destructor(Bioskop* current_bioskop);
 
 #endif /*BIOSKOP_H*/
