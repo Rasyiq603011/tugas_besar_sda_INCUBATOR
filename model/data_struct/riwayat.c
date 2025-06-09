@@ -134,7 +134,10 @@ Riwayat* create_riwayat(String judul_film, char tanggal[10], char jam[6], int ha
 // Menghapus objek riwayat dan membebaskan memori yang digunakan
 void destroy_riwayat(Riwayat* riwayat)
 {
-    free(riwayat->judul_film); // membebaskan memori string judul film
-    free(riwayat->kursi);      // membebaskan memori string kursi
-    free(riwayat);             // membebaskan memori objek riwayat
+    if (riwayat != NULL)
+    {
+        free(riwayat->judul_film); // membebaskan memori string judul film
+        free(riwayat->kursi);      // membebaskan memori string kursi
+        free(riwayat);             // membebaskan memori objek riwayat
+    }
 }
