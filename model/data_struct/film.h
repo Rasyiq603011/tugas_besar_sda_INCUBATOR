@@ -1,32 +1,38 @@
 #ifndef FILM_H
 #define FILM_H
 
+#include "../tree_data.h"
 typedef char* String;
 
 typedef struct DataFilm Film;
 
+// ===================================================
+// ================= ACCESSOR SECTION ================
+// ===================================================
+
 String get_judul_film(Film* film);
-// Fungsi untuk mendapatkan harga tiket
-String get_harga_tiket_film(Film* film);
-
 int get_jumlah_penonton_film(Film* film);
-
 int get_jumlah_total_pendapatan_film(Film* film);
 
+// ===================================================
+// ================== MUTATOR SECTION ================
+// ===================================================
+
 void set_judul_film(Film* film, String judul);
-
-void set_harga_tiket_film(Film* film, int harga_tiket);
-
 void set_jumlah_penonton_film(Film* film, int jumlah_ditonton);
-
 void set_total_pendapatan_film(Film* film, int total_pendapatan);
+void update_pendapatan_film(Film* film, int harga_tiket);
 
-void update_total_pendapatan_film(Film* film);
+// ===================================================
+// ============== CONSTRUCTOR SECTION ================
+// ===================================================
 
-void jumlah_ditonton(Film* film);
+Film* create_film(String judul, int jumlah_ditonton, int total_pendapatan);
 
-Film* create_film();
+// ===================================================
+// ============== DESTRUCTOR SECTION =================
+// ===================================================
 
-void tambah_jadwal_film(Film* film);
+void destroy_film(Film* film);
 
 #endif

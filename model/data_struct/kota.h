@@ -9,20 +9,31 @@ typedef char* String;
 
 typedef struct DataKota Kota;
 
-Kota* constructor_kota();
+// ===============================================
+// ============ CONSTRUCTOR SECTION ==============
+// ===============================================
 
-void create_kota(Kota* new_kota);
+Kota* constructor(String nama, int total_pendapatan, int jumlah_bioskop);
+void create_kota(Kota* new_kota, String nama, int total_pendapatan, int jumlah_bioskop);
 
-String get_name_kota(Kota current_kota);
-
+// ===============================================
+// ============== ACCESSOR SECTION ===============
+// ===============================================
+String get_name(Kota current_kota);
 int get_pendapatan_kota(Kota current_kota);
+int get_jumlah_bioskop(Kota current_kota);
 
-String* get_film_terlaris_kota(Kota current_kota);
+// ===============================================
+// =============== MUTATOR SECTION ===============
+// ===============================================
 
-void set_name_kota(Kota* current_kota, String name);
+void set_name(Kota* current_kota, String name);
+void set_pendapatan(Kota* current_kota, int pendapatan);
+void set_jumlah_bioskop(Kota* current_kota, int jumlah_bioskop);
 
-void set_pendapatan_kota(Kota* current_kota, int pendapatan);
-
-void set_film_terlaris_kota(Kota* current_kota, String film_terlaris[3]);
+// ===============================================
+// ============ DESTRUCTOR SECTION ===============
+// ===============================================
+void destructor(Kota* current_kota);
 
 #endif /*KOTA_H*/

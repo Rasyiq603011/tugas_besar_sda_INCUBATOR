@@ -1,16 +1,9 @@
 #include "user.h"
 
 // ===============================================
-// ========= ENUM & STRUCT DEFINITIONS ===========
+// ============= STRUCT DEFINITIONS ==============
 // ===============================================
-typedef enum
-{
-    REGULER,
-    VIP_1,
-    VIP_2,
-} Prioritas;
 
-// Struktur data untuk menyimpan informasi user
 struct DataUser
 {
     String username;

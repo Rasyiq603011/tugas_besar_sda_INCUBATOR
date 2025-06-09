@@ -1,34 +1,35 @@
 #include "provinsi.h"
 
-struct DataProvinsi{
+
+struct DataProvinsi {
     String nama;
-    int jumlah_bioskop;
     int total_pendapatan;
-    String leaderboard_bioskop[3];
-    String film_terlaris[3];
+    int jumlah_bioskop;
 };
 
 // ===============================================
 // ============ CONSTRUCTOR SECTION ==============
 // ===============================================
 
-Provinsi* constructor_provinsi()
+Provinsi* constructor(String nama, int total_pendapatan, int jumlah_bioskop)
 {
-    Provinsi* new_provinsi;
-
+    Provinsi* new_provinsi = (Provinsi*) malloc(sizeof(Provinsi));
+    new_provinsi->nama = strdup(nama);
+    new_provinsi->total_pendapatan = total_pendapatan;
+    new_provinsi->jumlah_bioskop = jumlah_bioskop;
     return new_provinsi;
 }
 
-void create_provinsi(Provinsi* new_provinsi)
+void create_provinsi(Provinsi* new_provinsi, String nama, int total_pendapatan, int jumlah_bioskop)
 {
-    new_provinsi = constructor();
+    new_provinsi = constructor(nama, total_pendapatan, jumlah_bioskop);
 }
 
 // ===============================================
 // ============== ACCESSOR SECTION ===============
 // ===============================================
 
-String get_name_provinsi(Provinsi current_provinsi)
+String get_name(Provinsi current_provinsi)
 {
     return current_provinsi.nama;
 }
@@ -38,30 +39,36 @@ int get_pendapatan_provinsi(Provinsi current_provinsi)
     return current_provinsi.total_pendapatan;
 }
 
-String* get_film_terlaris_provinsi(Provinsi current_provinsi)
+int get_jumlah_bioskop(Provinsi current_provinsi)
 {
-    return current_provinsi.film_terlaris;
+    return current_provinsi.jumlah_bioskop;
 }
+
 // ===============================================
 // =============== MUTATOR SECTION ===============
 // ===============================================
 
-void set_name_provinsi(Provinsi* current_provinsi, String name)
+void set_name(Provinsi* current_provinsi, String name)
 {
     current_provinsi->nama = name;
 }
-void set_pendapatan_provinsi(Provinsi* current_provinsi, int pendapatan)
+
+void set_pendapatan(Provinsi* current_provinsi, int pendapatan)
 {
     current_provinsi->total_pendapatan = pendapatan;
 }
 
-void set_film_terlaris_provinsi(Provinsi* current_provinsi, String film_terlaris[3])
+void set_jumlah_bioskop(Provinsi* current_provinsi, int jumlah_bioskop)
 {
-    current_provinsi->film_terlaris[0] = film_terlaris[0];
-    current_provinsi->film_terlaris[1] = film_terlaris[1];
-    current_provinsi->film_terlaris[2] = film_terlaris[2];
+    current_provinsi->jumlah_bioskop = jumlah_bioskop;
 }
 
 // ===============================================
 // ============ DESTRUCTOR SECTION ===============
 // ===============================================
+
+void destructor(Provinsi* current_provinsi)
+{
+    free(current_provinsi->nama);
+    free(current_provinsi);
+}

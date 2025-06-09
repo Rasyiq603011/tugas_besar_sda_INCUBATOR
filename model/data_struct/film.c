@@ -1,111 +1,90 @@
 #include "film.h"
 
+// ===================================================
+// ============= STRUCT DEFINITIONS ==================
+// ===================================================
+
+// Struktur data untuk menyimpan informasi film
 struct DataFilm
 {
     String judul;
-    int harga_tiket;
     int jumlah_ditonton;
     int total_pendapatan;
-    Jadwal* jadwal;
 };
 
-// Fungsi untuk mendapatkan judul film
+// ===================================================
+// ================= ACCESSOR SECTION ================
+// ===================================================
+
+// Mengembalikan judul film
 String get_judul_film(Film* film)
 {
-
     return film->judul;
-
 }
 
-// Fungsi untuk mendapatkan harga tiket
-String get_harga_tiket_film(Film* film)
-{
-
-    return film->harga_tiket;
-
-}
-
-
+// Mengembalikan jumlah penonton film
 int get_jumlah_penonton_film(Film* film)
 {
-
     return film->jumlah_ditonton;
-
 }
 
+// Mengembalikan total pendapatan dari film
 int get_jumlah_total_pendapatan_film(Film* film)
 {
-
     return film->total_pendapatan;
-
 }
 
+// ===================================================
+// ================== MUTATOR SECTION ================
+// ===================================================
+
+// Mengatur judul film
 void set_judul_film(Film* film, String judul)
 {
-
     film->judul = judul;
-
 }
 
-void set_harga_tiket_film(Film* film, int harga_tiket)
-{
-
-    film->harga_tiket = harga_tiket;
-
-}
-
+// Mengatur jumlah penonton film
 void set_jumlah_penonton_film(Film* film, int jumlah_ditonton)
 {
-
     film->jumlah_ditonton = jumlah_ditonton;
-
 }
 
+// Mengatur total pendapatan film
 void set_total_pendapatan_film(Film* film, int total_pendapatan)
 {
-
     film->total_pendapatan = total_pendapatan;
-
 }
 
-void update_total_pendapatan_film(Film* film)
+// Menambahkan pendapatan berdasarkan harga tiket
+void update_pendapatan_film(Film* film, int harga_tiket)
 {
-
-    film->total_pendapatan += film->harga_tiket;
-
+    film->total_pendapatan += harga_tiket;
 }
 
-void jumlah_ditonton(Film* film)
+// ===================================================
+// ============== CONSTRUCTOR SECTION ================
+// ===================================================
+
+// Membuat objek film baru dengan judul, jumlah penonton, dan pendapatan awal
+Film* create_film(String judul, int jumlah_ditonton, int total_pendapatan)
 {
-
-    film->jumlah_ditonton += 1;
-
+    Film* new_film = (Film*) malloc(sizeof(Film));
+    new_film->judul = judul;
+    new_film->jumlah_ditonton = jumlah_ditonton;
+    new_film->total_pendapatan = total_pendapatan;
+    return new_film;
 }
 
+// ===================================================
+// ============== DESTRUCTOR SECTION =================
+// ===================================================
 
-Film* create_film()
+void destroy_film(Film* film)
 {
-
-    Film* film = (Film*) malloc(sizeof(Film));
-    film->jadwal = NULL;
-
-}
-
-
-
-void tambah_jadwal_film(Film* film)
-{
-
-    if (film->jadwal == NULL)
+    if (film != NULL)
     {
-        film->jadwal = // Constructor struct jadwal
-        return;
+        free(film->judul);
+        free(film);
     }
-
-    Jadwal* temp = film->jadwal;
-    while (temp != NULL)
-    {
-        
-    }
-
 }
