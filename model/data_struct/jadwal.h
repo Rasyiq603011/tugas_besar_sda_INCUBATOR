@@ -21,15 +21,19 @@ void create_jadwal(Jadwal* new_jadwal);
 // ============== ACCESSOR SECTION ===============
 // ===============================================
 
-Time get_time(Jadwal current_jadwal);
+Time get_time(Jadwal* current_jadwal);
 
-date get_date(Jadwal current_jadwal);
+date get_date(Jadwal* current_jadwal);
 
-Film* get_film(Jadwal current_jadwal);
+Film* get_film(Jadwal* current_jadwal);
 
-String get_film_name(Jadwal current_jadwal);
+String get_film_name(Jadwal* current_jadwal);
 
-Kursi** get_daftar_kursi(Jadwal current_jadwal);
+int get_harga_tiket(Jadwal* current_jadwal);
+
+Kursi** get_daftar_kursi(Jadwal* current_jadwal);
+
+Kursi* get_kursi_value_by_index(Jadwal* current_jadwal, int row, int col);
 
 // ===============================================
 // =============== MUTATOR SECTION ===============

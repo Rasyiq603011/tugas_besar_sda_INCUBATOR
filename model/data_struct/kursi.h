@@ -7,9 +7,9 @@
 typedef char* String;
 
 typedef enum{
-    TYPE_BRONZE,
-    TYPE_SILVER,
-    TYPE_GOLD
+    TYPE_BRONZE = 0,
+    TYPE_SILVER = 1,
+    TYPE_GOLD = 2
 }KursiType;
 // ================================================
 // ==================== Kursi =====================
@@ -29,11 +29,11 @@ void create_new_kursi(Kursi* new_kursi, String id, boolean status, KursiType tip
 // ============== ACCESSOR SECTION ===============
 // ===============================================
 
-String get_id_kursi(Kursi current_kursi);
+String get_id_kursi(Kursi* current_kursi);
 
-boolean get_status_kursi(Kursi current_kursi);
+boolean get_status_kursi(Kursi* current_kursi);
 
-KursiType get_tipe_kursi(Kursi current_kursi);
+KursiType get_tipe_kursi(Kursi* current_kursi);
 
 // ===============================================
 // =============== MUTATOR SECTION ===============

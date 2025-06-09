@@ -1,81 +1,27 @@
 #include "read_json.h"
 
-
-cJSON *kursi_to_json(Kursi k)
+void json_to_kursi()
 {
-    cJSON *obj = cJSON_CreateObject();
-    cJSON_AddNumberToObject(obj, "komponen 1", k.info);
-    cJSON_AddNumberToObject(obj, "komponen 2", k.info);
-    cJSON_AddStringToObject(obj, "komponen 3", k.info);
-    return obj;
+
 }
 
-cJSON *jadwal_to_json()
+void json_to_jadwal()
 {
-    cJSON *obj = cJSON_CreateObject();
-    cJSON_AddNumberToObject(obj, "komponen 1", k.info);
-    cJSON_AddNumberToObject(obj, "komponen 2", k.info);
-    cJSON_AddStringToObject(obj, "komponen 3", k.info);
-    return obj;
+
 }
 
-cJSON *film_to_json(infotype k)
+void json_to_list_kursi(cJSON* json, Kursi*** list_kursi) 
 {
-    cJSON *obj = cJSON_CreateObject();
-    cJSON_AddNumberToObject(obj, "komponen 1", k.info);
-    cJSON_AddNumberToObject(obj, "komponen 2", k.info);
-    cJSON_AddStringToObject(obj, "komponen 3", k.info);
-    return obj;
-}
-
-cJSON *bioskop_to_json(infotype k)
-{
-    cJSON *obj = cJSON_CreateObject();
-    cJSON_AddNumberToObject(obj, "komponen 1", k.info);
-    cJSON_AddNumberToObject(obj, "komponen 2", k.info);
-    cJSON_AddStringToObject(obj, "komponen 3", k.info);
-    return obj;
-}
-
-cJSON *kota_to_json(infotype k)
-{
-    cJSON *obj = cJSON_CreateObject();
-    cJSON_AddNumberToObject(obj, "komponen 1", k.info);
-    cJSON_AddNumberToObject(obj, "komponen 2", k.info);
-    cJSON_AddStringToObject(obj, "komponen 3", k.info);
-    return obj;
-}
-
-cJSON *provinsi_to_json(infotype k)
-{
-    cJSON *obj = cJSON_CreateObject();
-    cJSON_AddNumberToObject(obj, "komponen 1", k.info);
-    cJSON_AddNumberToObject(obj, "komponen 2", k.info);
-    cJSON_AddStringToObject(obj, "komponen 3", k.info);
-    return obj;
-}
-
-cJSON *negara_to_json(infotype k)
-{
-    cJSON *obj = cJSON_CreateObject();
-    cJSON_AddNumberToObject(obj, "komponen 1", k.info);
-    cJSON_AddNumberToObject(obj, "komponen 2", k.info);
-    cJSON_AddStringToObject(obj, "komponen 3", k.info);
-    return obj;
-}
-
-cJSON *create_array_json_from_list()
-{
-    cJSON *array = cJSON_CreateArray();
-    infotype k;
-    cJSON_AddItemToArray(array, negara_to_json(k));
-
-    cJSON *jadwal_array = cJSON_CreateArray();
-    int i;
-    for (i = 0; i < f.jumlah_jadwal; i++) {
-        cJSON_AddItemToArray(jadwal_array, jadwal_to_json(f.jadwal[i]));
+    int row, col;
+    for (row = 0; row < 3; ++row) 
+    {
+        cJSON* kursi_row = cJSON_GetArrayItem(json, row);
+        for (col = 0; col < 3; ++col) 
+        {
+            cJSON* kursi_col = cJSON_GetArrayItem(kursi_row, col);
+            list_kursi[row][col] = kursi_col->valueint;
+        }
     }
-    cJSON_AddItemToObject(obj, "jadwal", jadwal_array);
 }
 
 /*

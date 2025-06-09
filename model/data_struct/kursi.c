@@ -28,19 +28,19 @@ void create_new_kursi(Kursi* new_kursi, String id, boolean status, KursiType tip
 // ============== ACCESSOR SECTION ===============
 // ===============================================
 
-String get_id_kursi(Kursi current_kursi)
+String get_id_kursi(Kursi* current_kursi)
 {
-    return current_kursi.id;
+    return current_kursi->id;
 }
 
-boolean get_status_kursi(Kursi current_kursi)
+boolean get_status_kursi(Kursi* current_kursi)
 {
-    return current_kursi.status;
+    return current_kursi->status;
 }
 
-KursiType get_tipe_kursi(Kursi current_kursi)
+KursiType get_tipe_kursi(Kursi* current_kursi)
 {
-    return current_kursi.tipe;
+    return current_kursi->tipe;
 }
 
 // ===============================================

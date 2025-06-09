@@ -28,19 +28,19 @@ void create_bioskop(Bioskop* new_bioskop, String nama, int total_pendapatan, Str
 // ============== ACCESSOR SECTION ===============
 // ===============================================
 
-String get_name(Bioskop current_bioskop)
+String get_name(Bioskop* current_bioskop)
 {
-    return current_bioskop.nama;
+    return current_bioskop->nama;
 }
 
-int get_pendapatan_bioskop(Bioskop current_bioskop)
+int get_pendapatan_bioskop(Bioskop* current_bioskop)
 {
-    return current_bioskop.total_pendapatan;
+    return current_bioskop->total_pendapatan;
 }
 
-String* get_alamat(Bioskop current_bioskop)
+String* get_alamat(Bioskop* current_bioskop)
 {
-    return current_bioskop.alamat;
+    return current_bioskop->alamat;
 }
 
 // ===============================================

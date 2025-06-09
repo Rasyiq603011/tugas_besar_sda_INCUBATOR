@@ -63,6 +63,12 @@
     "boolean.h": "c",
     "film.h": "c",
     "jadwal.h": "c",
-    "cjson.h": "c"
+    "cjson.h": "c",
+    "kota.h": "c",
+    "*.json": "c",
+    "bioskop.h": "c",
+    "time_adt.h": "c",
+    "kursi.h": "c",
+    "string.h": "c"
   }
 }

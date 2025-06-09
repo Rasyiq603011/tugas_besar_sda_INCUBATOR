@@ -2,7 +2,7 @@
 #include "kursi.h"
 #include "film.h"
 #include "../date.h"
-#include "../time.h"
+#include "../time_adt.h"
 
 struct DataJadwal{
     Time waktu;
@@ -32,39 +32,39 @@ void create_jadwal(Jadwal* new_jadwal)
 // ============== ACCESSOR SECTION ===============
 // ===============================================
 
-Time get_time(Jadwal current_jadwal)
+Time get_time(Jadwal* current_jadwal)
 {
-    return current_jadwal.waktu;
+    return current_jadwal->waktu;
 }
 
-date get_date(Jadwal current_jadwal)
+date get_date(Jadwal* current_jadwal)
 {
-    return current_jadwal.tanggal;
+    return current_jadwal->tanggal;
 }
 
-Film* get_film(Jadwal current_jadwal)
+Film* get_film(Jadwal* current_jadwal)
 {
-    return current_jadwal.film;
+    return current_jadwal->film;
 }
 
-String get_film_name(Jadwal current_jadwal)
+String get_film_name(Jadwal* current_jadwal)
 {
-    return get_name(current_jadwal.film);
+    return get_name(current_jadwal->film);
 }
 
-int get_harga_tiket(Jadwal current_jadwal)
+int get_harga_tiket(Jadwal* current_jadwal)
 {
-    return current_jadwal.harga_tiket;
+    return current_jadwal->harga_tiket;
 }
 
-Kursi** get_daftar_kursi(Jadwal current_jadwal)
+Kursi** get_daftar_kursi(Jadwal* current_jadwal)
 {
-    return current_jadwal.daftar_kursi;
+    return current_jadwal->daftar_kursi;
 }
 
-Kursi* get_kursi_value_by_index(Jadwal current_jadwal, int row, int col)
+Kursi* get_kursi_value_by_index(Jadwal* current_jadwal, int row, int col)
 {
-    return current_jadwal.daftar_kursi[row][col];
+    return current_jadwal->daftar_kursi[row][col];
 }
 
 // ===============================================

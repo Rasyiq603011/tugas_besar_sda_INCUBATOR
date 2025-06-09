@@ -1,4 +1,4 @@
-#include "time.h"
+#include "time_adt.h"
 
 /* Konstruktor default */
 void CreateTime(Time *T) {
