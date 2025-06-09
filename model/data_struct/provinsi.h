@@ -3,22 +3,40 @@
 
 typedef char* String;
 
-typedef struct DataNegara Provinsi;
+typedef struct DataProvinsi Provinsi;
 
-Provinsi* constructor_provinsi();
+// ===============================================
+// ============ CONSTRUCTOR SECTION ==============
+// ===============================================
 
-void create_provinsi(Provinsi* new_provinsi);
+Provinsi* constructor(String nama, int total_pendapatan, int jumlah_bioskop);
 
-String get_name_provinsi(Provinsi provinsi);
+void create_provinsi(Provinsi* new_provinsi, String nama, int total_pendapatan, int jumlah_bioskop);
+
+// ===============================================
+// ============== ACCESSOR SECTION ===============
+// ===============================================
+
+String get_name(Provinsi current_provinsi);
 
 int get_pendapatan_provinsi(Provinsi current_provinsi);
 
-String* get_film_terlaris_provinsi(Provinsi current_provinsi);
+int get_jumlah_bioskop(Provinsi current_provinsi);
 
-void set_name_provinsi(Provinsi* current_provinsi, String name);
+// ===============================================
+// =============== MUTATOR SECTION ===============
+// ===============================================
 
-void set_pendapatan_provinsi(Provinsi* current_provinsi, int pendapatan);
+void set_name(Provinsi* current_provinsi, String name);
 
-void set_film_terlaris_provinsi(Provinsi* current_provinsi, String film_terlaris[3]);
+void set_pendapatan(Provinsi* current_provinsi, int pendapatan);
+
+void set_jumlah_bioskop(Provinsi* current_provinsi, int jumlah_bioskop);
+
+// ===============================================
+// ============ DESTRUCTOR SECTION ===============
+// ===============================================
+
+void destructor(Provinsi* current_provinsi);
 
 #endif /*PROVINSI_H*/

@@ -1,31 +1,34 @@
 #include "kota.h"
 
-struct DataKota{
+struct DataKota {
     String nama;
     int total_pendapatan;
-    String film_terlaris[3];
+    int jumlah_bioskop;
 };
 
 // ===============================================
 // ============ CONSTRUCTOR SECTION ==============
 // ===============================================
 
-Kota* constructor_kota()
+Kota* constructor(String nama, int total_pendapatan, int jumlah_bioskop)
 {
-    Kota* new_kota;
-
+    Kota* new_kota = (Kota*) malloc(sizeof(Kota));
+    new_kota->nama = strdup(nama);
+    new_kota->total_pendapatan = total_pendapatan;
+    new_kota->jumlah_bioskop = jumlah_bioskop;
     return new_kota;
 }
 
-void create_kota(Kota* new_kota)
+void create_kota(Kota* new_kota, String nama, int total_pendapatan, int jumlah_bioskop)
 {
-    new_kota = constructor_kota();
+    new_kota = constructor(nama, total_pendapatan, jumlah_bioskop);
 }
+
 // ===============================================
 // ============== ACCESSOR SECTION ===============
 // ===============================================
 
-String get_name_kota(Kota current_kota)
+String get_name(Kota current_kota)
 {
     return current_kota.nama;
 }
@@ -35,32 +38,36 @@ int get_pendapatan_kota(Kota current_kota)
     return current_kota.total_pendapatan;
 }
 
-String* get_film_terlaris_kota(Kota current_kota)
+int get_jumlah_bioskop(Kota current_kota)
 {
-    return current_kota.film_terlaris;
+    return current_kota.jumlah_bioskop;
 }
-
 
 // ===============================================
 // =============== MUTATOR SECTION ===============
 // ===============================================
 
-void set_name_kota(Kota* current_kota, String name)
+void set_name(Kota* current_kota, String name)
 {
     current_kota->nama = name;
 }
 
-void set_pendapatan_kota(Kota* current_kota, int pendapatan)
+void set_pendapatan(Kota* current_kota, int pendapatan)
 {
     current_kota->total_pendapatan = pendapatan;
 }
 
-void set_film_terlaris_kota(Kota* current_kota, String film_terlaris[3])
+void set_jumlah_bioskop(Kota* current_kota, int jumlah_bioskop)
 {
-    current_kota->film_terlaris[0] = film_terlaris[0];
-    current_kota->film_terlaris[1] = film_terlaris[1];
-    current_kota->film_terlaris[2] = film_terlaris[2];
+    current_kota->jumlah_bioskop = jumlah_bioskop;
 }
+
 // ===============================================
 // ============ DESTRUCTOR SECTION ===============
 // ===============================================
+
+void destructor(Kota* current_kota)
+{
+    free(current_kota->nama);
+    free(current_kota);
+}
