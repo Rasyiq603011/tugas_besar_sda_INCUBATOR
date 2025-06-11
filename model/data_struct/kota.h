@@ -14,7 +14,7 @@ typedef struct DataKota Kota;
 // ===============================================
 
 Kota* constructor(String nama, int total_pendapatan, int jumlah_bioskop);
-void create_kota(Kota* new_kota, String nama, int total_pendapatan, int jumlah_bioskop);
+void create_kota(Kota** new_kota, String nama, int total_pendapatan, int jumlah_bioskop);
 
 // ===============================================
 // ============== ACCESSOR SECTION ===============

@@ -89,9 +89,9 @@ void set_kursi_riwayat(Riwayat* riwayat, String kursi)
 }
 
 // Mengatur next riwayat ke dirinya sendiri (kemungkinan ini perlu diperbaiki)
-void set_next_riwayat(Riwayat* riwayat)
+void set_next_riwayat(Riwayat** riwayat, Riwayat* next_riwayat)
 {
-    riwayat->next = riwayat;
+    (*riwayat)->next = next_riwayat;
 }
 
 void add_riwayat(Riwayat** riwayat, Riwayat* new_riwayat)

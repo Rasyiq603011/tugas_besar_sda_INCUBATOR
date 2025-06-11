@@ -17,7 +17,7 @@ typedef struct DataStudio Studio;
 
 Studio* constructor(String nama, int total_pendapatan);
 
-void create_studio(Studio* new_studio, String nama, int total_pendapatan);
+void create_studio(Studio** new_studio, String nama, int total_pendapatan);
 
 // ===============================================
 // ============== ACCESSOR SECTION ===============

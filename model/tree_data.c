@@ -23,19 +23,17 @@ address create_node(InfoType info, DataType tipe)
 
     switch(tipe){
         case TYPE_PROVINSI:
-            new_node->info.provinsi = /* Panggil constructor struct Provinsi */;
+            // create_provinsi(&(new_node->info.provinsi), get_name);
             break;
         case TYPE_KOTA:
-            new_node->info.kota = /* Panggil constructor struct Kota */;
+            // create_kota(&(new_node->info.kota));
             break;
         case TYPE_BIOSKOP:
-            new_node->info.bioskop = /* Panggil constructor struct Bioskop */;
+            // create_bioskop(&(new_node->info.bioskop), ); 
             break;
-        case TYPE_FILM:
-            new_node->info.film = /* Panggil constructor struct Film */;
-            break;
-    }
-
+        case TYPE_STUDIO:
+            // create_studio(&(new_node->info.studio));
+    }   
     return new_node;
 }
 
@@ -124,7 +122,7 @@ void add_child(address parent, InfoType info, DataType tipe)
 }
 
 // ===================================================
-// ================ DESTRUCTOR SECTION ==============
+// ================ DESTRUCTOR SECTION ===============
 // ===================================================
 
 // Menghapus seluruh node dari tree secara rekursif
@@ -145,3 +143,65 @@ void delete_tree_rekursif(address P)
     delete_tree_rekursif(P->next_brother);
     free(P);
 }
+
+// ===================================================
+// ================ TRAVERSAL SECTION ================
+// ===================================================
+
+// Fungsi untuk traversal secara pre-order
+void traversal_preorder(Tree T, void (*Process) (address))
+{
+    if (!is_tree_empty)
+    {
+        traversal_preorder_rekursif(T.root, Process);
+    }
+}
+
+// Fungsi rekursif traversal pre-order
+void traversal_preorder_rekursif(address start, void (*Process) (address))
+{
+    if (start == NULL) return;
+
+    Process(start);
+    traversal_preorder_rekursif(start->first_son, Process);
+    traversal_preorder_rekursif(start->next_brother, Process);
+}
+
+// FUungsi untuk traversal level-order
+void TraverseBFS(Tree T, void (*Process)(address)) {
+    if (IsTreeEmpty(T)) return;
+    
+    // Inisialisasi queue untuk BFS
+    #define MAX_QUEUE 1000
+    address queue[MAX_QUEUE];
+    int front = 0, rear = 0;
+    
+    // Enqueue root
+    queue[rear++] = T.root;
+    
+    while (front < rear) {
+        // Dequeue node
+        address P = queue[front++];
+        
+        // Proses node saat ini
+        Process(P);
+        
+        // Enqueue semua anak
+        address Child = P->first_son;
+        while (Child != NULL) {
+            queue[rear++] = Child;
+            
+            // Cek overflow
+            if (rear >= MAX_QUEUE) {
+                printf("Error: Queue overflow in BFS!\n");
+                return;
+            }
+            
+            Child = Child->next_brother;
+        }
+    }
+    
+    #undef MAX_QUEUE
+}
+
+int get_jumlah_anak(Tree T, )

@@ -5,7 +5,10 @@
 #include "data_struct/kota.h"
 #include "data_struct/bioskop.h"
 #include "data_struct/studio.h"
-#include "boolean.h"
+#include "data_struct/user.h"
+#include "data_struct/user.h"
+#include "stdlib.h"
+#include "stdbool.h"
 
 // ==============================
 // ==== TYPE DEFINITIONS ========
@@ -16,7 +19,7 @@ typedef enum
     TYPE_PROVINSI,
     TYPE_KOTA,
     TYPE_BIOSKOP,
-    TYPE_FILM,
+    TYPE_STUDIO,
 }DataType;
 
 typedef struct tree_data
@@ -56,10 +59,10 @@ void init_tree(Tree* T);
 address create_node(InfoType info, DataType tipe);
 
 // Validator
-boolean is_tree_empty(Tree T);
-boolean is_tree_leaf(address P);
-boolean has_sibling(address P);
-boolean has_child(address P);
+bool is_tree_empty(Tree T);
+bool is_tree_leaf(address P);
+bool has_sibling(address P);
+bool has_child(address P);
 
 // Accessor
 address get_first_son(address P);
@@ -73,5 +76,9 @@ void add_child(address parent, InfoType info, DataType tipe);
 
 // Destructor (non-rekursif deklarasi)
 void delete_tree(Tree* T);
+
+// Traversal
+void traversal_preorder(Tree T, void (*Process) (address));
+void TraverseBFS(Tree T, void (*Process)(address)) ;
 
 #endif
