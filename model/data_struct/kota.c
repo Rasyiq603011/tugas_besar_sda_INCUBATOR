@@ -19,9 +19,9 @@ Kota* constructor(String nama, int total_pendapatan, int jumlah_bioskop)
     return new_kota;
 }
 
-void create_kota(Kota* new_kota, String nama, int total_pendapatan, int jumlah_bioskop)
+void create_kota(Kota** new_kota, String nama, int total_pendapatan, int jumlah_bioskop)
 {
-    new_kota = constructor(nama, total_pendapatan, jumlah_bioskop);
+    *new_kota = constructor(nama, total_pendapatan, jumlah_bioskop);
 }
 
 // ===============================================

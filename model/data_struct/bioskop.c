@@ -20,9 +20,9 @@ Bioskop* constructor(String nama, int total_pendapatan, String alamat)
     return new_bioskop;
 }
 
-void create_bioskop(Bioskop* new_bioskop, String nama, int total_pendapatan, String alamat)
+void create_bioskop(Bioskop** new_bioskop, String nama, int total_pendapatan, String alamat)
 {
-    new_bioskop = constructor_bioskop(nama, total_pendapatan, alamat);
+    *new_bioskop = constructor_bioskop(nama, total_pendapatan, alamat);
 }
 
 // ===============================================

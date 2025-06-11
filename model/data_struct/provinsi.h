@@ -11,7 +11,7 @@ typedef struct DataProvinsi Provinsi;
 
 Provinsi* constructor(String nama, int total_pendapatan, int jumlah_bioskop);
 
-void create_provinsi(Provinsi* new_provinsi, String nama, int total_pendapatan, int jumlah_bioskop);
+void create_provinsi(Provinsi** new_provinsi, String nama, int total_pendapatan, int jumlah_bioskop);
 
 // ===============================================
 // ============== ACCESSOR SECTION ===============

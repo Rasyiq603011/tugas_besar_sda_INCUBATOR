@@ -22,9 +22,9 @@ Studio* constructor(String nama, int total_pendapatan)
     return new_studio;
 }
 
-void create_studio(Studio* new_studio, String nama, int total_pendapatan)
+void create_studio(Studio** new_studio, String nama, int total_pendapatan)
 {
-    new_studio = constructor(nama, total_pendapatan);
+    *new_studio = constructor(nama, total_pendapatan);
 }
 
 // ===============================================

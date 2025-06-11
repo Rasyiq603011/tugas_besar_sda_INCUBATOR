@@ -11,7 +11,7 @@ typedef struct DataBioskop Bioskop;
 
 Bioskop* constructor(String nama, int total_pendapatan, String alamat);
 
-void create_bioskop(Bioskop* new_bioskop, String nama, int total_pendapatan, String alamat);
+void create_bioskop(Bioskop** new_bioskop, String nama, int total_pendapatan, String alamat);
 
 // ===============================================
 // ============== ACCESSOR SECTION ===============

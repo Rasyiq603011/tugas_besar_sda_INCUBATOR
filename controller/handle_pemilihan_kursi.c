@@ -11,6 +11,7 @@ void prmilihan_kursi()
         if (key == 0 || key == 224) {
 	        key = getch();
             option = option + kelola_operasi(key);
+                
 	    } else if (key == 13) {  // Enter
 				Beep(600,100);
 	            break;

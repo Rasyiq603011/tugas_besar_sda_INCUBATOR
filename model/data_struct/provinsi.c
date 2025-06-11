@@ -20,9 +20,9 @@ Provinsi* constructor(String nama, int total_pendapatan, int jumlah_bioskop)
     return new_provinsi;
 }
 
-void create_provinsi(Provinsi* new_provinsi, String nama, int total_pendapatan, int jumlah_bioskop)
+void create_provinsi(Provinsi** new_provinsi, String nama, int total_pendapatan, int jumlah_bioskop)
 {
-    new_provinsi = constructor(nama, total_pendapatan, jumlah_bioskop);
+    *new_provinsi = constructor(nama, total_pendapatan, jumlah_bioskop);
 }
 
 // ===============================================
