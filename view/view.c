@@ -26,41 +26,33 @@ void display_menu(int opsi_terpilih, int jumlah_opsi, char *options[jumlah_opsi]
     }
 }
 
-void display_scorallable_menu(int opsi_terpilih, int jumlah_pilihan, char *options[jumlah_pilihan], int jumlah_maksimum)
+void scrollable_menu(int jumlah_item, void (*render)(int idx, int y_pos, int selected, void* pointer_head), int tinggi_blok, int max_tampil, void* pointer_head) 
 {
-    int urutan_opsi;
-    static int start = 0;
+    int idx_terpilih = 0, key;
+    int start = 0;
+	
+    do {
+        system("cls");
 
-    if (opsi_terpilih < start)
-        start = opsi_terpilih;
-    else if (opsi_terpilih >= start + jumlah_maksimum)
-        start = opsi_terpilih - jumlah_maksimum + 1;
-
-    gotoxy(30, 13);
-    printf("============================================================");
-
-    for (urutan_opsi = 0; urutan_opsi < jumlah_maksimum + 2; urutan_opsi++) {
-        gotoxy(30, 14 + urutan_opsi);
-        printf("|                                                          |");
-    }
-
-    gotoxy(30, 16 + jumlah_maksimum);
-    printf("============================================================");
-
-    // Menampilkan opsi sesuai jendela
-    for (urutan_opsi = 0; urutan_opsi < jumlah_maksimum; urutan_opsi++) {
-        int optionIndex = start + urutan_opsi;
-        gotoxy(50, 15 + urutan_opsi);
-
-        if (optionIndex < jumlah_pilihan) {
-            if (optionIndex == opsi_terpilih) {
-                printf("\033[1;37;46m%-20s\033[0m", options[optionIndex]); // Highlight
-            } else {
-                printf("%-20s", options[optionIndex]); // Biasa
+        if (idx_terpilih < start)
+            start = idx_terpilih;
+        else if (idx_terpilih >= start + max_tampil)
+            start = idx_terpilih - max_tampil + 1;
+		int i;
+        for (i = 0; i < max_tampil; i++) {
+            int idx = start + i;
+            if (idx < jumlah_item) {
+                int y_pos = ((41-(max_tampil*tinggi_blok))/2) + i * tinggi_blok;
+                render(idx, y_pos, idx == idx_terpilih, pointer_head);
             }
-        } else {
-            printf("                    "); // Bersihkan jika lewat jumlah opsi
         }
-    }
+
+        key = getch();
+        if (key == 224) {
+            key = getch();
+            if (key == 72 && idx_terpilih > 0) idx_terpilih--;             // Panah atas
+            else if (key == 80 && idx_terpilih < jumlah_item - 1) idx_terpilih++;  // Panah bawah
+        }
+    } while (key != 13);
 }
 

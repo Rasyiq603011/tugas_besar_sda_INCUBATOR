@@ -54,6 +54,35 @@ Riwayat* get_next_riwayat(Riwayat* riwayat)
     return riwayat->next;
 }
 
+// Mendapatkan jumlah data riwayat
+int get_jumlah_riwayat(Riwayat* head)
+{
+    if (head == NULL)
+    {
+        return 0;
+    }
+
+    int jumlah = 1;
+    while (head->next != NULL)
+    {
+        head = head->next;
+        jumlah++;
+    }
+    return jumlah;
+}
+
+Riwayat* get_riwayat_by_index(Riwayat* head, int index)
+{
+    Riwayat* current = head;
+    int i = 0;
+    while(current != NULL && i < index)
+    {
+        current = current->next;
+        i++;
+    }
+    return current;
+}
+
 // ===============================================
 // ============== MUTATOR SECTION ================
 // ===============================================

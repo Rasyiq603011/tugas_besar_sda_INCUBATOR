@@ -22,6 +22,8 @@ String get_jam_riwayat(Riwayat* riwayat);
 int get_harga_tiket_riwayat(Riwayat* riwayat);
 String get_kursi_riwayat(Riwayat* riwayat);
 Riwayat* get_next_riwayat(Riwayat* riwayat);
+int get_jumlah_riwayat(Riwayat* head);
+Riwayat* get_riwayat_by_index();
 
 // ================================
 // ======== MUTATOR SECTION =======
