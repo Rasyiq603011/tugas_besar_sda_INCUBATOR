@@ -4,6 +4,7 @@ struct DataBioskop{
     String nama;
     int total_pendapatan;
     String alamat;
+    int jumlah_studio;
 };
 
 // ===============================================

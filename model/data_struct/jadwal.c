@@ -16,16 +16,24 @@ struct DataJadwal{
 // ============ CONSTRUCTOR SECTION ==============
 // ===============================================
 
-Jadwal* constructor_jadwal()
+Jadwal* constructor_jadwal(Time waktu, date tanggal,int harga_tiket)
 {
-    Jadwal* new_jadwal;
-
+    Jadwal* new_jadwal = (Jadwal*) malloc (sizeof(Jadwal));
+    new_jadwal->waktu = waktu;
+    new_jadwal->tanggal = tanggal;
+    new_jadwal->film = NULL;
+    new_jadwal->harga_tiket = harga_tiket;
+    for (int i = 0; i < MAX_ROW; i++) {
+        for (int j = 0; j < MAX_COL; j++) {
+            new_jadwal->daftar_kursi[i][j] = NULL;
+        }
+    }
     return new_jadwal;
 }
 
-void create_jadwal(Jadwal* new_jadwal)
+void create_jadwal(Jadwal* new_jadwal, Time waktu, date tanggal,int harga_tiket)
 {
-    new_jadwal = constructor_jadwal();
+    new_jadwal = constructor_jadwal(waktu, tanggal, harga_tiket);
 }
 
 // ===============================================

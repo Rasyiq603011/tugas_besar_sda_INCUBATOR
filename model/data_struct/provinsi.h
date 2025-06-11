@@ -17,11 +17,11 @@ void create_provinsi(Provinsi* new_provinsi, String nama, int total_pendapatan, 
 // ============== ACCESSOR SECTION ===============
 // ===============================================
 
-String get_name(Provinsi current_provinsi);
+String get_name(Provinsi* current_provinsi);
 
-int get_pendapatan_provinsi(Provinsi current_provinsi);
+int get_pendapatan_provinsi(Provinsi* current_provinsi);
 
-int get_jumlah_bioskop(Provinsi current_provinsi);
+int get_jumlah_bioskop(Provinsi* current_provinsi);
 
 // ===============================================
 // =============== MUTATOR SECTION ===============

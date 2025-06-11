@@ -33,5 +33,5 @@ void inisialisasi_small_rect(int row, int col)
 
 void make_kursi_card()
 {
-
+    
 }

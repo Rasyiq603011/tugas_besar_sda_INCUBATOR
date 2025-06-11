@@ -13,30 +13,21 @@
 
 typedef enum
 {
-    TYPE_PROVINSI,
-    TYPE_KOTA,
-    TYPE_BIOSKOP,
-    TYPE_FILM,
+    TYPE_NEGARA = 0,
+    TYPE_PROVINSI = 1,
+    TYPE_KOTA = 2,
+    TYPE_BIOSKOP = 3,
+    TYPE_STUDIO = 4,
 }DataType;
-
-typedef struct tree_data
-{
-    address first;
-    int pendapatan;
-}Negara;
 
 typedef union 
 {
+    Negara* negara;
     Provinsi* provinsi;
     Kota* kota;
     Bioskop* bioskop;
     Studio* studio;
 } InfoType;
-
-typedef struct Tree
-{
-    address root;    
-}Tree;
 
 typedef struct tElmtList* address;
 typedef struct tElmtList 
@@ -46,6 +37,11 @@ typedef struct tElmtList
     address first_son;
     address next_brother;
 } ElmtList;
+
+typedef struct Tree
+{
+    address root;    
+}Tree;
 
 // ==============================
 // ====== FUNCTION HEADERS =====

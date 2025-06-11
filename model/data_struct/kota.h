@@ -19,9 +19,9 @@ void create_kota(Kota* new_kota, String nama, int total_pendapatan, int jumlah_b
 // ===============================================
 // ============== ACCESSOR SECTION ===============
 // ===============================================
-String get_name(Kota current_kota);
-int get_pendapatan_kota(Kota current_kota);
-int get_jumlah_bioskop(Kota current_kota);
+String get_name(Kota* current_kota);
+int get_pendapatan_kota(Kota* current_kota);
+int get_jumlah_bioskop(Kota* current_kota);
 
 // ===============================================
 // =============== MUTATOR SECTION ===============

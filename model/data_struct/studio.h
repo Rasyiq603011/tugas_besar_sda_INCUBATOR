@@ -1,5 +1,6 @@
 #ifndef STUDIO_H
 #define STUDIO_H
+#include "../linked.h" 
 
 // ================================================
 // ===================== KOTA =====================
@@ -23,11 +24,11 @@ void create_studio(Studio* new_studio, String nama, int total_pendapatan);
 // ============== ACCESSOR SECTION ===============
 // ===============================================
 
-String get_name(Studio current_studio);
+String get_name(Studio* current_studio);
 
-int get_pendapatan(Studio current_studio);
+int get_pendapatan(Studio* current_studio);
 
-Jadwal* get_jadwal(Studio current_studio);
+List* get_jadwal(Studio* current_studio);
 
 // ===============================================
 // =============== MUTATOR SECTION ===============
@@ -37,7 +38,7 @@ void set_name(Studio* current_studio, String name);
 
 void set_pendapatan(Studio* current_studio, int pendapatan);
 
-void set_jadwal(Studio* current_studio, Jadwal* jadwal);
+void set_jadwal(Studio* current_studio, List* jadwal);
 
 // ===============================================
 // ============ DESTRUCTOR SECTION ===============
