@@ -1,33 +1,22 @@
 #include "write_json.h"
 
-cJSON* load_json_file() {
-    FILE* file = fopen(FILENAME, "rb");
-    if (!file) return cJSON_CreateArray();
-
-    fseek(file, 0, SEEK_END);
-    long size = ftell(file);
-    rewind(file);
-
-    char* data = (char*)malloc(size + 1);
-    fread(data, 1, size, file);
-    data[size] = '\0';
-    fclose(file);
-
-    cJSON* bioskop_database = cJSON_Parse(data);
-    free(data);
-    return bioskop_database ? bioskop_database : cJSON_CreateArray();
-}
-
-cJSON *time_to_json(Time* current_kursi)
+cJSON *time_to_json(Time* current_time)
 {
-
+    cJSON *obj = cJSON_CreateObject();
+    cJSON_AddNumberToObject(obj, "jam", current_time->jam);
+    cJSON_AddNumberToObject(obj, "menit", current_time->menit);
+    cJSON_AddNumberToObject(obj, "detik", current_time->detik);
+    return obj;
 }
 
-cJSON *date_to_json(date* current_kursi)
+cJSON *date_to_json(date* current_date)
 {
-
+    cJSON *obj = cJSON_CreateObject();
+    cJSON_AddNumberToObject(obj, "tgl", current_date->Tgl);
+    cJSON_AddNumberToObject(obj, "bln", current_date->Bln);
+    cJSON_AddNumberToObject(obj, "thn", current_date->Thn);
+    return obj;
 }
-
 
 cJSON *kursi_to_json(Kursi* current_kursi)
 {
@@ -45,7 +34,7 @@ cJSON *jadwal_to_json(Jadwal* current_jadwal)
     cJSON_AddObjectToObject(obj, "tanggal", date_to_json(get_date(current_jadwal)));
     cJSON_AddStringToObject(obj, "film", get_film_name(current_jadwal));
     cJSON_AddNumberToObject(obj, "harga", get_harga_tiket(current_jadwal));
-    cJSON_AddItemToObject(obj, "", list_kursi_to_json(current_jadwal));
+    cJSON_AddItemToObject(obj, "kursi", list_kursi_to_json(current_jadwal));
     return obj;
 }
 
@@ -68,59 +57,113 @@ cJSON* list_kursi_to_json(Jadwal* current_jadwal)
 cJSON *studio_to_json(Studio* current_studio)
 {
     cJSON *obj = cJSON_CreateObject();
-    cJSON_AddStringToObject(obj, "nama", k.info);
-    cJSON_AddNumberToObject(obj, "pendapatan", k.info);
-    cJSON_AddNumberToObject(obj, "komponen 2", k.info);
-    cJSON_AddStringToObject(obj, "komponen 3", k.info);
+    cJSON_AddStringToObject(obj, "nama", get_name(current_studio));
+    cJSON_AddNumberToObject(obj, "pendapatan", get_pendapatan(current_studio));
+    cJSON_AddItemToObject(obj, "jadwal", create_array_json_from_list(get_jadwal(current_studio)));
     return obj;
 }
 
-cJSON *bioskop_to_json(Bioskop* current_bioskop)
+cJSON *bioskop_to_json(Bioskop* current_bioskop, address first_son)
 {
     cJSON *obj = cJSON_CreateObject();
     cJSON_AddStringToObject(obj, "nama", get_name(current_bioskop));
     cJSON_AddNumberToObject(obj, "pendapatan", get_pendapatan_bioskop(current_bioskop));
     cJSON_AddStringToObject(obj, "alamat", get_alamat(current_bioskop));
+    cJSON_AddItemToObject(obj, "studio", create_array_json_from_tree_nodes(first_son));
     return obj;
 }
 
-cJSON *kota_to_json(Kota* current_kota)
+cJSON *kota_to_json(Kota* current_kota, address first_son)
 {
     cJSON *obj = cJSON_CreateObject();
-    cJSON_AddNumberToObject(obj, "komponen 1", k.info);
-    cJSON_AddNumberToObject(obj, "komponen 2", k.info);
-    cJSON_AddStringToObject(obj, "komponen 3", k.info);
+    cJSON_AddStringToObject(obj, "nama", get_name(current_kota));
+    cJSON_AddNumberToObject(obj, "pendapatan", get_pendapatan_kota(current_kota));
+    cJSON_AddNumberToObject(obj, "jumlah_bioskop", get_jumlah_bioskop(current_kota));
+    cJSON_AddItemToObject(obj, "bioskop", create_array_json_from_tree_nodes(first_son));
     return obj;
 }
 
-cJSON *provinsi_to_json(Provinsi* current_provinsi)
+cJSON *provinsi_to_json(Provinsi* current_provinsi, address first_son)
 {
     cJSON *obj = cJSON_CreateObject();
-    cJSON_AddNumberToObject(obj, "komponen 1", k.info);
-    cJSON_AddNumberToObject(obj, "komponen 2", k.info);
-    cJSON_AddStringToObject(obj, "komponen 3", k.info);
+    cJSON_AddStringToObject(obj, "nama", get_name(current_provinsi));
+    cJSON_AddNumberToObject(obj, "pendapatan", get_pendapatan_provinsi(current_provinsi));
+    cJSON_AddNumberToObject(obj, "jumlah_bioskop", get_jumlah_bioskop(current_provinsi));
+    cJSON_AddItemToObject(obj, "kota", create_array_json_from_tree_nodes(first_son));
     return obj;
 }
 
-cJSON *negara_to_json(Negara* current_negara)
+cJSON *negara_to_json(Negara* current_negara, address first_son)
 {
     cJSON *obj = cJSON_CreateObject();
-    cJSON_AddNumberToObject(obj, "komponen 1", k.info);
-    cJSON_AddNumberToObject(obj, "komponen 2", k.info);
-    cJSON_AddStringToObject(obj, "komponen 3", k.info);
+    cJSON_AddStringToObject(obj, "nama", get_name(current_negara));
+    cJSON_AddNumberToObject(obj, "pendapatan", get_pendapatan_negara(current_negara));
+    cJSON_AddNumberToObject(obj, "jumlah_bioskop", get_jumlah_bioskop(current_negara));
+    cJSON_AddItemToObject(obj, "provinsi", create_array_json_from_tree_nodes(first_son));
     return obj;
 }
 
-cJSON *create_array_json_from_list(List object)
+cJSON *create_array_json_from_list(List* object)
 {
     cJSON *array = cJSON_CreateArray();
-    infotype k;
-    cJSON_AddItemToArray(array, negara_to_json(k));
+    pnode temp = object->First;
 
-    cJSON *jadwal_array = cJSON_CreateArray();
-    int i;
-    for (i = 0; i < f.jumlah_jadwal; i++) {
-        cJSON_AddItemToArray(jadwal_array, jadwal_to_json(f.jadwal[i]));
+    while (temp != NULL)
+    {
+        switch (Type(temp))
+        {
+        case TYPE_JADWAL:
+            cJSON_AddItemToArray(array, jadwal_to_json(temp->info.jadwal));
+            break;
+
+        case TYPE_EVENT:
+            cJSON_AddItemToArray(array, event_to_json(temp->info.event));
+            break;
+
+        case TYPE_FILM:
+            cJSON_AddItemToArray(array, film_to_json(temp->info.film));
+            break;
+
+        default:
+            break;
+        }
+        temp = temp->next;
     }
-    cJSON_AddItemToObject(obj, "jadwal", jadwal_array);
+    return array;
+}
+
+cJSON *create_array_json_from_tree_nodes(address first_son)
+{
+    cJSON *array = cJSON_CreateArray();
+    if (first_son == NULL) return array;
+    while (first_son != NULL)
+    {
+        switch (first_son->tipe)
+        {
+        case TYPE_NEGARA:
+            cJSON_AddItemToArray(array, negara_to_json(first_son->info.negara, first_son->first_son));
+            break;
+    
+        case TYPE_PROVINSI:
+            cJSON_AddItemToArray(array, provinsi_to_json(first_son->info.provinsi, first_son->first_son));
+            break;
+
+        case TYPE_KOTA:
+            cJSON_AddItemToArray(array, kota_to_json(first_son->info.kota, first_son->first_son));
+            break;
+
+        case TYPE_BIOSKOP:
+            cJSON_AddItemToArray(array, bioskop_to_json(first_son->info.bioskop, first_son->first_son));
+            break;
+
+        case TYPE_STUDIO:
+            cJSON_AddItemToArray(array, studio_to_json(first_son->info.studio));
+            break;
+
+        default:
+            break;
+        } 
+        first_son = first_son->next_brother;
+    }
+    return array;
 }

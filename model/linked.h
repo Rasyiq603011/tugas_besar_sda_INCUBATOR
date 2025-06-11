@@ -19,11 +19,11 @@
 typedef char* String;
 
 typedef enum {
-    TYPE_INTEGER,
-    TYPE_STRING,
-    TYPE_JADWAL,
-    TYPE_EVENT,
-    TYPE_FILM,
+    TYPE_INTEGER = 0,
+    TYPE_STRING = 1,
+    TYPE_JADWAL = 2,
+    TYPE_EVENT = 3,
+    TYPE_FILM = 4
 } DataType;
 
 typedef union {
@@ -34,15 +34,15 @@ typedef union {
     Film* film;
 }infotype;
 
-typedef struct tElmtList *address;
-typedef struct tElmtList {
+typedef struct node *pnode;
+typedef struct node {
     infotype info;
     DataType type;
-    address next;      
-} ElmtList;
+    pnode next;      
+} node;
 
 typedef struct {
-    address First;
+    pnode First;
 } List;
 
 #define Nil NULL
@@ -52,8 +52,14 @@ typedef struct {
 #define Info(P) ((P)->info)
 #define info_integer(P) ((P)->info.integer)
 #define info_string(P) ((P)->info.str)
+#define info_jadwal(P) ((P)->info.jadwal)
+#define info_event(P) ((P)->info.event)
+#define info_film(P) ((P)->info.film)
 #define INT_INFO(x) ((infotype){.integer = (x)})
 #define STR_INFO(x) ((infotype){.str = (x)})
+#define JADWAL_INFO(x) ((infotype){.jadwal = (x)})
+#define EVENT_INFO(x) ((infotype){.event = (x)})
+#define FILM_INFO(x) ((infotype){.film = (x)})
 
 
 /*========================================================*/
@@ -63,83 +69,83 @@ typedef struct {
 // I.S : program tidak tahu apakah node kosong atau tidak
 // F.S : mereturn true jika node kosong
 // Alur : return hasil cek P == Nil?
-boolean isEmpty(address P);
+boolean isEmpty(pnode P);
 
 // I.S : program tidak tahu apakah List kosong atau tidak
 // F.S : mereturn true jika List kosong 
 // Alur : return hasil cek L.First == Nil?
 boolean ListEmpty(List L);
 
-// I.S : variabel bertipe Address baru di deklarasikan sebagai kamus data
-// F.S : Address dipastikan siap dipakai dengan membuat address menunjuk ke Nil
-void CreateAddress(address *P);
+// I.S : variabel bertipe pnode baru di deklarasikan sebagai kamus data
+// F.S : pnode dipastikan siap dipakai dengan membuat pnode menunjuk ke Nil
+void Createpnode(pnode *P);
 
 // I.S : variabel bertipe list baru di deklarasikan sebagai kamus data
 // F.S : menentukan tipe list dan memastikan list siap dipakai dengan membuat List.first menunjuk ke Nil
 void CreateList(List *L);
 
 // Function untuk alokasi node dengan berbagai tipe data
-address alokasi(infotype info, DataType type);
+pnode alokasi(infotype info, DataType type);
 
 // Function untuk dealokasi node
-void dealokasi(address P);
+void dealokasi(pnode P);
 
 /*=======================================================*/
 /*================= INSERTION FUNCTIONS =================*/
 /*=======================================================*/
 
-// I.S : address *P Sudah di Create
-// F.S : address newNode sudah dimasukan kedalam List dengan posisi First
-void InsertFirst(address *P, address newNode);
+// I.S : pnode *P Sudah di Create
+// F.S : pnode newNode sudah dimasukan kedalam List dengan posisi First
+void InsertFirst(pnode *P, pnode newNode);
 
-// I.S : address *P Sudah di Create
-// F.S : address newNode sudah dimasukan kedalam List dengan posisi Last
-void InsertLast(address *P, address newNode);
+// I.S : pnode *P Sudah di Create
+// F.S : pnode newNode sudah dimasukan kedalam List dengan posisi Last
+void InsertLast(pnode *P, pnode newNode);
 
-// I.S : address *P Sudah di Create
-// F.S : address newNode sudah dimasukan kedalam List dengan setelah *pBef
-void InsertAfter(address *pBef, address PNew);
+// I.S : pnode *P Sudah di Create
+// F.S : pnode newNode sudah dimasukan kedalam List dengan setelah *pBef
+void InsertAfter(pnode *pBef, pnode PNew);
 
-// I.S : address *P Sudah di Create
-// F.S : address newNode sudah dimasukan kedalam List dengan sebelum *pAft
-void InsertBefore(address *pAft, address *p, address PNew);
+// I.S : pnode *P Sudah di Create
+// F.S : pnode newNode sudah dimasukan kedalam List dengan sebelum *pAft
+void InsertBefore(pnode *pAft, pnode *p, pnode PNew);
 
 // Function untuk menyisipkan nilai di posisi first
-void insert_value_first(address *P, infotype info, DataType type);
+void insert_value_first(pnode *P, infotype info, DataType type);
 
 // Function untuk menyisipkan nilai di posisi last
-void insert_value_last(address *P, infotype info, DataType type);
+void insert_value_last(pnode *P, infotype info, DataType type);
 
 // Function untuk menyisipkan nilai setelah nilai tertentu
-void insert_value_after(address *P, infotype before, infotype info, DataType type_before, DataType type_insert);
+void insert_value_after(pnode *P, infotype before, infotype info, DataType type_before, DataType type_insert);
 
 // Function untuk menyisipkan nilai sebelum nilai tertentu
-void insert_value_before(address *P, infotype after, infotype info, DataType type_after, DataType type_insert);
+void insert_value_before(pnode *P, infotype after, infotype info, DataType type_after, DataType type_insert);
 
 /*========================================================*/
 /*================== DELETION FUNCTIONS ==================*/
 /*========================================================*/
 
 // Function untuk menghapus node pertama
-void delete_first(address *P, infotype *info);
+void delete_first(pnode *P, infotype *info);
 
 // Function untuk menghapus node terakhir
-void delete_last(address *P, infotype *info);
+void delete_last(pnode *P, infotype *info);
 
 // Function untuk menghapus node berdasarkan nilai
-void delete_by_value(address *P, infotype info, DataType type);
+void delete_by_value(pnode *P, infotype info, DataType type);
 
 // IS : l tidak kosong
 // FS : mendealokasi/menghapus seluruh isi list 
 // Catatan: Jika list berisi string, seluruh memori untuk string tersebut juga akan dibebaskan
-void clear_list(address *P);
+void clear_list(pnode *P);
 
 /*=======================================================*/
 /*================== DISPLAY FUNCTIONS ==================*/
 /*=======================================================*/
 
 // Function untuk mencetak informasi suatu node
-void print_info(address P);
+void print_info(pnode P);
 
 // IS : l bisa jadi kosong dan L harus sudah memiliki nilai type
 // FS : Menampilkan isi list bertipe Integer dengan format angka1, angka2, ....., angkaTerakhir jika l tidak kosong jika kosong maka "List Kosong"
@@ -153,21 +159,21 @@ void print_list(List L);
 // FS : menghitung jumlah elemen dari sebuah list
 int count_list(List L);
 
-// IS : L mungkin kosong, program ingin mengetahui address node sebelum address node dengan nilai info
-// FS : function akan mencari tahu apakah ada node dengan nilai info?, jika ada maka function akan mereturn address node sebelumnya, jika tidak ada return Nil
-address search_prec(List L, infotype info);
+// IS : L mungkin kosong, program ingin mengetahui pnode node sebelum pnode node dengan nilai info
+// FS : function akan mencari tahu apakah ada node dengan nilai info?, jika ada maka function akan mereturn pnode node sebelumnya, jika tidak ada return Nil
+pnode search_prec(List L, infotype info);
 
-// IS : L mungkin kosong, program ingin mengetahui address node dengan nilai info
-// FS : jika ada maka akan return address node tersebut, jika tidak ada maka akan return Nil
-address search_by_value(address P, infotype info);
+// IS : L mungkin kosong, program ingin mengetahui pnode node dengan nilai info
+// FS : jika ada maka akan return pnode node tersebut, jika tidak ada maka akan return Nil
+pnode search_by_value(pnode P, infotype info);
 
 /*================================================================*/
 /*===================== ADDITIONAL FUNCTIONS =====================*/
 /*================================================================*/
 
 // IS : L mungkin kosong
-// FS : jika L tidak kosong maka function akan mengalokasikan address untuk menampung hasil dari mereverse List, lalu mereturnnya
-address get_reverse_list(List L);
+// FS : jika L tidak kosong maka function akan mengalokasikan pnode untuk menampung hasil dari mereverse List, lalu mereturnnya
+pnode get_reverse_list(List L);
 
 // IS : L mungkin kosong
 // FS : jika L tidak kosong maka function akan membalik isi dari List 

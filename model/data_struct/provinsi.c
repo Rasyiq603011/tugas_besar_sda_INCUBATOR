@@ -29,19 +29,19 @@ void create_provinsi(Provinsi** new_provinsi, String nama, int total_pendapatan,
 // ============== ACCESSOR SECTION ===============
 // ===============================================
 
-String get_name(Provinsi current_provinsi)
+String get_name(Provinsi* current_provinsi)
 {
-    return current_provinsi.nama;
+    return current_provinsi->nama;
 }
 
-int get_pendapatan_provinsi(Provinsi current_provinsi)
+int get_pendapatan_provinsi(Provinsi* current_provinsi)
 {
-    return current_provinsi.total_pendapatan;
+    return current_provinsi->total_pendapatan;
 }
 
-int get_jumlah_bioskop(Provinsi current_provinsi)
+int get_jumlah_bioskop(Provinsi* current_provinsi)
 {
-    return current_provinsi.jumlah_bioskop;
+    return current_provinsi->jumlah_bioskop;
 }
 
 // ===============================================

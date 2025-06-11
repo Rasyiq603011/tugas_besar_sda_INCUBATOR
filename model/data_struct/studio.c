@@ -6,7 +6,7 @@
 struct DataStudio {
     String nama;
     int total_pendapatan;
-    Jadwal* jadwal;
+    List* jadwal;
 };
 
 // ===============================================
@@ -31,19 +31,19 @@ void create_studio(Studio** new_studio, String nama, int total_pendapatan)
 // ============== ACCESSOR SECTION ===============
 // ===============================================
 
-String get_name(Studio current_studio)
+String get_name(Studio* current_studio)
 {
-    return current_studio.nama;
+    return current_studio->nama;
 }
 
-int get_pendapatan(Studio current_studio)
+int get_pendapatan(Studio* current_studio)
 {
-    return current_studio.total_pendapatan;
+    return current_studio->total_pendapatan;
 }
 
-Jadwal* get_jadwal(Studio current_studio)
+List* get_jadwal(Studio* current_studio)
 {
-    return current_studio.jadwal;
+    return current_studio->jadwal;
 }
 
 // ===============================================
@@ -60,7 +60,7 @@ void set_pendapatan(Studio* current_studio, int pendapatan)
     current_studio->total_pendapatan = pendapatan;
 }
 
-void set_jadwal(Studio* current_studio, Jadwal* jadwal)
+void set_jadwal(Studio* current_studio, List* jadwal)
 {
     current_studio->jadwal = jadwal;
 }

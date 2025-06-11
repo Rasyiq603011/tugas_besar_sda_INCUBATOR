@@ -28,19 +28,19 @@ void create_kota(Kota** new_kota, String nama, int total_pendapatan, int jumlah_
 // ============== ACCESSOR SECTION ===============
 // ===============================================
 
-String get_name(Kota current_kota)
+String get_name(Kota* current_kota)
 {
-    return current_kota.nama;
+    return current_kota->nama;
 }
 
-int get_pendapatan_kota(Kota current_kota)
+int get_pendapatan_kota(Kota* current_kota)
 {
-    return current_kota.total_pendapatan;
+    return current_kota->total_pendapatan;
 }
 
-int get_jumlah_bioskop(Kota current_kota)
+int get_jumlah_bioskop(Kota* current_kota)
 {
-    return current_kota.jumlah_bioskop;
+    return current_kota->jumlah_bioskop;
 }
 
 // ===============================================

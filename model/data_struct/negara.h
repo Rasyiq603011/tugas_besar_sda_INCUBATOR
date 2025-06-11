@@ -20,13 +20,13 @@ void create_negara(Negara* new_negara, String nama, int total_pendapatan, String
 // ============== ACCESSOR SECTION ===============
 // ===============================================
 
-String get_name(Negara current_negara);
+String get_name(Negara* current_negara);
 
-int get_pendapatan_negara(Negara current_negara);
+int get_pendapatan_negara(Negara* current_negara);
 
-String* get_film_terlaris(Negara current_negara);
+String* get_film_terlaris(Negara* current_negara);
 
-int get_jumlah_bioskop(Negara current_negara);
+int get_jumlah_bioskop(Negara* current_negara);
 
 // ===============================================
 // =============== MUTATOR SECTION ===============

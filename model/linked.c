@@ -11,7 +11,7 @@
 /*==================== MAIN FUNCTIONS ====================*/
 /*========================================================*/
 
-boolean isEmpty(address P) {
+boolean isEmpty(pnode P) {
     return (P == Nil);
 }
 
@@ -19,7 +19,7 @@ boolean ListEmpty(List L) {
     return (First(L) == Nil);
 }
 
-void CreateAddress(address *P) {
+void Createpnode(pnode *P) {
     *P = Nil;
 }
 
@@ -28,34 +28,52 @@ void CreateList(List *L) {
 }
 
 
-address alokasi(infotype info, DataType type) {
-    address P = (address) malloc(sizeof(ElmtList));
+pnode alokasi(infotype info, DataType type) {
+    pnode new_node = (pnode) malloc(sizeof(node));
     switch (type)
     {
         case TYPE_INTEGER:
-            if (P != Nil) {
-                info_integer(P) = info.integer;
-                Next(P) = Nil;
+            if (new_node != Nil) {
+                info_integer(new_node) = info.integer;
+                Next(new_node) = Nil;
             }
-            return P;
+            return new_node;
         case TYPE_STRING:
-            if (P != Nil) {
-                info_string(P) = strdup(info.str); // Deep copy menggunakan strdup
-                if (info_string(P) == NULL) {
-                    free(P); // mendealokasikan node bila gagal mengcopy string
+            if (new_node != Nil) {
+                info_string(new_node) = strdup(info.str);
+                if (info_string(new_node) == NULL) {
+                    free(new_node);
                     return Nil;
                 }
-                Next(P) = Nil;
+                Next(new_node) = Nil;
             }
-            return P;
+            return new_node;
+        case TYPE_JADWAL:
+            if (new_node != Nil) {
+                info_jadwal(new_node) = info.jadwal; 
+                Next(new_node) = Nil;
+            }
+            return new_node;
+        case TYPE_EVENT:
+            if (new_node != Nil) {
+                info_event(new_node) = info.event; 
+                Next(new_node) = Nil;
+            }
+            return new_node;
+        case TYPE_FILM:
+            if (new_node != Nil) {
+                info_film(new_node) = info.film; 
+                Next(new_node) = Nil;
+            }
+            return new_node;
         default:
             return Nil;
     }
 }
 
-void dealokasi(address P) {
+void dealokasi(pnode P) {
     if (P != Nil) {
-        if(Type(P) == TYPE_STRING){
+        if (Type(P) == TYPE_STRING){
             if (info_string(P) != NULL) {
                 free(info_string(P)); // mendealokasikan String literal
             }
@@ -69,16 +87,16 @@ void dealokasi(address P) {
 /*================= INSERTION FUNCTIONS =================*/
 /*=======================================================*/
 
-void InsertFirst(address *P, address newNode) {
+void InsertFirst(pnode *P, pnode newNode) {
     Next(newNode) = *P;
     *P = newNode;
 }
 
-void InsertLast(address *P, address newNode) {
+void InsertLast(pnode *P, pnode newNode) {
     if (*P == Nil) {
         *P = newNode;
     } else {
-        address last = *P;
+        pnode last = *P;
         while (next(last) != Nil) {
             last = next(last);
         }
@@ -86,19 +104,19 @@ void InsertLast(address *P, address newNode) {
     }
 }
 
-void InsertAfter(address *pBef, address PNew) {
+void InsertAfter(pnode *pBef, pnode PNew) {
     Next(PNew) = next(*pBef);
     Next(*pBef) = PNew;
 }
 
-void InsertBefore(address *pAft, address *p, address PNew) {
+void InsertBefore(pnode *pAft, pnode *p, pnode PNew) {
     
     if (*pAft == *p) {
     	// jika pAft elemen pertama
         Next(PNew) = *p;
         *p = PNew;
     } else {
-        address prev = *p;
+        pnode prev = *p;
         while (Next(prev) != *pAft) {
             prev = Next(prev);
         }
@@ -107,25 +125,25 @@ void InsertBefore(address *pAft, address *p, address PNew) {
     }
 }
 
-void insert_value_first(address *P, infotype info, DataType type) {
-    address newNode = alokasi(info, type);
+void insert_value_first(pnode *P, infotype info, DataType type) {
+    pnode newNode = alokasi(info, type);
     if (newNode != Nil){
         InsertFirst(&(*P), newNode);
     }
 }
 
 
-void insert_value_last(address *P, infotype info, DataType type) {
-    address newNode = alokasi(info, type);
+void insert_value_last(pnode *P, infotype info, DataType type) {
+    pnode newNode = alokasi(info, type);
     if (newNode != Nil) {
         InsertLast(&(*P), newNode);
     }
 }
 
-void insert_value_after(address *P, infotype before, infotype info, DataType type_before, DataType type_insert) {
+void insert_value_after(pnode *P, infotype before, infotype info, DataType type_before, DataType type_insert) {
     if (*P != Nil) {
         boolean found = false;
-        address current = *P;
+        pnode current = *P;
         while(current != Nil && !found) {
             if(current->type == type_before) {
                 switch (type_before) {
@@ -140,7 +158,22 @@ void insert_value_after(address *P, infotype before, infotype info, DataType typ
                             found = true;
                         }
                         break;
-                        
+
+                    case TYPE_JADWAL:
+                        if (current->info.jadwal == before.jadwal) {
+                            found = true;
+                        }
+                        break;
+                    case TYPE_EVENT:
+                        if (current->info.event == before.event) {
+                            found = true;
+                        }
+                        break;
+                    case TYPE_FILM:
+                        if (current->info.film == before.film) {
+                            found = true;
+                        }
+                        break;
                     default:
                         return;
                 }
@@ -148,8 +181,8 @@ void insert_value_after(address *P, infotype before, infotype info, DataType typ
             current = Next(current);
         }
         
-        if (current != Nil) { // Jika node After berhasil ditemukan
-            address newNode = alokasi(info, type_insert);
+        if (current != Nil) {
+            pnode newNode = alokasi(info, type_insert);
             if (newNode != Nil) {
                 InsertAfter(&current, newNode);
             }
@@ -157,10 +190,10 @@ void insert_value_after(address *P, infotype before, infotype info, DataType typ
     }
 }
 
-void insert_value_before(address *P, infotype after, infotype info, DataType type_after, DataType type_insert) {
+void insert_value_before(pnode *P, infotype after, infotype info, DataType type_after, DataType type_insert) {
     if (*P != Nil) {
         boolean found = false;
-        address current = *P;
+        pnode current = *P;
         while(current != Nil && !found) {
             if(current->type == type_after) {
                 switch (type_after) {
@@ -175,7 +208,22 @@ void insert_value_before(address *P, infotype after, infotype info, DataType typ
                             found = true;
                         }
                         break;
-                        
+
+                    case TYPE_JADWAL:
+                        if (current->info.jadwal == after.jadwal) {
+                            found = true;
+                        }
+                        break;
+                    case TYPE_EVENT:
+                        if (current->info.event == after.event) {
+                            found = true;
+                        }
+                        break;                    
+                    case TYPE_FILM:
+                        if (current->info.film == after.film) {
+                            found = true;
+                        }
+                        break;                        
                     default:
                         return;
                 }
@@ -184,7 +232,7 @@ void insert_value_before(address *P, infotype after, infotype info, DataType typ
         }
         
         if (current != Nil) { // Jika node After berhasil ditemukan
-            address newNode = alokasi(info, type_insert);
+            pnode newNode = alokasi(info, type_insert);
             if (newNode != Nil) {
                 InsertBefore(&current, P, newNode);
             }
@@ -196,9 +244,9 @@ void insert_value_before(address *P, infotype after, infotype info, DataType typ
 /*================== DELETION FUNCTIONS ==================*/
 /*========================================================*/
 
-void delete_first(address *P, infotype *info) {
+void delete_first(pnode *P, infotype *info) {
     if (*P != Nil) {
-        address temp = *P;
+        pnode temp = *P;
         
         if (info != NULL) {
             *info = temp->info;
@@ -213,10 +261,10 @@ void delete_first(address *P, infotype *info) {
     }
 }
 
-void delete_last(address *P, infotype *info){
+void delete_last(pnode *P, infotype *info){
     if (*P != Nil) {
-        address last = *P;
-        address prec = Nil;
+        pnode last = *P;
+        pnode prec = Nil;
 
         while (Next(last) != Nil) {
             prec = last;
@@ -237,9 +285,9 @@ void delete_last(address *P, infotype *info){
     }
 }
 
-void delete_by_value(address *P, infotype info, DataType type) {
-    address head = *P;
-    address temp;
+void delete_by_value(pnode *P, infotype info, DataType type) {
+    pnode head = *P;
+    pnode temp;
         
     switch (type) {
         case TYPE_INTEGER:
@@ -252,8 +300,24 @@ void delete_by_value(address *P, infotype info, DataType type) {
             while (head != Nil && strcmp(info_string(Next(head)), info.str) != 0) {
                 head = Next(head);
             }
-
             break;
+        
+        case TYPE_JADWAL:
+            while (head != Nil && info_jadwal(Next(head)) != info.jadwal) {
+                head = Next(head);
+            }
+            break;
+
+        case TYPE_EVENT:
+            while (head != Nil && info_event(Next(head)) != info.event) {
+                head = Next(head);
+            }
+            break;
+        case TYPE_FILM:
+            while (head != Nil && info_film(Next(head)) != info.film) {
+                head = Next(head);
+            }
+            break;        
         default:
             return;
     }
@@ -267,7 +331,7 @@ void delete_by_value(address *P, infotype info, DataType type) {
     }
 }
 
-void clear_list(address *P) {
+void clear_list(pnode *P) {
     if (P == NULL || *P == NULL) {
         return;
     }
@@ -284,7 +348,7 @@ void clear_list(address *P) {
 /*================== DISPLAY FUNCTIONS ==================*/
 /*=======================================================*/
 
-void print_info(address P) {
+void print_info(pnode P) {
     if (P != Nil) {
         switch (P->type)
         {
@@ -306,7 +370,7 @@ void print_list(List L) {
     if (ListEmpty(L)) {
         printf("List Kosong\n");
     } else {
-        address P = First(L);
+        pnode P = First(L);
         while (P != Nil) {
             print_info(P);
             P = Next(P);
@@ -323,7 +387,7 @@ void print_list(List L) {
 
 int count_list(List L) {
     int count = 0;
-    address P = First(L);
+    pnode P = First(L);
     
     while (P != Nil) {
         count++;
@@ -333,22 +397,42 @@ int count_list(List L) {
     return count;
 }
 
-address search_prec(List L, infotype info) {
+pnode search_prec(List L, infotype info) {
     if (ListEmpty(L)) {
         return Nil;
     }
     
-    address P = First(L);
+    pnode P = First(L);
     switch (P->type)
     {
         case TYPE_INTEGER:
-            if (info_integer(P) == info.integer) {
+            if (info_integer(P) == info.integer) 
+            {
                 return Nil;
             }
             break;
         case TYPE_STRING:
-            if (strcmp(info_string(P), info.str) == 0) {
+            if (strcmp(info_string(P), info.str) == 0) 
+            {
                 return Nil;
+            }
+            break;
+        case TYPE_JADWAL:
+            if (1)
+            {
+
+            }
+            break;
+        case TYPE_EVENT:
+            if (1)
+            {
+
+            }
+            break;
+        case TYPE_FILM:
+            if (1)
+            {
+
             }
             break;
         default:
@@ -376,7 +460,7 @@ address search_prec(List L, infotype info) {
     return Nil;
 }
 
-address search_by_value(address P, infotype info) {
+pnode search_by_value(pnode P, infotype info) {
     while (P != Nil) {
         switch (P->type) 
         {
@@ -402,17 +486,17 @@ address search_by_value(address P, infotype info) {
 /*===================== ADDITIONAL FUNCTIONS =====================*/
 /*================================================================*/
 
-address get_reverse_list(List L) {
+pnode get_reverse_list(List L) {
     if (ListEmpty(L)) {
         return Nil;
     }
     
-    address result = Nil;
-    address P = First(L);
-    address newNode;
+    pnode result = Nil;
+    pnode P = First(L);
+    pnode newNode;
     
     while (P != Nil) {
-        address newNode = alokasi(P->info, P->type); 
+        pnode newNode = alokasi(P->info, P->type); 
         if (newNode != Nil) {
             InsertFirst(&result, newNode);
         }
@@ -425,7 +509,7 @@ address get_reverse_list(List L) {
 
 void reverse_list(List *L) {
     if (!ListEmpty(*L)) {
-        address reversed = get_reverse_list(*L);
+        pnode reversed = get_reverse_list(*L);
         
         // Hapus List yang belum di reverse
         clear_list(&First(*L));
@@ -439,10 +523,10 @@ void copy_list(List L1, List *L2) {
     CreateList(L2);
     
     if (!ListEmpty(L1)) {
-        address P = First(L1);
+        pnode P = First(L1);
         
         while (P != Nil) {
-            address newNode = alokasi(P->info, P->type); // Alokasikan node baru
+            pnode newNode = alokasi(P->info, P->type); // Alokasikan node baru
             if (newNode != Nil) {
                 InsertLast(&First(*L2), newNode); // Masukkan node baru ke list L2
             }
@@ -455,7 +539,7 @@ infotype get_front_value(List L) {
     if (ListEmpty(L)) {
         return; 
     }
-    address P = First(L);
+    pnode P = First(L);
     return Info(P); 
 }
 
@@ -463,7 +547,7 @@ infotype get_tail_value(List L) {
     if (ListEmpty(L)) {
         return;
     }
-    address P = First(L);
+    pnode P = First(L);
     while (Next(P) != Nil) {
         P = Next(P);
     }
