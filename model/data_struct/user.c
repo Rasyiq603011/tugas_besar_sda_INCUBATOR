@@ -9,7 +9,7 @@ struct DataUser
     String username;
     String password;
     int saldo;
-    Riwayat* riwayat;
+    List riwayat;
     Prioritas prioritas;
 };
 
@@ -75,6 +75,22 @@ void kurangi_saldo_user(User* user, int harga_tiket)
     user->saldo -= harga_tiket;
 }
 
+void add_riwayat_user(User* user, pnode new_riwayat)
+{
+    if (user->riwayat.First == NULL)
+    {
+        user->riwayat.First = new_riwayat;
+        return;
+    }
+    
+    pnode temp = user->riwayat.First;
+    while (temp->next != NULL)
+    {
+        temp = temp->next;
+    }
+    temp->next = new_riwayat;
+}
+
 // ===============================================
 // ============ CONSTRUCTOR SECTION ==============
 // ===============================================
@@ -86,7 +102,7 @@ User* create_user(String username, String password, Prioritas prioritas)
     user->username = username;
     user->password = password;
     user->prioritas = prioritas;
-    user->riwayat = NULL;
+    user->riwayat.First = NULL;
     return user;
 }
 
@@ -101,6 +117,8 @@ void destroy_user(User* user)
     {
         free(user->username);  // membebaskan memori username
         free(user->password);  // membebaskan memori password (seharusnya ini, bukan username dua kali)
+        clear_list(&(user->riwayat.First));
         free(user);            // membebaskan memori objek user
     }
 }
+

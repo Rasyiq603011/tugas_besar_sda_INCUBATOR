@@ -11,7 +11,6 @@ struct DataRiwayat {
     char jam[6];
     int harga_tiket;
     String kursi;
-    Riwayat* next;
 };
 
 // ===============================================
@@ -48,41 +47,6 @@ String get_kursi_riwayat(Riwayat* riwayat)
     return riwayat->kursi;
 }
 
-// Mengembalikan pointer ke riwayat berikutnya
-Riwayat* get_next_riwayat(Riwayat* riwayat)
-{
-    return riwayat->next;
-}
-
-// Mendapatkan jumlah data riwayat
-int get_jumlah_riwayat(Riwayat* head)
-{
-    if (head == NULL)
-    {
-        return 0;
-    }
-
-    int jumlah = 1;
-    while (head->next != NULL)
-    {
-        head = head->next;
-        jumlah++;
-    }
-    return jumlah;
-}
-
-Riwayat* get_riwayat_by_index(Riwayat* head, int index)
-{
-    Riwayat* current = head;
-    int i = 0;
-    while(current != NULL && i < index)
-    {
-        current = current->next;
-        i++;
-    }
-    return current;
-}
-
 // ===============================================
 // ============== MUTATOR SECTION ================
 // ===============================================
@@ -117,28 +81,6 @@ void set_kursi_riwayat(Riwayat* riwayat, String kursi)
     riwayat->kursi = kursi;
 }
 
-// Mengatur next riwayat ke dirinya sendiri (kemungkinan ini perlu diperbaiki)
-void set_next_riwayat(Riwayat** riwayat, Riwayat* next_riwayat)
-{
-    (*riwayat)->next = next_riwayat;
-}
-
-void add_riwayat(Riwayat** riwayat, Riwayat* new_riwayat)
-{
-    if (*riwayat == NULL)
-    {
-        *riwayat = new_riwayat;
-        return;
-    }
-
-    Riwayat* temp = *riwayat;
-    while (temp->next != NULL);
-    {
-        temp = temp->next;
-    }
-    temp->next = new_riwayat;
-}
-
 // ===============================================
 // ============ CONSTRUCTOR SECTION ==============
 // ===============================================
@@ -152,7 +94,6 @@ Riwayat* create_riwayat(String judul_film, char tanggal[10], char jam[6], int ha
     strcpy(new_node->jam, jam);
     new_node->harga_tiket = harga_tiket;
     new_node->kursi = kursi;
-    new_node->next = NULL;
     return new_node; 
 }
 
