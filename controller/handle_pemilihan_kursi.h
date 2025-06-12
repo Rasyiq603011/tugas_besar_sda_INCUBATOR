@@ -2,6 +2,7 @@
 #define HANDLE_PEMILIHAN_KURSI
 #include "../view/kursi_view.h"
 #include "../model/data_struct/kursi.h"
+#include <stdio.h>
 
 void set_attribut_kursi(int jumlah_kursi, CHAR_INFO* visual_kursi[], Kursi* daftar_kursi[], int terpilih, int offset);
 

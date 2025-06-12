@@ -23,9 +23,9 @@ Bioskop* constructor_bioskop(const String nama, int total_pendapatan, const Stri
         return NULL;
     }
 
-    bioskop->nama_bioskop = safe_strdup(nama);
+    bioskop->nama_bioskop = strdup(nama);
     bioskop->total_pendapatan_bioskop = total_pendapatan;
-    bioskop->alamat_bioskop = safe_strdup(alamat);
+    bioskop->alamat_bioskop = strdup(alamat);
 
     if (!bioskop->nama_bioskop || !bioskop->alamat_bioskop) 
     {
@@ -87,7 +87,7 @@ void set_pendapatan_bioskop(Bioskop* bioskop, int pendapatan)
 void set_alamat_bioskop(Bioskop* bioskop, const String alamat) 
 {
     if (!bioskop || !alamat) return;
-    String new_alamat = safe_strdup(alamat);
+    String new_alamat = strdup(alamat);
     if (new_alamat) 
     {
         free(bioskop->alamat_bioskop);

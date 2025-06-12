@@ -72,6 +72,7 @@ void add_child(address parent, InfoType info, DataType tipe);
 
 // Destructor (non-rekursif deklarasi)
 void delete_tree(Tree* T);
+void delete_tree_rekursif(address P);
 
 // Traversal
 void traversal_preorder(Tree T, void (*Process) (address));

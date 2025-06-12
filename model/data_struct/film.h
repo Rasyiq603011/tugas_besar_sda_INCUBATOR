@@ -1,7 +1,8 @@
 #ifndef FILM_H
 #define FILM_H
+#include <stdlib.h> 
+#include <string.h> 
 
-#include "../tree_data.h"
 typedef char* String;
 
 typedef struct DataFilm Film;

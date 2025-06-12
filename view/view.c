@@ -5,10 +5,10 @@ void gotoxy(int x, int y)
   COORD Point;
   Point.X = x;
   Point.Y = y;
-  SetConsoleCursorPosition(Out(), Point);
+  SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), Point);
 }
 
-void display_menu(int opsi_terpilih, int jumlah_opsi, char *options[jumlah_opsi], char* header) 
+void display_menu(int opsi_terpilih, int jumlah_opsi, const char *options[jumlah_opsi], const char* header) 
 {
     system("cls"); 
     gotoxy(30, 11); printf("============================================================\n");

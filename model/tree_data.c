@@ -33,6 +33,7 @@ address create_node(InfoType info, DataType tipe)
             break;
         case TYPE_STUDIO:
             // create_studio(&(new_node->info.studio));
+            break;
     }   
     return new_node;
 }
@@ -204,4 +205,4 @@ void TraverseBFS(Tree T, void (*Process)(address)) {
     #undef MAX_QUEUE
 }
 
-int get_jumlah_anak(Tree T, )
+//int get_jumlah_anak(Tree T, )

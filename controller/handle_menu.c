@@ -43,7 +43,7 @@ void handle_menu_admin()
 {
     int pilihan;
     const int jumlah_opsi = 5;
-    const char* options[jumlah_opsi] = {
+    const char* options[] = {
         "TAMBAH JADWAL FILM",
         "HAPUS JADWAL FILM",
         "ATUR EVENT",
@@ -82,7 +82,7 @@ void handle_menu_user()
 {
     int pilihan;
     const int jumlah_opsi = 5;
-    const char* options[jumlah_opsi] = {
+    const char* options[] = {
         "PEMBELIAN TIKET",
         "INFORMASI EVENT",
         "RIWAYAT",
@@ -117,11 +117,11 @@ void handle_menu_user()
 // ============== MENU AWAL SECTION ==============
 // ===============================================
 
-void handle_menu_user()
+void handle_menu_awal()
 {
     int pilihan;
     const int jumlah_opsi = 3;
-    const char* options[jumlah_opsi] = {
+    const char* options[] = {
         "MASUK SEBAGAI ADMIN",
         "MASUK SEBAGAI USER",
         "QUIT"

@@ -44,20 +44,20 @@ int get_jumlah_total_pendapatan_film(Film* film)
 // Mengatur judul film
 void set_judul_film(Film* film, String judul)
 {
-    if (film == NULL || judul == NULL) return 0;
+    if (film == NULL || judul == NULL) return;
     film->judul = strdup(judul);
 }
 
 // Mengatur jumlah penonton film
 void set_jumlah_penonton_film(Film* film, int jumlah_ditonton)
 {
-    if (film == NULL || jumlah_ditonton < 0) return 0;
+    if (film == NULL || jumlah_ditonton < 0) return;
     film->jumlah_ditonton = jumlah_ditonton;
 }
 
 void update_jumlah_penonton_film(Film* film)
 {
-    if (film == NULL) return 0;
+    if (film == NULL) return;
     film->jumlah_ditonton++;
 }
 
@@ -70,7 +70,7 @@ void set_total_pendapatan_film(Film* film, int total_pendapatan)
 // Menambahkan pendapatan berdasarkan harga tiket
 void update_pendapatan_film(Film* film, int harga_tiket)
 {
-    if (film == NULL || harga_tiket < 0) return 0;
+    if (film == NULL || harga_tiket < 0) return;
     film->total_pendapatan += harga_tiket;
 }
 

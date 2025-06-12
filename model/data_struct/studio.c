@@ -80,7 +80,7 @@ void set_pendapatan_studio(Studio* current_studio, int pendapatan) {
 
 void set_jadwal_studio(Studio* current_studio, List* jadwal) {
     if (!current_studio) return;
-    clear_list(current_studio->jadwal_studio->First);
+    clear_list(&(current_studio->jadwal_studio->First));
     copy_list(*(current_studio->jadwal_studio), jadwal);
 }
 
@@ -97,7 +97,7 @@ void destructor_studio(Studio* current_studio)
 {
     if (!current_studio) return;
     free(current_studio->nama_studio);
-    clear_list(current_studio->jadwal_studio->First);
+    clear_list(&(current_studio->jadwal_studio->First));
     free(current_studio);
 }
 
