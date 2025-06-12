@@ -184,6 +184,8 @@ void reverse_list(List *L);
 // Catatan: Untuk list string, semua string akan di-deep copy
 void copy_list(List L1, List *L2);
 
+boolean compare_list(List L1, List L2);
+
 // Function untuk mendapatkan nilai di posisi depan
 infotype get_front_value(List L);
 

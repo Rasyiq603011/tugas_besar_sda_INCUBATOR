@@ -12,38 +12,36 @@ typedef struct DataNegara Negara;
 // ============ CONSTRUCTOR SECTION ==============
 // ===============================================
 
-Negara* constructor(String nama, int total_pendapatan, String film_terlaris[3], int jumlah_bioskop);
+Negara* constructor_negara(const String nama, int total_pendapatan, int jumlah_bioskop);
 
-void create_negara(Negara* new_negara, String nama, int total_pendapatan, String film_terlaris[3], int jumlah_bioskop);
+void create_negara(Negara** new_negara, const String nama, int total_pendapatan, int jumlah_bioskop);
 
 // ===============================================
 // ============== ACCESSOR SECTION ===============
 // ===============================================
 
-String get_name(Negara* current_negara);
+const String get_name_negara(Negara* current_negara);
 
 int get_pendapatan_negara(Negara* current_negara);
 
-String* get_film_terlaris(Negara* current_negara);
-
-int get_jumlah_bioskop(Negara* current_negara);
+int get_jumlah_bioskop_negara(Negara* current_negara);
 
 // ===============================================
 // =============== MUTATOR SECTION ===============
 // ===============================================
 
-void set_name(Negara* current_negara, String name);
+void set_name_negara(Negara* current_negara, const String nama);
 
-void set_pendapatan(Negara* current_negara, int pendapatan);
+void set_pendapatan_negara(Negara* current_negara, int pendapatan);
 
-void set_film_terlaris(Negara* current_negara, String film_terlaris[3]);
-
-void set_jumlah_bioskop(Negara* current_negara, int jumlah_bioskop);
+void set_jumlah_bioskop_negara(Negara* current_negara, int jumlah_bioskop);
 
 // ===============================================
 // ============ DESTRUCTOR SECTION ===============
 // ===============================================
 
 void destructor(Negara* current_negara);
+
+int compare_value_negara(const Negara* negara_pertama, const Negara* negara_kedua);
 
 #endif /*NEGARA_H*/

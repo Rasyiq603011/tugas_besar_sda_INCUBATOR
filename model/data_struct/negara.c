@@ -3,87 +3,75 @@
 #include <string.h>
 
 struct DataNegara {
-    String nama;
-    int total_pendapatan;
-    String film_terlaris[3];
-    int jumlah_bioskop;
+    String nama_negara;
+    int total_pendapatan_negara;
+    int jumlah_bioskop_negara;
 };
 
 // ===============================================
 // ============ CONSTRUCTOR SECTION ==============
 // ===============================================
 
-Negara* constructor(String nama, int total_pendapatan, String film_terlaris[3], int jumlah_bioskop)
+Negara* constructor_negara(const String nama, int total_pendapatan, int jumlah_bioskop)
 {
     Negara* new_negara = (Negara*) malloc(sizeof(Negara));
-    new_negara->nama = strdup(nama);
-    new_negara->total_pendapatan = total_pendapatan;
-    new_negara->film_terlaris[0] = strdup(film_terlaris[0]);
-    new_negara->film_terlaris[1] = strdup(film_terlaris[1]);
-    new_negara->film_terlaris[2] = strdup(film_terlaris[2]);
-    new_negara->jumlah_bioskop = jumlah_bioskop;
+    new_negara->nama_negara = strdup(nama);
+    new_negara->total_pendapatan_negara = total_pendapatan;
+    new_negara->jumlah_bioskop_negara = jumlah_bioskop;
     return new_negara;
 }
 
-void create_negara(Negara* new_negara, String nama, int total_pendapatan, String film_terlaris[3], int jumlah_bioskop)
+void create_negara(Negara** new_negara, const String nama, int total_pendapatan, int jumlah_bioskop)
 {
-    new_negara = constructor(nama, total_pendapatan, film_terlaris, jumlah_bioskop);
+    *new_negara = constructor_negara(nama, total_pendapatan, jumlah_bioskop);
 }
 
 // ===============================================
 // ============== ACCESSOR SECTION ===============
 // ===============================================
 
-String get_name(Negara* current_negara)
+const String get_name_negara(Negara* current_negara)
 {
-    return current_negara->nama;
+    return current_negara ? current_negara->nama_negara : "";
 }
 
 int get_pendapatan_negara(Negara* current_negara)
 {
-    return current_negara->total_pendapatan;
+    return current_negara ? current_negara->total_pendapatan_negara : -1;
 }
 
-String* get_film_terlaris(Negara* current_negara)
+int get_jumlah_bioskop_negara(Negara* current_negara)
 {
-    return current_negara->film_terlaris;
-}
-
-int get_jumlah_bioskop(Negara* current_negara)
-{
-    return current_negara->jumlah_bioskop;
+    return current_negara ? current_negara->jumlah_bioskop_negara : -1;
 }
 
 // ===============================================
 // =============== MUTATOR SECTION ===============
 // ===============================================
 
-void set_name(Negara* current_negara, String name)
+void set_name_negara(Negara* current_negara, const String nama)
 {
-    current_negara->nama = name;
+    if (current_negara && nama) {
+        String new_name = strdup(nama);
+        if (current_negara) {
+            free(current_negara->nama_negara);
+            current_negara->nama_negara = new_name;
+        }
+    }
 }
 
-void set_pendapatan(Negara* current_negara, int pendapatan)
+void set_pendapatan_negara(Negara* current_negara, int pendapatan)
 {
-    current_negara->total_pendapatan = pendapatan;
+    if (current_negara && pendapatan <= 0)
+    current_negara->total_pendapatan_negara = pendapatan;
 }
 
-void set_film_terlaris(Negara* current_negara, String film_terlaris[3])
+void set_jumlah_bioskop_negara(Negara* current_negara, int jumlah_bioskop)
 {
-    // Free existing strings if any
-    if (current_negara->film_terlaris[0] != NULL) free(current_negara->film_terlaris[0]);
-    if (current_negara->film_terlaris[1] != NULL) free(current_negara->film_terlaris[1]);
-    if (current_negara->film_terlaris[2] != NULL) free(current_negara->film_terlaris[2]);
-    
-    // Copy new strings
-    current_negara->film_terlaris[0] = strdup(film_terlaris[0]);
-    current_negara->film_terlaris[1] = strdup(film_terlaris[1]);
-    current_negara->film_terlaris[2] = strdup(film_terlaris[2]);
-}
-
-void set_jumlah_bioskop(Negara* current_negara, int jumlah_bioskop)
-{
-    current_negara->jumlah_bioskop = jumlah_bioskop;
+    if (current_negara && jumlah_bioskop >= 0) 
+    {
+        current_negara->jumlah_bioskop_negara = jumlah_bioskop;
+    }
 }
 
 // ===============================================
@@ -92,9 +80,18 @@ void set_jumlah_bioskop(Negara* current_negara, int jumlah_bioskop)
 
 void destructor(Negara* current_negara)
 {
-    free(current_negara->nama);
-    free(current_negara->film_terlaris[0]);
-    free(current_negara->film_terlaris[1]);
-    free(current_negara->film_terlaris[2]);
-    free(current_negara);
+    if (current_negara) {
+        free(current_negara->nama_negara);
+        free(current_negara);
+    }
+}
+
+int compare_value_negara(const Negara* negara_pertama, const Negara* negara_kedua) 
+{
+    if (!negara_pertama || !negara_kedua) {
+        return 0; 
+    }
+    return (strcmp(negara_pertama->nama_negara, negara_kedua->nama_negara) == 0 &&
+            negara_pertama->total_pendapatan_negara== negara_kedua->total_pendapatan_negara &&
+            negara_pertama->jumlah_bioskop_negara== negara_kedua->jumlah_bioskop_negara);
 }

@@ -74,7 +74,11 @@
     "studio.h": "c",
     "provinsi.h": "c",
     "stdlib.h": "c",
-    "negara.h": "c"
+    "negara.h": "c",
+    "kursi_view.h": "c",
+    "handle_tampilan_kursi.h": "c",
+    "handle_pemilihan_kursi.h": "c",
+    "view.h": "c"
   },
   "C_Cpp.errorSquiggles": "enabled"
 }

@@ -397,69 +397,6 @@ int count_list(List L) {
     return count;
 }
 
-pnode search_prec(List L, infotype info) {
-    if (ListEmpty(L)) {
-        return Nil;
-    }
-    
-    pnode P = First(L);
-    switch (P->type)
-    {
-        case TYPE_INTEGER:
-            if (info_integer(P) == info.integer) 
-            {
-                return Nil;
-            }
-            break;
-        case TYPE_STRING:
-            if (strcmp(info_string(P), info.str) == 0) 
-            {
-                return Nil;
-            }
-            break;
-        case TYPE_JADWAL:
-            if (1)
-            {
-
-            }
-            break;
-        case TYPE_EVENT:
-            if (1)
-            {
-
-            }
-            break;
-        case TYPE_FILM:
-            if (1)
-            {
-
-            }
-            break;
-        default:
-            break;
-    }
-    while (Next(P) != Nil) {
-        switch (Next(P)->type) 
-        {
-            case TYPE_INTEGER:
-                if (info_integer(Next(P)) == info.integer) {
-                    return P;
-                }
-                break;
-            case TYPE_STRING:
-                if (strcmp(info_string(Next(P)), info.str) == 0) {
-                    return P;
-                }
-                break;
-            default:
-                break;
-        }
-        P = Next(P);
-    }
-    
-    return Nil;
-}
-
 pnode search_by_value(pnode P, infotype info) {
     while (P != Nil) {
         switch (P->type) 
@@ -533,6 +470,10 @@ void copy_list(List L1, List *L2) {
             P = Next(P);
         }
     }
+}
+
+boolean compare_list(List L1, List L2) {
+
 }
 
 infotype get_front_value(List L) {
