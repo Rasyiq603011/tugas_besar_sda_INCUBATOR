@@ -15,6 +15,7 @@
 #include "data_struct/film.h"
 #include "data_struct/jadwal.h"
 #include "data_struct/event.h"
+#include "data_struct/riwayat.h"
 
 typedef char* String;
 
@@ -23,7 +24,8 @@ typedef enum {
     TYPE_STRING = 1,
     TYPE_JADWAL = 2,
     TYPE_EVENT = 3,
-    TYPE_FILM = 4
+    TYPE_FILM = 4,
+    TYPE_RIWAYAT = 5
 } DataType;
 
 typedef union {
@@ -32,6 +34,7 @@ typedef union {
     Jadwal* jadwal;
     Event* event;
     Film* film;
+    Riwayat* riwayat;
 }infotype;
 
 typedef struct node *pnode;
@@ -55,12 +58,13 @@ typedef struct {
 #define info_jadwal(P) ((P)->info.jadwal)
 #define info_event(P) ((P)->info.event)
 #define info_film(P) ((P)->info.film)
+#define info_riwayat(P) ((P)->info.riwayat)
 #define INT_INFO(x) ((infotype){.integer = (x)})
 #define STR_INFO(x) ((infotype){.str = (x)})
 #define JADWAL_INFO(x) ((infotype){.jadwal = (x)})
 #define EVENT_INFO(x) ((infotype){.event = (x)})
 #define FILM_INFO(x) ((infotype){.film = (x)})
-
+#define RIWAYAT_INFO(x) ((infotype){.riwayat = (x)})
 
 /*========================================================*/
 /*==================== MAIN FUNCTIONS ====================*/

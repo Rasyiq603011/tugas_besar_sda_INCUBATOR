@@ -21,7 +21,6 @@ String get_tanggal_riwayat(Riwayat* riwayat);
 String get_jam_riwayat(Riwayat* riwayat);
 int get_harga_tiket_riwayat(Riwayat* riwayat);
 String get_kursi_riwayat(Riwayat* riwayat);
-Riwayat* get_next_riwayat(Riwayat* riwayat);
 
 // ================================
 // ======== MUTATOR SECTION =======
@@ -32,8 +31,6 @@ void set_tanggal_riwayat(Riwayat* riwayat, char tanggal[10]);
 void set_jam_riwayat(Riwayat* riwayat, char jam[5]);
 void set_harga_tiket_riwayat(Riwayat* riwayat, int harga_tiket);
 void set_kursi_riwayat(Riwayat* riwayat, String kursi);
-void set_next_riwayat(Riwayat** riwayat, Riwayat* next_riwayat);
-void add_riwayat(Riwayat** riwayat, Riwayat* new_riwayat);
 
 // ================================
 // ======= CONSTRUCTOR SECTION ====

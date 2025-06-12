@@ -2,7 +2,7 @@
 #define USER_H
 
 #include <stdlib.h>
-#include "riwayat.h"
+#include "../linked.h"
 
 typedef char* String;
 
@@ -39,6 +39,7 @@ void set_password_user(User* user, String password);
 void set_saldo_user(User* user, int saldo);
 void set_prioritas_user(User* user, Prioritas prioritas);
 void kurangi_saldo_user(User* user, int harga_tiket);
+void add_riwayat_user(User* user, pnode new_riwayat);
 
 // ===============================================
 // ============ CONSTRUCTOR SECTION ==============
