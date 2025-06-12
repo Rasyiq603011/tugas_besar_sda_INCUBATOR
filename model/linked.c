@@ -16,7 +16,7 @@ boolean isEmpty(pnode P) {
 }
 
 boolean ListEmpty(List L) {
-    return (First(L) == Nil);
+    return (First(L) == Nil);   
 }
 
 void Createpnode(pnode *P) {
@@ -26,7 +26,6 @@ void Createpnode(pnode *P) {
 void CreateList(List *L) {
     First(*L) = Nil;
 }
-
 
 pnode alokasi(infotype info, DataType type) {
     pnode new_node = (pnode) malloc(sizeof(node));
@@ -64,6 +63,11 @@ pnode alokasi(infotype info, DataType type) {
             if (new_node != Nil) {
                 info_film(new_node) = info.film; 
                 Next(new_node) = Nil;
+            }
+            return new_node;
+        case TYPE_RIWAYAT:
+            if (new_node != Nil) {
+                info_riwayat(new_node) = info.riwayat; 
             }
             return new_node;
         default:
