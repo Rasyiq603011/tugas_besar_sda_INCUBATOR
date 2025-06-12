@@ -20,6 +20,7 @@ int get_jumlah_total_pendapatan_film(Film* film);
 
 void set_judul_film(Film* film, String judul);
 void set_jumlah_penonton_film(Film* film, int jumlah_ditonton);
+void update_jumlah_penonton_film(Film* film);
 void set_total_pendapatan_film(Film* film, int total_pendapatan);
 void update_pendapatan_film(Film* film, int harga_tiket);
 
@@ -34,5 +35,11 @@ Film* create_film(String judul, int jumlah_ditonton, int total_pendapatan);
 // ===================================================
 
 void destroy_film(Film* film);
+
+// ===================================================
+// ============== COMPARATOR SECTION =================
+// ===================================================
+
+int compare_film_value(Film* film_pertama, Film* film_kedua);
 
 #endif

@@ -71,7 +71,7 @@ Film* get_film(Jadwal* current_jadwal)
 String get_film_name(Jadwal* current_jadwal)
 {
     if (!current_jadwal || !current_jadwal->film) {return "film tidak diketahui";}
-    return get_name_film(current_jadwal->film);
+    return get_judul_film(current_jadwal->film);
 }
 
 int get_harga_tiket(Jadwal* current_jadwal)
