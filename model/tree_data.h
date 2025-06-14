@@ -10,6 +10,17 @@
 #include "stdlib.h"
 #include "stdbool.h"
 
+#define info_integer(P) ((P)->info.integer)
+#define info_string(P) ((P)->info.str)
+#define info_jadwal(P) ((P)->info.jadwal)
+#define info_event(P) ((P)->info.event)
+#define info_film(P) ((P)->info.film)
+#define NEGARA_INFO(x) ((InfoType){.negara = (X)})
+#define PROVINSI_INFO(x) ((InfoType){.provinsi = (x)})
+#define KOTA_INFO(x) ((InfoType){.kota = (x)})
+#define BIOSKOP_INFO(x) ((InfoType){.bioskop = (x)})
+#define STUDIO_INFO(x) ((InfoType){.studio = (x)})
+
 // ==============================
 // ==== TYPE DEFINITIONS ========
 // ==============================
