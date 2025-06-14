@@ -77,6 +77,8 @@ address get_last_son(address P);
 address get_next_brother(address P);
 InfoType get_info_node(address P);
 DataType get_tipe_node(address P);
+int get_jumlah_leaf(address P);
+int get_jumlah_node_by_type(address P, DataType tipe);
 
 // Mutator
 void add_child(address parent, InfoType info, DataType tipe);
