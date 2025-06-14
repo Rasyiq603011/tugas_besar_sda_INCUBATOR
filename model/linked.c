@@ -1,10 +1,3 @@
-/* 
-	File name	: linked.c
-  	Made by		: Muhammad Nabil Syauqi Rasyiq
-   	Date		: 30 March 2025
-  	Description	: Implementation of linked list supporting both int and char* types
-*/
-
 #include "linked.h"
 
 /*========================================================*/
@@ -13,6 +6,10 @@
 
 boolean isEmpty(pnode P) {
     return (P == Nil);
+}
+
+boolean is_valid_type(DataList type) {
+    return (type >= TYPE_INTEGER && type <= TYPE_RIWAYAT);
 }
 
 boolean ListEmpty(List L) {
@@ -27,7 +24,7 @@ void CreateList(List *L) {
     First(*L) = Nil;
 }
 
-pnode alokasi(infotype info, DataType type) {
+pnode alokasi(InfoList info, DataList type) {
     pnode new_node = (pnode) malloc(sizeof(node));
     switch (type)
     {
@@ -76,15 +73,29 @@ pnode alokasi(infotype info, DataType type) {
 }
 
 void dealokasi(pnode P) {
-    if (P != Nil) {
-        if (Type(P) == TYPE_STRING){
+if (P == NULL) return;
+    switch (P->type) {
+        case TYPE_STRING:
             if (info_string(P) != NULL) {
-                free(info_string(P)); // mendealokasikan String literal
+                free(info_string(P));
             }
-        }
-        Next(P) = Nil; // Pencegahan jiak next(P) belum Nil
-        free(P);
+            break;
+        case TYPE_JADWAL:
+            if (info_jadwal(P)) destructor_jadwal(info_jadwal(P));
+            break;
+        case TYPE_EVENT:
+            // if (info_event(P)) free_event(info_event(P));
+            break;
+        case TYPE_FILM:
+            if (info_film(P)) destroy_film(info_film(P));
+            break;
+        case TYPE_RIWAYAT:
+            if (info_riwayat(P)) destroy_riwayat(info_riwayat(P));
+            break;
+        default:
+            break;
     }
+    free(P);
 }
 
 /*=======================================================*/
@@ -129,7 +140,7 @@ void InsertBefore(pnode *pAft, pnode *p, pnode PNew) {
     }
 }
 
-void insert_value_first(pnode *P, infotype info, DataType type) {
+void insert_value_first(pnode *P, InfoList info, DataList type) {
     pnode newNode = alokasi(info, type);
     if (newNode != Nil){
         InsertFirst(&(*P), newNode);
@@ -137,110 +148,10 @@ void insert_value_first(pnode *P, infotype info, DataType type) {
 }
 
 
-void insert_value_last(pnode *P, infotype info, DataType type) {
+void insert_value_last(pnode *P, InfoList info, DataList type) {
     pnode newNode = alokasi(info, type);
     if (newNode != Nil) {
         InsertLast(&(*P), newNode);
-    }
-}
-
-void insert_value_after(pnode *P, infotype before, infotype info, DataType type_before, DataType type_insert) {
-    if (*P != Nil) {
-        boolean found = false;
-        pnode current = *P;
-        while(current != Nil && !found) {
-            if(current->type == type_before) {
-                switch (type_before) {
-                    case TYPE_INTEGER:
-                        if (current->info.integer == before.integer) {
-                            found = true;
-                        }
-                        break;
-                        
-                    case TYPE_STRING:
-                        if (strcmp(current->info.str, before.str) == 0) {
-                            found = true;
-                        }
-                        break;
-
-                    case TYPE_JADWAL:
-                        if (current->info.jadwal == before.jadwal) {
-                            found = true;
-                        }
-                        break;
-                    case TYPE_EVENT:
-                        if (current->info.event == before.event) {
-                            found = true;
-                        }
-                        break;
-                    case TYPE_FILM:
-                        if (current->info.film == before.film) {
-                            found = true;
-                        }
-                        break;
-                    default:
-                        return;
-                }
-            }
-            current = Next(current);
-        }
-        
-        if (current != Nil) {
-            pnode newNode = alokasi(info, type_insert);
-            if (newNode != Nil) {
-                InsertAfter(&current, newNode);
-            }
-        }
-    }
-}
-
-void insert_value_before(pnode *P, infotype after, infotype info, DataType type_after, DataType type_insert) {
-    if (*P != Nil) {
-        boolean found = false;
-        pnode current = *P;
-        while(current != Nil && !found) {
-            if(current->type == type_after) {
-                switch (type_after) {
-                    case TYPE_INTEGER:
-                        if (current->info.integer == after.integer) {
-                            found = true;
-                        }
-                        break;
-                        
-                    case TYPE_STRING:
-                        if (strcmp(current->info.str, after.str) == 0) {
-                            found = true;
-                        }
-                        break;
-
-                    case TYPE_JADWAL:
-                        if (current->info.jadwal == after.jadwal) {
-                            found = true;
-                        }
-                        break;
-                    case TYPE_EVENT:
-                        if (current->info.event == after.event) {
-                            found = true;
-                        }
-                        break;                    
-                    case TYPE_FILM:
-                        if (current->info.film == after.film) {
-                            found = true;
-                        }
-                        break;                        
-                    default:
-                        return;
-                }
-            }
-            current = Next(current);
-        }
-        
-        if (current != Nil) { // Jika node After berhasil ditemukan
-            pnode newNode = alokasi(info, type_insert);
-            if (newNode != Nil) {
-                InsertBefore(&current, P, newNode);
-            }
-        }
     }
 }
 
@@ -248,7 +159,7 @@ void insert_value_before(pnode *P, infotype after, infotype info, DataType type_
 /*================== DELETION FUNCTIONS ==================*/
 /*========================================================*/
 
-void delete_first(pnode *P, infotype *info) {
+void delete_first(pnode *P, InfoList *info) {
     if (*P != Nil) {
         pnode temp = *P;
         
@@ -265,7 +176,7 @@ void delete_first(pnode *P, infotype *info) {
     }
 }
 
-void delete_last(pnode *P, infotype *info){
+void delete_last(pnode *P, InfoList *info){
     if (*P != Nil) {
         pnode last = *P;
         pnode prec = Nil;
@@ -289,49 +200,51 @@ void delete_last(pnode *P, infotype *info){
     }
 }
 
-void delete_by_value(pnode *P, infotype info, DataType type) {
-    pnode head = *P;
-    pnode temp;
-        
-    switch (type) {
-        case TYPE_INTEGER:
-            while (head != Nil && info_integer(Next(head)) != info.integer) {
-                head = Next(head);
-            }
-            break;
-                
-        case TYPE_STRING:
-            while (head != Nil && strcmp(info_string(Next(head)), info.str) != 0) {
-                head = Next(head);
-            }
-            break;
-        
-        case TYPE_JADWAL:
-            while (head != Nil && info_jadwal(Next(head)) != info.jadwal) {
-                head = Next(head);
-            }
-            break;
+void delete_by_value(pnode *P, InfoList info, DataList type) {
+    if (*P == NULL) return;
 
-        case TYPE_EVENT:
-            while (head != Nil && info_event(Next(head)) != info.event) {
-                head = Next(head);
-            }
-            break;
-        case TYPE_FILM:
-            while (head != Nil && info_film(Next(head)) != info.film) {
-                head = Next(head);
-            }
-            break;        
-        default:
-            return;
-    }
-    temp = Next(head);
-    Next(head) = Next(temp);
-    if (temp != Nil) {
-        if (temp->type == TYPE_STRING){
-            info_string(temp) = Nil;
+    pnode current = *P;
+    pnode prev = NULL;
+
+    while (current != NULL) {
+        boolean match = false;
+        switch (type) {
+            case TYPE_INTEGER:
+                match = (info_integer(current) == info.integer);
+                break;
+            case TYPE_STRING:
+                match = (strcmp(info_string(current), info.str) == 0);
+                break;
+            case TYPE_JADWAL:
+                match = compare_jadwal_value(info_jadwal(current), info.jadwal);
+                break;
+            case TYPE_EVENT:
+                match = (info_event(current) == info.event);
+                break;
+            case TYPE_FILM:
+                match = compare_film_value(info_film(current), info.film);
+                break;
+            case TYPE_RIWAYAT:
+                match = (info_riwayat(current) == info.riwayat);
+                break;
+            default:
+                return;
         }
-        dealokasi(temp);
+
+        if (match) {
+            if (prev == NULL) {
+                *P = Next(current);
+            } else {
+                Next(prev) = Next(current);
+            }
+            if (current->type == TYPE_STRING) {
+                free(info_string(current));
+            }
+            dealokasi(current);
+            return;
+        }
+        prev = current;
+        current = Next(current);
     }
 }
 
@@ -340,7 +253,7 @@ void clear_list(pnode *P) {
         return;
     }
     
-    infotype dummy_info;
+    InfoList dummy_info;
     
     while (*P != Nil) {
         delete_first(P, &dummy_info);
@@ -348,43 +261,6 @@ void clear_list(pnode *P) {
     *P = Nil;
 }
 
-/*=======================================================*/
-/*================== DISPLAY FUNCTIONS ==================*/
-/*=======================================================*/
-
-void print_info(pnode P) {
-    if (P != Nil) {
-        switch (P->type)
-        {
-            case TYPE_INTEGER:
-                printf("%d", info_integer(P));
-                break;
-
-            case TYPE_STRING:
-                printf("%s", info_string(P));
-                break;
-            
-            default:
-                return;
-        }
-    }
-}
-
-void print_list(List L) {
-    if (ListEmpty(L)) {
-        printf("List Kosong\n");
-    } else {
-        pnode P = First(L);
-        while (P != Nil) {
-            print_info(P);
-            P = Next(P);
-            if (P != Nil) {
-                printf(" -> ");
-            }
-        }
-        printf("\n");
-    }
-}
 /*================================================================*/
 /*================== COUNT AND SEARCH FUNCTIONS ==================*/
 /*================================================================*/
@@ -401,70 +277,7 @@ int count_list(List L) {
     return count;
 }
 
-pnode search_prec(List L, infotype info) {
-    if (ListEmpty(L)) {
-        return Nil;
-    }
-    
-    pnode P = First(L);
-    switch (P->type)
-    {
-        case TYPE_INTEGER:
-            if (info_integer(P) == info.integer) 
-            {
-                return Nil;
-            }
-            break;
-        case TYPE_STRING:
-            if (strcmp(info_string(P), info.str) == 0) 
-            {
-                return Nil;
-            }
-            break;
-        case TYPE_JADWAL:
-            if (1)
-            {
-
-            }
-            break;
-        case TYPE_EVENT:
-            if (1)
-            {
-
-            }
-            break;
-        case TYPE_FILM:
-            if (1)
-            {
-
-            }
-            break;
-        default:
-            break;
-    }
-    while (Next(P) != Nil) {
-        switch (Next(P)->type) 
-        {
-            case TYPE_INTEGER:
-                if (info_integer(Next(P)) == info.integer) {
-                    return P;
-                }
-                break;
-            case TYPE_STRING:
-                if (strcmp(info_string(Next(P)), info.str) == 0) {
-                    return P;
-                }
-                break;
-            default:
-                break;
-        }
-        P = Next(P);
-    }
-    
-    return Nil;
-}
-
-pnode search_by_value(pnode P, infotype info) {
+pnode search_by_value(pnode P, InfoList info) {
     while (P != Nil) {
         switch (P->type) 
         {
@@ -539,21 +352,60 @@ void copy_list(List L1, List *L2) {
     }
 }
 
-infotype get_front_value(List L) {
-    if (ListEmpty(L)) {
-        return; 
+boolean compare_list(List L1, List L2) {
+    pnode p1 = First(L1);
+    pnode p2 = First(L2);
+
+    while (p1 != NULL && p2 != NULL) {
+        if (p1->type != p2->type) {
+            return false;
+        }
+
+        switch (p1->type) {
+            case TYPE_INTEGER:
+                if (info_integer(p1) != info_integer(p2)) return false;
+                break;
+            case TYPE_STRING:
+                if (strcmp(info_string(p1), info_string(p2)) != 0) return false;
+                break;
+            case TYPE_JADWAL:
+                if (!compare_jadwal_value(info_jadwal(p1), info_jadwal(p2))) return false;
+                break;
+            case TYPE_EVENT:
+                if (info_event(p1) != info_event(p2)) return false;
+                break;
+            case TYPE_FILM:
+                if (!compare_film_value(info_film(p1), info_film(p2))) return false;
+                break;
+            case TYPE_RIWAYAT:
+                if (info_riwayat(p1) != info_riwayat(p2)) return false;
+                break;
+            default:
+                return false;
+        }
+        p1 = Next(p1);
+        p2 = Next(p2);
     }
-    pnode P = First(L);
-    return Info(P); 
+
+    return (p1 == NULL && p2 == NULL);
 }
 
-infotype get_tail_value(List L) {
-    if (ListEmpty(L)) {
-        return;
+InfoList get_front_value(List L) {
+    InfoList result = {0}; 
+    if (!ListEmpty(L)) {
+        result = Info(First(L));
     }
-    pnode P = First(L);
-    while (Next(P) != Nil) {
-        P = Next(P);
+    return result;
+}
+
+InfoList get_tail_value(List L) {
+    InfoList result = {0}; 
+    if (!ListEmpty(L)) {
+        pnode P = First(L);
+        while (Next(P) != NULL) {
+            P = Next(P);
+        }
+        result = Info(P);
     }
-    return Info(P);
+    return result;
 }

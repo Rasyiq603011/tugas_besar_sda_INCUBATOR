@@ -26,7 +26,7 @@ typedef enum {
     TYPE_EVENT = 3,
     TYPE_FILM = 4,
     TYPE_RIWAYAT = 5
-} DataType;
+} DataList;
 
 typedef union {
     int integer;   
@@ -35,12 +35,12 @@ typedef union {
     Event* event;
     Film* film;
     Riwayat* riwayat;
-}infotype;
+}InfoList;
 
 typedef struct node *pnode;
 typedef struct node {
-    infotype info;
-    DataType type;
+    InfoList info;
+    DataList type;
     pnode next;      
 } node;
 
@@ -59,12 +59,12 @@ typedef struct {
 #define info_event(P) ((P)->info.event)
 #define info_film(P) ((P)->info.film)
 #define info_riwayat(P) ((P)->info.riwayat)
-#define INT_INFO(x) ((infotype){.integer = (x)})
-#define STR_INFO(x) ((infotype){.str = (x)})
-#define JADWAL_INFO(x) ((infotype){.jadwal = (x)})
-#define EVENT_INFO(x) ((infotype){.event = (x)})
-#define FILM_INFO(x) ((infotype){.film = (x)})
-#define RIWAYAT_INFO(x) ((infotype){.riwayat = (x)})
+#define INT_INFO(x) ((InfoList){.integer = (x)})
+#define STR_INFO(x) ((InfoList){.str = (x)})
+#define JADWAL_INFO(x) ((InfoList){.jadwal = (x)})
+#define EVENT_INFO(x) ((InfoList){.event = (x)})
+#define FILM_INFO(x) ((InfoList){.film = (x)})
+#define RIWAYAT_INFO(x) ((InfoList){.riwayat = (x)})
 
 /*========================================================*/
 /*==================== MAIN FUNCTIONS ====================*/
@@ -89,7 +89,7 @@ void Createpnode(pnode *P);
 void CreateList(List *L);
 
 // Function untuk alokasi node dengan berbagai tipe data
-pnode alokasi(infotype info, DataType type);
+pnode alokasi(InfoList info, DataList type);
 
 // Function untuk dealokasi node
 void dealokasi(pnode P);
@@ -115,29 +115,29 @@ void InsertAfter(pnode *pBef, pnode PNew);
 void InsertBefore(pnode *pAft, pnode *p, pnode PNew);
 
 // Function untuk menyisipkan nilai di posisi first
-void insert_value_first(pnode *P, infotype info, DataType type);
+void insert_value_first(pnode *P, InfoList info, DataList type);
 
 // Function untuk menyisipkan nilai di posisi last
-void insert_value_last(pnode *P, infotype info, DataType type);
+void insert_value_last(pnode *P, InfoList info, DataList type);
 
 // Function untuk menyisipkan nilai setelah nilai tertentu
-void insert_value_after(pnode *P, infotype before, infotype info, DataType type_before, DataType type_insert);
+void insert_value_after(pnode *P, InfoList before, InfoList info, DataList type_before, DataList type_insert);
 
 // Function untuk menyisipkan nilai sebelum nilai tertentu
-void insert_value_before(pnode *P, infotype after, infotype info, DataType type_after, DataType type_insert);
+void insert_value_before(pnode *P, InfoList after, InfoList info, DataList type_after, DataList type_insert);
 
 /*========================================================*/
 /*================== DELETION FUNCTIONS ==================*/
 /*========================================================*/
 
 // Function untuk menghapus node pertama
-void delete_first(pnode *P, infotype *info);
+void delete_first(pnode *P, InfoList *info);
 
 // Function untuk menghapus node terakhir
-void delete_last(pnode *P, infotype *info);
+void delete_last(pnode *P, InfoList *info);
 
 // Function untuk menghapus node berdasarkan nilai
-void delete_by_value(pnode *P, infotype info, DataType type);
+void delete_by_value(pnode *P, InfoList info, DataList type);
 
 // IS : l tidak kosong
 // FS : mendealokasi/menghapus seluruh isi list 
@@ -165,11 +165,11 @@ int count_list(List L);
 
 // IS : L mungkin kosong, program ingin mengetahui pnode node sebelum pnode node dengan nilai info
 // FS : function akan mencari tahu apakah ada node dengan nilai info?, jika ada maka function akan mereturn pnode node sebelumnya, jika tidak ada return Nil
-pnode search_prec(List L, infotype info);
+pnode search_prec(List L, InfoList info);
 
 // IS : L mungkin kosong, program ingin mengetahui pnode node dengan nilai info
 // FS : jika ada maka akan return pnode node tersebut, jika tidak ada maka akan return Nil
-pnode search_by_value(pnode P, infotype info);
+pnode search_by_value(pnode P, InfoList info);
 
 /*================================================================*/
 /*===================== ADDITIONAL FUNCTIONS =====================*/
@@ -188,10 +188,12 @@ void reverse_list(List *L);
 // Catatan: Untuk list string, semua string akan di-deep copy
 void copy_list(List L1, List *L2);
 
+boolean compare_list(List L1, List L2);
+
 // Function untuk mendapatkan nilai di posisi depan
-infotype get_front_value(List L);
+InfoList get_front_value(List L);
 
 // Function untuk mendapatkan nilai di posisi belakang
-infotype get_tail_value(List L);
+InfoList get_tail_value(List L);
 
 #endif /* LINKED_H */

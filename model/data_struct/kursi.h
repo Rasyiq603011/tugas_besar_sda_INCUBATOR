@@ -1,8 +1,8 @@
 #ifndef KURSI_H
 #define KURSI_H
 #include "../boolean.h"
-#define MAX_ROW 10
-#define MAX_COL 30
+#include <stdlib.h>
+#include <assert.h>
 
 typedef char* String;
 
@@ -21,15 +21,15 @@ typedef struct DataKursi Kursi;
 // ============ CONSTRUCTOR SECTION ==============
 // ===============================================
 
-Kursi* constructor(String id, boolean status, KursiType tipe);
+Kursi* constructor_kursi(int id, boolean status, KursiType tipe);
 
-void create_new_kursi(Kursi* new_kursi, String id, boolean status, KursiType tipe);
+void create_new_kursi(Kursi** new_kursi, int id, boolean status, KursiType tipe);
 
 // ===============================================
 // ============== ACCESSOR SECTION ===============
 // ===============================================
 
-String get_id_kursi(Kursi* current_kursi);
+int get_id_kursi(Kursi* current_kursi);
 
 boolean get_status_kursi(Kursi* current_kursi);
 
@@ -39,7 +39,7 @@ KursiType get_tipe_kursi(Kursi* current_kursi);
 // =============== MUTATOR SECTION ===============
 // ===============================================
 
-void set_id_kursi(Kursi* current_kursi, String new_id);
+void set_id_kursi(Kursi* current_kursi, int new_id);
 
 void set_status_kursi(Kursi* current_kursi, boolean new_status);
 
@@ -49,6 +49,8 @@ void set_tipe_kursi(Kursi* current_kursi, KursiType new_tipe);
 // ============ DESTRUCTOR SECTION ===============
 // ===============================================
 
-void destructor(Kursi* current_kursi);
+void destructor_kursi(Kursi* current_kursi);
+
+int compare_kursi_value(const Kursi* kursi_pertama, const Kursi* kursi_kedua);
 
 #endif /*KURSI_H*/
