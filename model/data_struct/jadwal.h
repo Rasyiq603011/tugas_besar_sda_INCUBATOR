@@ -22,7 +22,9 @@ void create_jadwal(Jadwal** new_jadwal, Time waktu, date tanggal,int harga_tiket
 // ============== ACCESSOR SECTION ===============
 // ===============================================
 
-Time get_waktu_tayang(Jadwal* current_jadwal);
+Time get_waktu_start(Jadwal* current_jadwal);
+
+Time get_waktu_end(Jadwal* current_jadwal);
 
 date get_tanggal_tayang(Jadwal* current_jadwal);
 
@@ -60,10 +62,6 @@ void destructor_jadwal(Jadwal* current_jadwal);
 // ===============================================
 // ============ ADDITIONAL SECTION ===============
 // ===============================================
-
-int compare_time(const Time* t1, const Time* t2);
-
-int compare_date(const date* d1, const date* d2);
 
 int compare_daftar_kursi(Kursi** kursi_pertama, Kursi** kursi_kedua, int jumlah);
 

@@ -53,4 +53,8 @@ void destructor_studio(Studio* current_studio);
 
 int compare_studio_value(const Studio* studio_pertama, const Studio* studio_kedua);
 
+List* get_jadwal_by_date(List jadwal, date tanggal);
+
+int is_exits_jadwal(List Jadwal, date tanggal, Time start, Time end);
+
 #endif /*STUDIO_H*/

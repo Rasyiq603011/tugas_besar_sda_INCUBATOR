@@ -1,7 +1,8 @@
 #include "jadwal.h"
 
 struct DataJadwal{
-    Time waktu_tayang;
+    Time waktu_start;
+    Time waktu_end;
     date tanggal_tayang;
     Film* film;
     int harga_tiket;
@@ -13,13 +14,14 @@ struct DataJadwal{
 // ============ CONSTRUCTOR SECTION ==============
 // ===============================================
 
-Jadwal* constructor_jadwal(Time waktu, date tanggal,int harga_tiket, Film* film, int jumlah_kursi)
+Jadwal* constructor_jadwal(Time waktu_start, Time Waktu_end, date tanggal,int harga_tiket, Film* film, int jumlah_kursi)
 {
     if (jumlah_kursi <= 0) {return NULL;}
     int current_kursi, tipe;
     Jadwal* new_jadwal = (Jadwal*) malloc (sizeof(Jadwal));
     if (!new_jadwal) {return NULL;}
-    new_jadwal->waktu_tayang = waktu;
+    new_jadwal->waktu_start = waktu_start;
+    new_jadwal->waktu_end = Waktu_end;
     new_jadwal->tanggal_tayang = tanggal;
     new_jadwal->film = film;
     new_jadwal->harga_tiket = harga_tiket >= 0 ? harga_tiket : 0;
@@ -44,18 +46,23 @@ Jadwal* constructor_jadwal(Time waktu, date tanggal,int harga_tiket, Film* film,
     return new_jadwal;
 }
 
-void create_jadwal(Jadwal** new_jadwal, Time waktu, date tanggal,int harga_tiket, Film* film, int jumlah_kursi)
+void create_jadwal(Jadwal** new_jadwal, Time waktu_start, Time waktu_end, date tanggal,int harga_tiket, Film* film, int jumlah_kursi)
 {
-    *new_jadwal = constructor_jadwal(waktu, tanggal, harga_tiket, film, jumlah_kursi);
+    *new_jadwal = constructor_jadwal(waktu_start, waktu_end, tanggal, harga_tiket, film, jumlah_kursi);
 }
 
 // ===============================================
 // ============== ACCESSOR SECTION ===============
 // ===============================================
 
-Time get_waktu_tayang(Jadwal* current_jadwal)
+Time get_waktu_start(Jadwal* current_jadwal)
 {
-    return current_jadwal ? current_jadwal->waktu_tayang : (Time){0,0,0};
+    return current_jadwal ? current_jadwal->waktu_start: (Time){0,0,0};
+}
+
+Time get_waktu_end(Jadwal* current_jadwal)
+{
+    return current_jadwal ? current_jadwal->waktu_end: (Time){0,0,0};
 }
 
 date get_tanggal_tayang(Jadwal* current_jadwal)
@@ -98,11 +105,19 @@ Kursi* get_kursi_value_by_index(Jadwal* current_jadwal, int index)
 // =============== MUTATOR SECTION ===============
 // ===============================================
 
-void set_waktu_tayang(Jadwal* current_jadwal, Time new_time)
+void set_waktu_start(Jadwal* current_jadwal, Time new_time)
 {
     if (current_jadwal) 
     {
-        current_jadwal->waktu_tayang = new_time;
+        current_jadwal->waktu_start = new_time;
+    }
+}
+
+void set_waktu_end(Jadwal* current_jadwal, Time new_time)
+{
+    if (current_jadwal) 
+    {
+        current_jadwal->waktu_end = new_time;
     }
 }
 
@@ -152,14 +167,6 @@ void destructor_jadwal(Jadwal* current_jadwal)
 // ============ ADDITIONAL SECTION ===============
 // ===============================================
 
-int compare_time(const Time* t1, const Time* t2) {
-    return t1 && t2 && (t1->jam == t2->jam) && (t1->menit == t2->menit) && (t1->detik == t2->detik);
-}
-
-int compare_date(const date* d1, const date* d2) {
-    return d1 && d2 && (d1->Tgl == d2->Tgl) && (d1->Bln == d2->Bln) && (d1->Thn == d2->Thn);
-}
-
 int compare_daftar_kursi(Kursi** kursi_pertama, Kursi** kursi_kedua, int jumlah) {
     if (!kursi_pertama || !kursi_kedua) return 0;
     int current_kursi;
@@ -175,8 +182,9 @@ int compare_jadwal_value(const Jadwal* jadwal_pertama, const Jadwal* jadwal_kedu
 
     return 
     (
-        compare_time(&jadwal_pertama->waktu_tayang, &jadwal_kedua->waktu_tayang) &&
-        compare_date(&jadwal_pertama->tanggal_tayang, &jadwal_kedua->tanggal_tayang) &&
+        CompareTime(jadwal_pertama->waktu_start, jadwal_kedua ->waktu_start) &&
+        CompareTime(jadwal_pertama->waktu_end, jadwal_kedua->waktu_end) &&
+        compare_date(jadwal_pertama->tanggal_tayang, jadwal_kedua->tanggal_tayang) &&
         (jadwal_pertama->harga_tiket == jadwal_kedua->harga_tiket) &&
         (jadwal_pertama->jumlah_tiket == jadwal_kedua->jumlah_tiket) &&
         compare_daftar_kursi(jadwal_pertama->daftar_kursi, jadwal_kedua->daftar_kursi, jadwal_pertama->jumlah_tiket)

@@ -1,90 +1,62 @@
-#ifndef date_h
-#define date_h
+#ifndef DATE_H
+#define DATE_H
+
 #include "boolean.h"
-#include <conio.h>
-#include <stdlib.h> 
 #include <stdio.h>
-#include <math.h>
+#include <stdlib.h>
 #include <string.h>
 #include <time.h>
 
-/***************************/
-/* Type data */
-/***************************/
-/* Kamus */
-typedef struct { int Tgl; int Bln; int Thn;} date;
+/* Tipe data untuk tanggal */
+typedef struct {
+    int Tgl;
+    int Bln;
+    int Thn;
+} date;
 
-
-/*************************************/
-/* S P E S I F I K A S I   M O D U L */
-/*************************************/
-
-/*********** Operasi Primitif ************/
-void CreateDate (date * D);
-/* Constructor Membentuk sebuah DATE, dengan nilai default adalah 1/01/1900 */
+/*********** Konstruktor dan Selektor ************/
+void CreateDate(date *D);
 
 date getTodayDate();
 
-/******* Selector komponen **********/
-int GetTgl (date D);
-/* Mengambil bagian Tgl dari date */
+int GetTgl(date D);
 
-int GetBln (date D);
-/* Mengambil bagian Bln dari date */
+int GetBln(date D);
 
-int GetThn (date D);
-/* Mengambil bagian Thn dari date */
+int GetThn(date D);
 
-/****** Pengubah komponen ******/
-void SetTgl (int NewTgl, date * D);
-/* Memberi nilai untuk Tgl */
+void SetTgl(int NewTgl, date *D);
 
-void SetBln (int NewBln, date * D);
-/* Memberi nilai untuk Bln */
+void SetBln(int NewBln, date *D);
 
-void SetThn (int NewThn, date * D);
-/* Memberi nilai untuk Thn */
+void SetThn(int NewThn, date *D);
 
-/****** Kelompok Interaksi dengan I/O device, BACA/TULIS ******/
+/*********** Validasi ************/
+boolean isKabisat(date D);
 
-int getInt(const char *prompt);
-
-void ReadDate (date * D);
-/* Membentuk DATE dari iTgl, iBln dan iThn yang dibaca dari keyboard */
+int getEndDate(date D);
 
 boolean isValid(date D);
-/* Memeriksa apakah suatu tanggal valid, yaitu dengan memperhatikan batas akhir per bulan */
 
-void PrintObj (date D);
-/* Print nilai D dengan format dd/mm/yyyy */
+/*********** Operasi Tanggal ************/
+date DateBefore(date D);
 
-/****** Operator Relasional ******/
-boolean isKabisat (date D);
-/* Memeriksa apakah suatu tanggal adalah kabisat; Dipakai untuk bulan == 2 saja */
+date NextDate(date D);
 
-/***** Predikat lain *******/
+int DateDifference(date d1, date d2);
 
-int getEndDate (date D);
-/* Memberikan tanggal terakhir dari sebuah bulan */
+int compare_date(const date d1, const date d2);
 
-void DateBefore (date D);
-/* Menampilkan tanggal sebelumnya dari sebuah Date
-I.S = Tanggal tertentu diketahui
-F.S = Tanggal sebelumnya diketahui
-Hal yang perlu diketahui : Batas akhir tiap bulan dan jika jan, thn-1*/
+/*********** I/O ************/
+int getInt(const char *prompt);
 
-void NextDate (date D);
-/* Menampilkan tanggal berikutnya dari sebuah Date
-I.S = Tanggal tertentu diketahui
-F.S = Tanggal berikutnya diketahui
-Hal yang perlu diketahui : Batas akhir tiap bulan dan jika
-des, thn+1 */
+void ReadDate(date *D);
 
-void DifferenceDate (date D1, date D2);
-/* Menampilkan selisih dua tanggal
-I.S = 2 buah Tanggal tertentu diketahui
-F.S = Tampil selisih dua buah tanggal
-Asumsi : 1 tahun = 365 hari */
+void PrintObj(date D);
+
+/*********** Konversi String ************/
+boolean string_to_date(const char* str, date* D);
+
+char* date_to_string(date D);
 
 #endif
-

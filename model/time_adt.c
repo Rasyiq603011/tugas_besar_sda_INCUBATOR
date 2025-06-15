@@ -1,30 +1,44 @@
 #include "time_adt.h"
+#include <stdlib.h>
+#include <string.h>
 
-/* Konstruktor default */
+/* ======== Konstruktor ======== */
 void CreateTime(Time *T) {
     T->jam = 0;
     T->menit = 0;
     T->detik = 0;
 }
 
-/* Selector */
+void SetTime(Time *T, int jam, int menit, int detik) {
+    T->jam = jam;
+    T->menit = menit;
+    T->detik = detik;
+}
+
+void CopyTime(Time *dest, Time src) {
+    dest->jam = src.jam;
+    dest->menit = src.menit;
+    dest->detik = src.detik;
+}
+
+/* ======== Selector ======== */
 int GetJam(Time T) { return T.jam; }
 int GetMenit(Time T) { return T.menit; }
 int GetDetik(Time T) { return T.detik; }
 
-/* Mutator */
-void SetJam(int J, Time *T) { T->jam = J; }
-void SetMenit(int M, Time *T) { T->menit = M; }
-void SetDetik(int D, Time *T) { T->detik = D; }
+/* ======== Mutator ======== */
+void SetJam(int jam, Time *T) { T->jam = jam; }
+void SetMenit(int menit, Time *T) { T->menit = menit; }
+void SetDetik(int detik, Time *T) { T->detik = detik; }
 
-/* Validasi */
+/* ======== Validasi ======== */
 bool isValidTime(Time T) {
-    return (T.jam >= 0 && T.jam <= 23 &&
-            T.menit >= 0 && T.menit <= 59 &&
-            T.detik >= 0 && T.detik <= 59);
+    return T.jam >= 0 && T.jam <= 23 &&
+           T.menit >= 0 && T.menit <= 59 &&
+           T.detik >= 0 && T.detik <= 59;
 }
 
-/* Baca dari keyboard */
+/* ======== Input/Output ======== */
 void ReadTime(Time *T) {
     printf("Masukkan Jam   : "); scanf("%d", &T->jam);
     printf("Masukkan Menit : "); scanf("%d", &T->menit);
@@ -36,12 +50,29 @@ void ReadTime(Time *T) {
     }
 }
 
-/* Cetak */
 void PrintTime(Time T) {
     printf("%02d:%02d:%02d\n", T.jam, T.menit, T.detik);
 }
 
-/* Waktu sistem saat ini */
+bool string_to_time(const char *str, Time *T) {
+    int h, m, s;
+    if (sscanf(str, "%d:%d:%d", &h, &m, &s) == 3) {
+        SetTime(T, h, m, s);
+        return isValidTime(*T);
+    }
+    return false;
+}
+
+char* time_to_string(Time T) {
+    char *result = (char *)malloc(9);
+    if (result != NULL) {
+        sprintf(result, "%02d:%02d:%02d", T.jam, T.menit, T.detik);
+    }
+    return result;
+}
+
+
+/* ======== Sistem Waktu ======== */
 Time getCurrentTime() {
     Time now;
     time_t t = time(NULL);
@@ -54,15 +85,14 @@ Time getCurrentTime() {
     return now;
 }
 
-/* Konversi waktu ke detik */
+/* ======== Konversi ======== */
 int TimeToSecond(Time T) {
     return T.jam * 3600 + T.menit * 60 + T.detik;
 }
 
-/* Konversi detik ke waktu */
 Time SecondToTime(int seconds) {
     Time T;
-    seconds = seconds % 86400; // dalam satu hari
+    seconds = seconds % 86400; // satu hari
     T.jam = seconds / 3600;
     seconds %= 3600;
     T.menit = seconds / 60;
@@ -70,11 +100,34 @@ Time SecondToTime(int seconds) {
     return T;
 }
 
-/* Perbandingan waktu */
+/* ======== Operasi ======== */
+void AddSecond(Time *T, int seconds) {
+    int total = TimeToSecond(*T) + seconds;
+    *T = SecondToTime(total);
+}
+
+bool isEqualTime(Time T1, Time T2) {
+    return T1.jam == T2.jam &&
+           T1.menit == T2.menit &&
+           T1.detik == T2.detik;
+}
+
 int CompareTime(Time T1, Time T2) {
     int s1 = TimeToSecond(T1);
     int s2 = TimeToSecond(T2);
     if (s1 < s2) return -1;
     else if (s1 > s2) return 1;
     else return 0;
+}
+
+bool is_time_in_arrange(Time batas_awal, Time batas_akhir, Time check) {
+    int t_awal = TimeToSecond(batas_awal);
+    int t_akhir = TimeToSecond(batas_akhir);
+    int t_check = TimeToSecond(check);
+
+    if (t_awal <= t_akhir) {
+        return (t_awal <= t_check && t_check <= t_akhir);
+    } else {
+        return (t_check >= t_awal || t_check <= t_akhir); // lintas tengah malam
+    }
 }

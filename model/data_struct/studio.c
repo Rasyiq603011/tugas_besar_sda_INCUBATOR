@@ -116,3 +116,42 @@ int compare_studio_value(const Studio* studio_pertama, const Studio* studio_kedu
     compare_list(*(studio_pertama->jadwal_studio), *(studio_kedua->jadwal_studio))
     );
 }
+
+List* get_jadwal_by_date(List jadwal, date tanggal)
+{
+    if (ListEmpty) return NULL;
+
+    List* filter_list;
+    CreateList(filter_list);
+    pnode current_jadwal;
+    current_jadwal = jadwal.First;
+
+    while (current_jadwal != NULL)
+    {
+        if (compare_date(get_tanggal_tayang(info_jadwal(current_jadwal)), tanggal))
+        {
+            insert_value_last(&(filter_list->First), Info(current_jadwal), Type(current_jadwal));
+        }
+    }
+    return filter_list;
+} 
+
+int is_exits_jadwal(List Jadwal, date tanggal, Time start, Time end)
+{
+    if (ListEmpty(Jadwal)) return 0;
+    List* filter_list = get_jadwal_by_date(Jadwal, tanggal);
+    pnode current_jadwal;
+    current_jadwal = filter_list->First;
+    while (current_jadwal != NULL)
+    {
+        if (is_time_in_arrange(get_waktu_start(info_jadwal(current_jadwal)), 
+                               get_waktu_end(info_jadwal(current_jadwal)), start) ||
+            is_time_in_arrange(get_waktu_start(info_jadwal(current_jadwal)), 
+                               get_waktu_end(info_jadwal(current_jadwal)), end)
+            )
+        {
+            return 1;
+        }
+    }
+    return 0;
+}

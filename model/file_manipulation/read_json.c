@@ -1,8 +1,8 @@
 #include "read_json.h"
 
-cJSON* load_json_file() 
+cJSON* load_json_file(const char* filename) 
 {
-    FILE* file = fopen(FILENAME, "rb");
+    FILE* file = fopen(filename, "rb");
     if (!file) return cJSON_CreateArray();
 
     fseek(file, 0, SEEK_END);
@@ -10,6 +10,11 @@ cJSON* load_json_file()
     rewind(file);
 
     char* data = (char*)malloc(size + 1);
+    if (!data) 
+    {
+        fclose(file);
+        return cJSON_CreateArray();
+    }
     fread(data, 1, size, file);
     data[size] = '\0';
     fclose(file);
@@ -19,13 +24,19 @@ cJSON* load_json_file()
     return bioskop_database ? bioskop_database : cJSON_CreateArray();
 }
 
-
 Time json_to_time(cJSON* obj) 
 {
-    Time current_time;
-    current_time.jam = cJSON_GetObjectItem(obj, "jam")->valueint;
-    current_time.menit = cJSON_GetObjectItem(obj, "menit")->valueint;
-    current_time.detik = cJSON_GetObjectItem(obj, "detik")->valueint;
+    Time current_time = {0};
+    if (!obj) return current_time;
+
+    cJSON* jam = cJSON_GetObjectItem(obj, "jam");
+    cJSON* menit = cJSON_GetObjectItem(obj, "menit");
+    cJSON* detik = cJSON_GetObjectItem(obj, "detik");
+
+    if (cJSON_IsNumber(jam)) current_time.jam = jam->valueint;
+    if (cJSON_IsNumber(menit)) current_time.menit = menit->valueint;
+    if (cJSON_IsNumber(detik)) current_time.detik = detik->valueint;
+
     return current_time;
 }
 
@@ -41,7 +52,7 @@ date json_to_date(cJSON* obj)
 Kursi* json_to_kursi(cJSON* obj) 
 {
     Kursi* current_kursi;
-    const char* id = cJSON_GetObjectItem(obj, "id")->valuestring;
+    int id = cJSON_GetObjectItem(obj, "id")->valueint;
     boolean status = cJSON_IsTrue(cJSON_GetObjectItem(obj, "status"));
     KursiType tipe = cJSON_GetObjectItem(obj, "tipe")->valueint;
     create_new_kursi(&current_kursi, id, status, tipe);
