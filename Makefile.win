@@ -1,0 +1,133 @@
+# Project: Cinematique_TUBES_SDA_2025
+# Makefile created by Dev-C++ 5.11
+
+CPP      = g++.exe -D__DEBUG__
+CC       = gcc.exe -D__DEBUG__
+WINDRES  = windres.exe
+OBJ      = bin/Main.o bin/kursi_view.o bin/message_view.o bin/tampilan_bioskop.o bin/tampilan_kota.o bin/tampilan_negara.o bin/tampilan_provinsi.o bin/tampilan_riwayat.o bin/tampilan_studio.o bin/view.o bin/admin.o bin/bioskop.o bin/event.o bin/film.o bin/jadwal.o bin/kota.o bin/kursi.o bin/negara.o bin/provinsi.o bin/riwayat.o bin/studio.o bin/user.o bin/crud_film.o bin/read_json.o bin/write_json.o bin/date.o bin/linked.o bin/time_adt.o bin/tree_data.o bin/handle_database.o bin/handle_menu.o bin/handle_menu_pemilihan.o bin/handle_pemilihan_kursi.o bin/handle_pemilihan_pengguna.o bin/handle_tampilan_riwayat.o bin/cJSON.o
+LINKOBJ  = bin/Main.o bin/kursi_view.o bin/message_view.o bin/tampilan_bioskop.o bin/tampilan_kota.o bin/tampilan_negara.o bin/tampilan_provinsi.o bin/tampilan_riwayat.o bin/tampilan_studio.o bin/view.o bin/admin.o bin/bioskop.o bin/event.o bin/film.o bin/jadwal.o bin/kota.o bin/kursi.o bin/negara.o bin/provinsi.o bin/riwayat.o bin/studio.o bin/user.o bin/crud_film.o bin/read_json.o bin/write_json.o bin/date.o bin/linked.o bin/time_adt.o bin/tree_data.o bin/handle_database.o bin/handle_menu.o bin/handle_menu_pemilihan.o bin/handle_pemilihan_kursi.o bin/handle_pemilihan_pengguna.o bin/handle_tampilan_riwayat.o bin/cJSON.o
+LIBS     = -L"C:/Program Files (x86)/Dev-Cpp/MinGW64/lib" -L"C:/Program Files (x86)/Dev-Cpp/MinGW64/x86_64-w64-mingw32/lib" -static-libgcc -g3
+INCS     = -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/include" -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/x86_64-w64-mingw32/include" -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/lib/gcc/x86_64-w64-mingw32/4.9.2/include"
+CXXINCS  = -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/include" -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/x86_64-w64-mingw32/include" -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/lib/gcc/x86_64-w64-mingw32/4.9.2/include" -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/lib/gcc/x86_64-w64-mingw32/4.9.2/include/c++"
+BIN      = Cinematique_TUBES_SDA_2025.exe
+CXXFLAGS = $(CXXINCS) -ansi -std=c99 -Werror -g3
+CFLAGS   = $(INCS) -ansi -std=c99 -Werror -g3 -std=c99
+RM       = rm.exe -f
+
+.PHONY: all all-before all-after clean clean-custom
+
+all: all-before $(BIN) all-after
+
+clean: clean-custom
+	${RM} $(OBJ) $(BIN)
+
+$(BIN): $(OBJ)
+	$(CC) $(LINKOBJ) -o $(BIN) $(LIBS)
+
+bin/Main.o: src/Main.c
+	$(CC) -c src/Main.c -o bin/Main.o $(CFLAGS)
+
+bin/kursi_view.o: src/view/kursi_view.c
+	$(CC) -c src/view/kursi_view.c -o bin/kursi_view.o $(CFLAGS)
+
+bin/message_view.o: src/view/message_view.c
+	$(CC) -c src/view/message_view.c -o bin/message_view.o $(CFLAGS)
+
+bin/tampilan_bioskop.o: src/view/tampilan_bioskop.c
+	$(CC) -c src/view/tampilan_bioskop.c -o bin/tampilan_bioskop.o $(CFLAGS)
+
+bin/tampilan_kota.o: src/view/tampilan_kota.c
+	$(CC) -c src/view/tampilan_kota.c -o bin/tampilan_kota.o $(CFLAGS)
+
+bin/tampilan_negara.o: src/view/tampilan_negara.c
+	$(CC) -c src/view/tampilan_negara.c -o bin/tampilan_negara.o $(CFLAGS)
+
+bin/tampilan_provinsi.o: src/view/tampilan_provinsi.c
+	$(CC) -c src/view/tampilan_provinsi.c -o bin/tampilan_provinsi.o $(CFLAGS)
+
+bin/tampilan_riwayat.o: src/view/tampilan_riwayat.c
+	$(CC) -c src/view/tampilan_riwayat.c -o bin/tampilan_riwayat.o $(CFLAGS)
+
+bin/tampilan_studio.o: src/view/tampilan_studio.c
+	$(CC) -c src/view/tampilan_studio.c -o bin/tampilan_studio.o $(CFLAGS)
+
+bin/view.o: src/view/view.c
+	$(CC) -c src/view/view.c -o bin/view.o $(CFLAGS)
+
+bin/admin.o: src/model/data_struct/admin.c
+	$(CC) -c src/model/data_struct/admin.c -o bin/admin.o $(CFLAGS)
+
+bin/bioskop.o: src/model/data_struct/bioskop.c
+	$(CC) -c src/model/data_struct/bioskop.c -o bin/bioskop.o $(CFLAGS)
+
+bin/event.o: src/model/data_struct/event.c
+	$(CC) -c src/model/data_struct/event.c -o bin/event.o $(CFLAGS)
+
+bin/film.o: src/model/data_struct/film.c
+	$(CC) -c src/model/data_struct/film.c -o bin/film.o $(CFLAGS)
+
+bin/jadwal.o: src/model/data_struct/jadwal.c
+	$(CC) -c src/model/data_struct/jadwal.c -o bin/jadwal.o $(CFLAGS)
+
+bin/kota.o: src/model/data_struct/kota.c
+	$(CC) -c src/model/data_struct/kota.c -o bin/kota.o $(CFLAGS)
+
+bin/kursi.o: src/model/data_struct/kursi.c
+	$(CC) -c src/model/data_struct/kursi.c -o bin/kursi.o $(CFLAGS)
+
+bin/negara.o: src/model/data_struct/negara.c
+	$(CC) -c src/model/data_struct/negara.c -o bin/negara.o $(CFLAGS)
+
+bin/provinsi.o: src/model/data_struct/provinsi.c
+	$(CC) -c src/model/data_struct/provinsi.c -o bin/provinsi.o $(CFLAGS)
+
+bin/riwayat.o: src/model/data_struct/riwayat.c
+	$(CC) -c src/model/data_struct/riwayat.c -o bin/riwayat.o $(CFLAGS)
+
+bin/studio.o: src/model/data_struct/studio.c
+	$(CC) -c src/model/data_struct/studio.c -o bin/studio.o $(CFLAGS)
+
+bin/user.o: src/model/data_struct/user.c
+	$(CC) -c src/model/data_struct/user.c -o bin/user.o $(CFLAGS)
+
+bin/crud_film.o: src/model/file_manipulation/crud_film.c
+	$(CC) -c src/model/file_manipulation/crud_film.c -o bin/crud_film.o $(CFLAGS)
+
+bin/read_json.o: src/model/file_manipulation/read_json.c
+	$(CC) -c src/model/file_manipulation/read_json.c -o bin/read_json.o $(CFLAGS)
+
+bin/write_json.o: src/model/file_manipulation/write_json.c
+	$(CC) -c src/model/file_manipulation/write_json.c -o bin/write_json.o $(CFLAGS)
+
+bin/date.o: src/model/date.c
+	$(CC) -c src/model/date.c -o bin/date.o $(CFLAGS)
+
+bin/linked.o: src/model/linked.c
+	$(CC) -c src/model/linked.c -o bin/linked.o $(CFLAGS)
+
+bin/time_adt.o: src/model/time_adt.c
+	$(CC) -c src/model/time_adt.c -o bin/time_adt.o $(CFLAGS)
+
+bin/tree_data.o: src/model/tree_data.c
+	$(CC) -c src/model/tree_data.c -o bin/tree_data.o $(CFLAGS)
+
+bin/handle_database.o: src/controller/handle_database.c
+	$(CC) -c src/controller/handle_database.c -o bin/handle_database.o $(CFLAGS)
+
+bin/handle_menu.o: src/controller/handle_menu.c
+	$(CC) -c src/controller/handle_menu.c -o bin/handle_menu.o $(CFLAGS)
+
+bin/handle_menu_pemilihan.o: src/controller/handle_menu_pemilihan.c
+	$(CC) -c src/controller/handle_menu_pemilihan.c -o bin/handle_menu_pemilihan.o $(CFLAGS)
+
+bin/handle_pemilihan_kursi.o: src/controller/handle_pemilihan_kursi.c
+	$(CC) -c src/controller/handle_pemilihan_kursi.c -o bin/handle_pemilihan_kursi.o $(CFLAGS)
+
+bin/handle_pemilihan_pengguna.o: src/controller/handle_pemilihan_pengguna.c
+	$(CC) -c src/controller/handle_pemilihan_pengguna.c -o bin/handle_pemilihan_pengguna.o $(CFLAGS)
+
+bin/handle_tampilan_riwayat.o: src/controller/handle_tampilan_riwayat.c
+	$(CC) -c src/controller/handle_tampilan_riwayat.c -o bin/handle_tampilan_riwayat.o $(CFLAGS)
+
+bin/cJSON.o: src/model/file_manipulation/cJSON.c
+	$(CC) -c src/model/file_manipulation/cJSON.c -o bin/cJSON.o $(CFLAGS)

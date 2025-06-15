@@ -5,7 +5,15 @@
     "time_adt.h": "c",
     "time.h": "c",
     "date.h": "c",
-    "film.h": "c"
+    "film.h": "c",
+    "linked.h": "c",
+    "type_traits": "c",
+    "studio.h": "c",
+    "write_json.h": "c",
+    "cjson.h": "c",
+    "read_json.h": "c",
+    "kursi.h": "c",
+    "tree_data.h": "c"
   },
   "C_Cpp_Runner.cCompilerPath": "gcc",
   "C_Cpp_Runner.cppCompilerPath": "g++",
