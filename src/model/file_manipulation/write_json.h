@@ -9,6 +9,7 @@
 #include "../tree_data.h"
 
 #define DATABASE_BIOSKOP "../../assets/bioskop_database.json"
+#define DATABASE_USER "../assets/users.json"
 
 cJSON* kursi_to_json(Kursi* current_kursi);
 
@@ -27,5 +28,7 @@ cJSON* negara_to_json(Negara* current_negara, address provinsi_node);
 cJSON* tree_to_json(address node_tree);
 
 void save_tree_to_file(address root, const char* filename);
+
+void save_user_to_json(User* user); 
 
 #endif
