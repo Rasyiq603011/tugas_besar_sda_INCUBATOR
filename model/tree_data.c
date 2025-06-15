@@ -23,16 +23,16 @@ address create_node(InfoType info, DataType tipe)
 
     switch(tipe){
         case TYPE_PROVINSI:
-            // create_provinsi(&(new_node->info.provinsi), get_name);
+            create_provinsi(&(new_node)->info.provinsi, get_name_provinsi(info.provinsi), get_pendapatan_provinsi(info.provinsi), get_jumlah_bioskop_provinsi(info.provinsi));
             break;
         case TYPE_KOTA:
-            // create_kota(&(new_node->info.kota));
+            create_kota(&(new_node->info.kota), get_name_kota(info.kota), get_pendapatan_kota(info.kota), get_jumlah_bioskop_kota(info.kota));
             break;
         case TYPE_BIOSKOP:
-            // create_bioskop(&(new_node->info.bioskop), ); 
+            create_bioskop(&(new_node->info.bioskop), get_name_bioskop(info.bioskop), get_pendapatan_bioskop(info.bioskop), get_alamat_bioskop(info.bioskop)); 
             break;
         case TYPE_STUDIO:
-            // create_studio(&(new_node->info.studio));
+            create_studio(&(new_node->info.studio), get_name_studio(info.studio), get_pendapatan_studio(info.studio), get_jumlah_kursi_studio(info.studio));
             break;
     }   
     return new_node;
@@ -103,6 +103,40 @@ InfoType get_info_node(address P)
 DataType get_tipe_node(address P)
 {
     return P->tipe;
+}
+
+// Mengembalikan jumlah leaf pada tree
+int get_jumlah_leaf(address P)
+{
+    if (P == NULL) return 0;
+
+    if (P->first_son == NULL) return 1;
+    
+    int jumlah_leaf = 0;
+    address anak = P->first_son;
+    while (anak != NULL)
+    {
+        jumlah_leaf += get_jumlah_leaf(anak);
+        anak = anak->next_brother;
+    }
+    return jumlah_leaf;
+}
+
+// Mengembalikan jumlah node dengan tipe tertentu pada tree
+int get_jumlah_node_by_type(address P, DataType tipe)
+{
+    if (P == NULL) return 0;
+
+    int jumlah_node = 0;
+
+    if (P->tipe == tipe)
+    {
+        jumlah_node = 1;
+    }
+
+    jumlah_node += get_jumlah_node_by_type(P->first_son, tipe);
+    jumlah_node += get_jumlah_node_by_type(P->next_brother, tipe);
+    return jumlah_node;
 }
 
 // ===================================================
@@ -205,4 +239,3 @@ void TraverseBFS(Tree T, void (*Process)(address)) {
     #undef MAX_QUEUE
 }
 
-//int get_jumlah_anak(Tree T, )

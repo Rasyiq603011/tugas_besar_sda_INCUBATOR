@@ -10,6 +10,17 @@
 #include "stdlib.h"
 #include "stdbool.h"
 
+#define info_integer(P) ((P)->info.integer)
+#define info_string(P) ((P)->info.str)
+#define info_jadwal(P) ((P)->info.jadwal)
+#define info_event(P) ((P)->info.event)
+#define info_film(P) ((P)->info.film)
+#define NEGARA_INFO(x) ((InfoType){.negara = (X)})
+#define PROVINSI_INFO(x) ((InfoType){.provinsi = (x)})
+#define KOTA_INFO(x) ((InfoType){.kota = (x)})
+#define BIOSKOP_INFO(x) ((InfoType){.bioskop = (x)})
+#define STUDIO_INFO(x) ((InfoType){.studio = (x)})
+
 // ==============================
 // ==== TYPE DEFINITIONS ========
 // ==============================
@@ -66,6 +77,8 @@ address get_last_son(address P);
 address get_next_brother(address P);
 InfoType get_info_node(address P);
 DataType get_tipe_node(address P);
+int get_jumlah_leaf(address P);
+int get_jumlah_node_by_type(address P, DataType tipe);
 
 // Mutator
 void add_child(address parent, InfoType info, DataType tipe);
