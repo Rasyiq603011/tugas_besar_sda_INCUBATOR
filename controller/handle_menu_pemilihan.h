@@ -1,8 +1,0 @@
-#ifndef HANDLE_MENU_PEMILIHAN_H
-#define HANDLE_MENU_PEMILIHAN_H
-
-
-
-
-#endif /* HANDLE_MENU_PEMILIHAN_H*/
-
