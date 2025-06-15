@@ -11,15 +11,15 @@ void gotoxy(int x, int y)
 void display_menu(int opsi_terpilih, int jumlah_opsi, const char *options[jumlah_opsi], const char* header) 
 {
     system("cls"); 
-    gotoxy(30, 11); printf("============================================================\n");
+    gotoxy(30, 11); printf("=============================================================\n");
     gotoxy(30, 12); printf("|%*s%s%*s|\n", (60 - strlen(header)) / 2, "", header, (60 - strlen(header)) / 2, "");
-    gotoxy(30, 13); printf("============================================================\n");
+    gotoxy(30, 13); printf("=============================================================\n");
     int urutan_pilihan;
     for(urutan_pilihan=0 ; urutan_pilihan<jumlah_opsi+2 ; urutan_pilihan++) 
     {
-        gotoxy(30,14+urutan_pilihan);printf("|                                                          |");
+        gotoxy(30,14+urutan_pilihan);printf("|                                                           |");
     }
-    gotoxy(30,16+jumlah_opsi);printf("============================================================");
+    gotoxy(30,16+jumlah_opsi);printf("=============================================================");
     for (urutan_pilihan = 0; urutan_pilihan < jumlah_opsi; urutan_pilihan++) 
     {
         if (urutan_pilihan == opsi_terpilih) 
