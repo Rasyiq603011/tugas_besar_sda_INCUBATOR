@@ -189,6 +189,28 @@ void delete_tree_rekursif(address P)
 
     delete_tree_rekursif(P->first_son);
     delete_tree_rekursif(P->next_brother);
+    
+    switch (P->tipe)
+    {
+    case TYPE_NEGARA:
+        destructor(P->info.negara);
+        break;
+    case TYPE_PROVINSI:
+        destructor_provinsi(P->info.provinsi);
+        break;
+    case TYPE_KOTA:
+        destructor_kota(P->info.kota);
+        break;
+    case TYPE_BIOSKOP:
+        destructor_bioskop(P->info.bioskop);
+        break;
+    case TYPE_STUDIO:
+        destructor_studio(P->info.studio);
+        break;
+    default:
+        break;
+    }
+    
     free(P);
 }
 

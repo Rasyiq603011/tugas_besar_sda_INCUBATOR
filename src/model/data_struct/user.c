@@ -41,6 +41,11 @@ Prioritas get_prioritas_user(User* user)
     return user->prioritas;
 }
 
+pnode get_pointer_to_riwayat(User* user)
+{
+    return user->riwayat.First;
+}
+
 // ===============================================
 // ============== MUTATOR SECTION ================
 // ===============================================
@@ -48,13 +53,13 @@ Prioritas get_prioritas_user(User* user)
 // Mengatur username baru untuk user
 void set_username_user(User* user, String username)
 {
-    user->username = username;
+    user->username = strdup(username);
 }
 
 // Mengatur password baru untuk user
 void set_password_user(User* user, String password)
 {
-    user->password = password;
+    user->password = strdup(password);
 }
 
 // Mengatur saldo baru untuk user
@@ -99,8 +104,8 @@ void add_riwayat_user(User* user, pnode new_riwayat)
 User* create_user(String username, String password, Prioritas prioritas)
 {
     User* user = (User*) malloc(sizeof(User));
-    user->username = username;
-    user->password = password;
+    user->username = strdup(username);
+    user->password = strdup(password);
     user->prioritas = prioritas;
     user->riwayat.First = NULL;
     return user;
@@ -122,3 +127,29 @@ void destroy_user(User* user)
     }
 }
 
+// ===============================================
+// ================== CONVERTER ==================
+// ===============================================
+
+int convert_list_to_array(List* list, void*** out_array)
+ {
+    int count = count_list(*list);
+    if (count == 0) 
+    {
+        *out_array = NULL;
+        return 0;
+    }
+
+    void** array = (void**)malloc(sizeof(void*) * count);
+    pnode curr = list->First;
+    int i = 0;
+
+    while (curr != NULL && i < count)
+    {
+        array[i++] = (void*) info_riwayat(curr); // cast Riwayat*
+        curr = Next(curr);
+    }
+
+    *out_array = array;
+    return count;
+}

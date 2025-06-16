@@ -4,9 +4,13 @@
 // ============== PEMILIHAN NEGARA SECTION ==============
 // ======================================================
 
-void handle_pemilihan_negara()
+void handle_pemilihan_negara(address root)
 {
-
+    void** array;
+    int jumlah = convert_children_to__array(root, &array);
+    int pilihan = scrollable_menu(array, jumlah, tampilan_negara, 4, 4);
+    free(array);
+    printf("Berhasil");
 }
 
 // ======================================================

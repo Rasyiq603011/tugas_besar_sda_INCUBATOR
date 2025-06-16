@@ -33,11 +33,17 @@ void display_menu(int opsi_terpilih, int jumlah_opsi, const char *options[jumlah
     }
 }
 
-void scrollable_menu(int jumlah_item, void (*render)(int idx, int y_pos, int selected, void* pointer_head), int tinggi_blok, int max_tampil, void* pointer_head) 
+int scrollable_menu(void** data_array, int jumlah_item, void (*render)(int idx, int y_pos, int selected, void* data), int tinggi_blok, int max_tampil)
 {
+    if (jumlah_item == 0 || data_array == NULL) 
+    {
+        printf("Tidak ada data untuk ditampilkan.\n");
+        return;
+    }
+
     int idx_terpilih = 0, key;
     int start = 0;
-	
+
     do {
         system("cls");
 
@@ -45,22 +51,27 @@ void scrollable_menu(int jumlah_item, void (*render)(int idx, int y_pos, int sel
             start = idx_terpilih;
         else if (idx_terpilih >= start + max_tampil)
             start = idx_terpilih - max_tampil + 1;
-		int i;
-        for (i = 0; i < max_tampil; i++) {
+
+        for (int i = 0; i < max_tampil; i++)
+         {
             int idx = start + i;
-            if (idx < jumlah_item) {
-                int y_pos = ((41-(max_tampil*tinggi_blok))/2) + i * tinggi_blok;
-                render(idx, y_pos, idx == idx_terpilih, pointer_head);
+            if (idx < jumlah_item)
+             {
+                int y_pos = ((41 - (max_tampil * tinggi_blok)) / 2) + i * tinggi_blok;
+                render(idx, y_pos, idx == idx_terpilih, data_array[idx]);
             }
         }
 
         key = getch();
-        if (key == 224) {
+        if (key == 224) 
+        {
             key = getch();
-            if (key == 72 && idx_terpilih > 0) idx_terpilih--;             // Panah atas
-            else if (key == 80 && idx_terpilih < jumlah_item - 1) idx_terpilih++;  // Panah bawah
+            if (key == 72 && idx_terpilih > 0) idx_terpilih--;
+            else if (key == 80 && idx_terpilih < jumlah_item - 1) idx_terpilih++;
         }
     } while (key != 13);
+
+    return idx_terpilih;
 }
 
 void clear_line(int y)
