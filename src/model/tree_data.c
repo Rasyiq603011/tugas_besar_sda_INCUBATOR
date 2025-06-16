@@ -139,6 +139,19 @@ int get_jumlah_node_by_type(address P, DataType tipe)
     return jumlah_node;
 }
 
+int get_jumlah_anak(address P)
+{
+    if (P == NULL) return 0;
+
+    int jumlah_anak = 1;
+    while (P->next_brother != NULL)
+    {
+        P = P->next_brother;
+        jumlah_anak++;
+    }
+    return jumlah_anak;
+}
+
 // ===================================================
 // ================== MUTATOR SECTION ================
 // ===================================================
@@ -237,5 +250,32 @@ void TraverseBFS(Tree T, void (*Process)(address)) {
     }
     
     #undef MAX_QUEUE
+}
+
+// ===================================================
+// ==================== CONVERTER ====================
+// ===================================================
+
+int convert_children_to__array(address parent, void*** out_array) 
+{
+    if (parent == NULL || parent->first_son == NULL)
+    {
+        *out_array = NULL;
+        return 0;
+    }
+
+    int count = get_jumlah_anak(parent->first_son);
+    void** array = (void**)malloc(sizeof(void*) * count);
+
+    address curr = parent->first_son;
+    int i = 0;
+    while (curr != NULL && i < count) 
+    {
+        array[i++] = (void*)curr;  // casting address to void*
+        curr = curr->next_brother;
+    }
+
+    *out_array = array;
+    return count;
 }
 

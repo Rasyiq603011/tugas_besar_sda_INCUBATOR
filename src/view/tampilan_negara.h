@@ -3,7 +3,7 @@
 
 #include "../model/tree_data.h"
 
-void tampilan_negara(int idx, int y, int selected, void* pointer_head);
+void tampilan_negara(int idx, int y, int selected, void* selected_node);
 
 void tampilan_header_negara(int y);
 

@@ -25,10 +25,10 @@ void tampilan_header_provinsi(int y)
 }
 
 // Fungsi ini menampilkan detail satu provinsi
-void tampilan_provinsi(int idx, int y, int selected, void* pointer_head)
+void tampilan_provinsi(int idx, int y, int selected, void* selected_node)
 {
-    address current_node = (address)pointer_head;
-    Provinsi* provinsi_data = current_node->info.provinsi;
+    address node = (address)selected_node;
+    Provinsi* provinsi_data = node->info.provinsi;
 
     const char* nama = get_name_provinsi(provinsi_data);
     int jumlah_bioskop = get_jumlah_bioskop_provinsi(provinsi_data);

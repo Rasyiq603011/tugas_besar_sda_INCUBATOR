@@ -25,11 +25,12 @@ void tampilan_header_negara(int y)
 }
 
 // Fungsi ini menampilkan detail satu negara
-void tampilan_negara(int idx, int y, int selected, void* pointer_head)
-{
-    address current_node = (address)pointer_head;
-    Negara* negara_data = current_node->info.negara;
-
+void tampilan_negara(int idx, int y, int selected, void* selected_node)
+{   
+    address node = (address)selected_node;
+    Negara* negara_data = node->info.negara;
+    if (negara_data == NULL) return;
+    
     const char* nama = get_name_negara(negara_data);
     int jumlah_bioskop = get_jumlah_bioskop_negara(negara_data);
 

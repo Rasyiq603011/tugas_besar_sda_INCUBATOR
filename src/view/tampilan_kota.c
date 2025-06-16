@@ -25,10 +25,11 @@ void tampilan_header_kota(int y)
 }
 
 // Fungsi ini menampilkan detail satu kota
-void tampilan_kota(int idx, int y, int selected, void* pointer_head)
+void tampilan_kota(int idx, int y, int selected, void* selected_node)
 {
-    address current_node = (address)pointer_head;
-    Kota* kota_data = current_node->info.kota;
+    address node = (address)selected_node;
+    Kota* kota_data = node->info.kota;
+    if (kota_data == NULL) return;
 
     const char* nama = get_name_kota(kota_data);
     int jumlah_bioskop = get_jumlah_bioskop_kota(kota_data);

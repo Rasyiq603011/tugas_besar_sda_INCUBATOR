@@ -25,13 +25,14 @@ void tampilan_header_bioskop(int y)
 }
 
 // Fungsi ini menampilkan detail satu bioskop
-void tampilan_bioskop(int idx, int y, int selected, void* pointer_head)
-{
-    address current_node = (address)pointer_head;
-    Bioskop* bioskop_data = current_node->info.bioskop;
-
+void tampilan_bioskop(int idx, int y, int selected, void* selected_node)
+{   
+    address node = (address)selected_node;
+    Bioskop* bioskop_data = node->info.bioskop;
+    if (bioskop_data == NULL) return;
+    
     // Menghitung jumlah studio (anak-anak dari node bioskop)
-    address studio_node = current_node->first_son;
+    address studio_node = node->first_son;
     int studio_count = 0;
     while (studio_node != NULL) {
         studio_count++;
