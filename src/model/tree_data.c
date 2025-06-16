@@ -22,6 +22,9 @@ address create_node(InfoType info, DataType tipe)
     new_node->next_brother = NULL;
 
     switch(tipe){
+        case TYPE_NEGARA:
+            create_negara(&(new_node)->info.negara, get_name_negara(info.negara), get_pendapatan_negara(info.negara), get_jumlah_bioskop_negara(info.negara));
+            break;
         case TYPE_PROVINSI:
             create_provinsi(&(new_node)->info.provinsi, get_name_provinsi(info.provinsi), get_pendapatan_provinsi(info.provinsi), get_jumlah_bioskop_provinsi(info.provinsi));
             break;

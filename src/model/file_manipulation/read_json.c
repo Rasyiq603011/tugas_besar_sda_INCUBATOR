@@ -76,7 +76,10 @@ static address parse_negara(cJSON* json)
 
     if (!nama || !pendapatan || !jumlah_bioskop) return NULL;
 
-    Negara* new_negara = constructor_negara(nama->valuestring, pendapatan->valuedouble, jumlah_bioskop->valueint);
+    printf("[DEBUG] parse_negara: nama = %s, pendapatan = %lf, bioskop = %d\n",
+        nama->valuestring, pendapatan->valueint, jumlah_bioskop->valueint);
+        
+    Negara* new_negara = constructor_negara(nama->valuestring, pendapatan->valueint, jumlah_bioskop->valueint);
 
     address node = create_node(NEGARA_INFO(new_negara), TYPE_NEGARA);
     cJSON* children = cJSON_GetObjectItem(json, "provinsi");
@@ -99,7 +102,7 @@ static address parse_provinsi(cJSON* json)
 
     if (!nama || !pendapatan || !jumlah_bioskop) return NULL;
 
-    Provinsi* new_provinsi = constructor(nama->valuestring, pendapatan->valuedouble, jumlah_bioskop->valueint);
+    Provinsi* new_provinsi = constructor_provinsi(nama->valuestring, pendapatan->valueint, jumlah_bioskop->valueint);
 
     address node = create_node(PROVINSI_INFO(new_provinsi), TYPE_PROVINSI);
     cJSON* children = cJSON_GetObjectItem(json, "kota");
@@ -122,7 +125,7 @@ static address parse_kota(cJSON* json)
 
     if (!nama || !pendapatan || !jumlah_bioskop) return NULL;
 
-    Kota* new_kota = constructor_kota(nama->valuestring, pendapatan->valuedouble, jumlah_bioskop->valueint);
+    Kota* new_kota = constructor_kota(nama->valuestring, pendapatan->valueint, jumlah_bioskop->valueint);
 
     address node = create_node(KOTA_INFO(new_kota), TYPE_KOTA);
     cJSON* children = cJSON_GetObjectItem(json, "bioskop");
@@ -223,7 +226,7 @@ static Jadwal* parse_jadwal(cJSON* jadwal_json) {
         return NULL;
     }
 
-    Jadwal* new_jadwal;// = constructor_jadwal(*waktu_start, *waktu_end, *tanggal_tayang, harga_json->valueint, film_json->valuestring, jumlah_tiket_json->valueint);
+    Jadwal* new_jadwal = constructor_jadwal(*waktu_start, *waktu_end, *tanggal_tayang, harga_json->valueint, film_json->valuestring, jumlah_tiket_json->valueint);
 
     if (!new_jadwal) {
         free(waktu_start); free(waktu_end); free(tanggal_tayang);

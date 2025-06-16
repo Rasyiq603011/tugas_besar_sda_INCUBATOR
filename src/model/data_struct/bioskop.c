@@ -9,7 +9,6 @@ struct DataBioskop{
 static char* strdup_safe(const char* src) {
     if (!src) return NULL;
     char* copy = malloc(strlen(src) + 1);
-    char* copy = malloc(strlen(src) + 1);
     if (!copy) return NULL;
     strcpy(copy, src);
     return copy;

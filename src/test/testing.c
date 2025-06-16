@@ -43,39 +43,54 @@ void test_crud_film() {
     printf("\nCRUD FILM TEST PASSED\n");
 }
 
-void test_tree_json_roundtrip() {
-    // Simulasi buat data tree manual
+void test_tree_json_roundtrip() 
+{
+    // Negara
     Negara* idn = constructor_negara("Indonesia", 10000000, 10);
     address root = create_node(NEGARA_INFO(idn), TYPE_NEGARA);
-	printf("pass 1\n");
-    Provinsi* jabar = constructor("Jawa Barat", 2000000, 2);
-    add_child(root, PROVINSI_INFO(jabar), TYPE_PROVINSI);
-	printf("pass 2\n");
-    Kota* bdg = constructor_kota("Bandung", 1500000, 1);
-    add_child(root->first_son, KOTA_INFO(bdg), TYPE_KOTA);
-	printf("pass 3\n");
-    Bioskop* cgv = constructor_bioskop("CGV Paris Van Java", 100000, "Jl. Sukajadi 123");
-    add_child(root->first_son->first_son, BIOSKOP_INFO(cgv), TYPE_BIOSKOP);
-	printf("pass 4\n");
-    Studio* studio1 = constructor_studio("Studio 1", 50000, 100);
-    printf("pass 4.1 construksi berhasil\n");
-    add_child(root->first_son->first_son->first_son, STUDIO_INFO(studio1), TYPE_STUDIO);
-	printf("pass 5\n");
-    // Save to JSON file
-    save_tree_to_file(root, "output.json");
-	
-	printf("pass save data \n");
-    // Load from JSON
-    address loaded_root = load_tree_from_file("output.json");
-	printf("pass 6\n");
-    // Cek data consistency (hanya cek root dan satu child saja untuk proof)
-    printf("ini load %s\n\n", get_name_negara(info_negara(loaded_root)));
-    printf("ini load %s\n\n", get_name_negara(info_negara(root)));
-   assert(strcmp(get_name_negara(info_negara(root)), get_name_negara(info_negara(loaded_root))) == 0);
-   assert(strcmp(get_name_provinsi(info_provinsi(root->first_son)), get_name_provinsi(info_provinsi(loaded_root->first_son))) == 0);
+	printf("Validasi nama sebelum create_node: %s\n", get_name_negara(idn));
 
-    // Clean up
-    remove(TEMP_TREE_FILE);
-    printf("CRUD TREE JSON TEST PASSED\n");
+    // Provinsi
+    Provinsi* jabar = constructor_provinsi("Jawa Barat", 2000000, 2);
+	add_child(root, PROVINSI_INFO(jabar), TYPE_PROVINSI);
+	address prov_node = get_last_son(root);
+
+    // Kota
+    Kota* bdg = constructor_kota("Bandung", 1500000, 1);
+    add_child(prov_node, KOTA_INFO(bdg), TYPE_KOTA);
+    address kota_node = get_last_son(prov_node);
+
+    // Bioskop
+    Bioskop* cgv = constructor_bioskop("CGV Paris Van Java", 100000, "Jl. Sukajadi 123");
+    add_child(kota_node, BIOSKOP_INFO(cgv), TYPE_BIOSKOP);
+    address bioskop_node = get_last_son(kota_node);
+
+    // Studio
+    Studio* studio1 = constructor_studio("Studio 1", 50000, 100);
+    add_child(bioskop_node, STUDIO_INFO(studio1), TYPE_STUDIO);
+    address studio_node = get_last_son(bioskop_node);
+
+    save_tree_to_file(root, "output.json");
+    printf(">> Data berhasil disimpan ke output.json\n");
+
+    address loaded_root = load_tree_from_file("output.json");
+    printf(">> Data berhasil dimuat kembali dari output.json\n");
+    
+	printf("Original: [%s]\n", get_name_negara(info_negara(root)));
+	printf("Loaded  : [%s]\n", get_name_negara(info_negara(loaded_root)));
+
+    assert(strcmp(get_name_negara(info_negara(root)), get_name_negara(info_negara(loaded_root))) == 0);
+    assert(strcmp(get_name_provinsi(info_provinsi(root->first_son)), get_name_provinsi(info_provinsi(loaded_root->first_son))) == 0);
+    assert(strcmp(get_name_kota(info_kota(root->first_son->first_son)), get_name_kota(info_kota(loaded_root->first_son->first_son))) == 0);
+    assert(strcmp(get_name_bioskop(info_bioskop(root->first_son->first_son->first_son)), get_name_bioskop(info_bioskop(loaded_root->first_son->first_son->first_son))) == 0);
+    assert(strcmp(get_name_studio(info_studio(root->first_son->first_son->first_son->first_son)), get_name_studio(info_studio(loaded_root->first_son->first_son->first_son->first_son))) == 0);
+
+    printf(">> Validasi data berhasil.\n");
+
+    remove("output.json");
+    printf(">> File sementara dihapus.\n");
+
+    printf("? CRUD TREE JSON TEST PASSED ?\n");
 }
+
 

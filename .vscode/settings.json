@@ -16,7 +16,8 @@
     "tree_data.h": "c",
     "provinsi.h": "c",
     "assert.h": "c",
-    "stdio.h": "c"
+    "stdio.h": "c",
+    "stdbool.h": "c"
   },
   "C_Cpp_Runner.cCompilerPath": "gcc",
   "C_Cpp_Runner.cppCompilerPath": "g++",

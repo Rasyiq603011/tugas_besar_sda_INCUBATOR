@@ -51,7 +51,7 @@ void test_delete_by_value() {
     assert(ListEmpty(L));
 }
 
-int main() {
+void linked_testing() {
     printf("Running unit tests...\n");
     test_insert_delete_string();
     printf("✓ test_insert_delete_string passed.\n");
@@ -63,5 +63,4 @@ int main() {
     printf("✓ test_delete_by_value passed.\n");
 
     printf("All tests passed successfully.\n");
-    return 0;
 }

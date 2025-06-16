@@ -1,52 +1,60 @@
 #include "jadwal.h"
 
-struct DataJadwal{
+#include <stdbool.h>
+
+struct DataJadwal {
     Time waktu_start;
     Time waktu_end;
     date tanggal_tayang;
-    Film* film;
+    union {
+        Film* film;
+        char FilmTitle[128];
+    };
+    bool is_linked;
     int harga_tiket;
     int jumlah_tiket;
     Kursi** daftar_kursi;
 };
 
+
 // ===============================================
 // ============ CONSTRUCTOR SECTION ==============
 // ===============================================
 
-Jadwal* constructor_jadwal(Time waktu_start, Time Waktu_end, date tanggal,int harga_tiket, Film* film, int jumlah_kursi)
+Jadwal* constructor_jadwal(Time waktu_start, Time Waktu_end, date tanggal, int harga_tiket, String film, int jumlah_kursi)
 {
-    if (jumlah_kursi <= 0) {return NULL;}
-    int current_kursi, tipe;
-    Jadwal* new_jadwal = (Jadwal*) malloc (sizeof(Jadwal));
-    if (!new_jadwal) {return NULL;}
+    if (jumlah_kursi <= 0) return NULL;
+
+    Jadwal* new_jadwal = (Jadwal*) malloc(sizeof(Jadwal));
+    if (!new_jadwal) return NULL;
+
     new_jadwal->waktu_start = waktu_start;
     new_jadwal->waktu_end = Waktu_end;
     new_jadwal->tanggal_tayang = tanggal;
-    new_jadwal->film = NULL;
+
+    strncpy(new_jadwal->FilmTitle, film, sizeof(new_jadwal->FilmTitle) - 1);
+    new_jadwal->FilmTitle[sizeof(new_jadwal->FilmTitle) - 1] = '\0';
+    new_jadwal->is_linked = false;
+
     new_jadwal->harga_tiket = harga_tiket >= 0 ? harga_tiket : 0;
     new_jadwal->jumlah_tiket = jumlah_kursi;
-    new_jadwal->daftar_kursi = (Kursi**)calloc(jumlah_kursi,sizeof(Kursi*));
-    for (current_kursi = 0; current_kursi < jumlah_kursi; current_kursi++) 
-    {
-        if (current_kursi <= (jumlah_kursi / 3))
-        {
-            tipe = 2;
-        }
-         else if (current_kursi <= (jumlah_kursi*2 / 3))
-        {
-            tipe = 1;
-        }
-         else
-        {
-            tipe = 0;
-        }
-        new_jadwal->daftar_kursi[current_kursi] = constructor_kursi(current_kursi + 1, true, tipe);
+
+    new_jadwal->daftar_kursi = (Kursi**)calloc(jumlah_kursi, sizeof(Kursi*));
+    if (!new_jadwal->daftar_kursi) {
+        free(new_jadwal);
+        return NULL;
     }
+
+    for (int i = 0; i < jumlah_kursi; i++) {
+        int tipe = (i <= jumlah_kursi / 3) ? 2 : (i <= jumlah_kursi * 2 / 3 ? 1 : 0);
+        new_jadwal->daftar_kursi[i] = constructor_kursi(i + 1, true, tipe);
+    }
+
     return new_jadwal;
 }
 
-void create_jadwal(Jadwal** new_jadwal, Time waktu_start, Time waktu_end, date tanggal,int harga_tiket, Film* film, int jumlah_kursi)
+
+void create_jadwal(Jadwal** new_jadwal, Time waktu_start, Time waktu_end, date tanggal,int harga_tiket, String film, int jumlah_kursi)
 {
     *new_jadwal = constructor_jadwal(waktu_start, waktu_end, tanggal, harga_tiket, film, jumlah_kursi);
 }
@@ -70,15 +78,21 @@ date get_tanggal_tayang(Jadwal* current_jadwal)
     return current_jadwal ? current_jadwal->tanggal_tayang : getTodayDate();
 }
 
-Film* get_film(Jadwal* current_jadwal)
+Film* get_film(Jadwal* jadwal)
 {
-    return current_jadwal ? current_jadwal->film : NULL;
+    if (!jadwal || !jadwal->is_linked) return NULL;
+    return jadwal->film;
 }
 
-String get_film_name(Jadwal* current_jadwal)
+String get_film_name(Jadwal* jadwal)
 {
-    if (!current_jadwal || !current_jadwal->film) {return "film tidak diketahui";}
-    return get_judul_film(current_jadwal->film);
+    if (!jadwal) return "film tidak diketahui";
+
+    if (jadwal->is_linked && jadwal->film) {
+        return get_judul_film(jadwal->film);
+    } else {
+        return jadwal->FilmTitle;
+    }
 }
 
 int get_harga_tiket(Jadwal* current_jadwal)
@@ -98,6 +112,8 @@ Kursi** get_daftar_kursi(Jadwal* current_jadwal)
 
 Kursi* get_kursi_value_by_index(Jadwal* current_jadwal, int index)
 {
+    if (!current_jadwal || !current_jadwal->daftar_kursi || index < 0 || index >= current_jadwal->jumlah_tiket)
+        return NULL;
     return current_jadwal->daftar_kursi[index];
 }
 
@@ -126,10 +142,21 @@ void set_tanggal_tayang(Jadwal* current_jadwal, date new_date)
     current_jadwal->tanggal_tayang = new_date;
 }
 
-void set_film(Jadwal* current_jadwal, Film* new_film)
+void set_film_object(Jadwal* jadwal, Film* film_obj)
 {
-    current_jadwal->film = new_film;
+    if (!jadwal || !film_obj) return;
+    jadwal->film = film_obj;
+    jadwal->is_linked = true;
 }
+
+void set_film_title(Jadwal* jadwal, const char* title)
+{
+    if (!jadwal || !title) return;
+    strncpy(jadwal->FilmTitle, title, sizeof(jadwal->FilmTitle) - 1);
+    jadwal->FilmTitle[sizeof(jadwal->FilmTitle) - 1] = '\0';
+    jadwal->is_linked = false;
+}
+
 
 void set_daftar_kursi(Jadwal* current_jadwal, Kursi** new_kursi_list, int jumlah_kursi)
 {
@@ -142,6 +169,8 @@ void set_daftar_kursi(Jadwal* current_jadwal, Kursi** new_kursi_list, int jumlah
 
 void set_kursi_by_index(Jadwal* current_jadwal, int index, Kursi* new_value)
 {
+    if (!current_jadwal || !current_jadwal->daftar_kursi || index < 0 || index >= current_jadwal->jumlah_tiket)
+        return;
     current_jadwal->daftar_kursi[index] = new_value;
 }
 
@@ -189,5 +218,13 @@ int compare_jadwal_value(const Jadwal* jadwal_pertama, const Jadwal* jadwal_kedu
         (jadwal_pertama->jumlah_tiket == jadwal_kedua->jumlah_tiket) &&
         compare_daftar_kursi(jadwal_pertama->daftar_kursi, jadwal_kedua->daftar_kursi, jadwal_pertama->jumlah_tiket)
     );
+}
+
+void reset_film(Jadwal* jadwal)
+{
+    if (!jadwal) return;
+    jadwal->film = NULL;
+    jadwal->FilmTitle[0] = '\0';
+    jadwal->is_linked = false;
 }
 

@@ -28,7 +28,6 @@ void test_provinsi() {
     destructor_provinsi(p2);
 
     printf("Semua unit test berhasil!\n");
-    return 0;
 }
 
 // ================================================
@@ -84,10 +83,10 @@ void test_set_name_null_safety_kota() {
 
 void test_kota() {
     printf("Memulai unit test Kota...\n");
-    test_constructor_and_accessor();
-    test_mutator();
+    test_constructor_and_accessor_kota();
+    test_mutator_kota();
     test_compare_kota();
-    test_set_name_null_safety();
+    test_set_name_null_safety_kota();
     printf("✅ Semua unit test Kota berhasil!\n");
 }
 
@@ -156,11 +155,11 @@ void test_invalid_constructor_bioskop() {
 }
 
 int test_bioskop() {
-    test_constructor_and_accessor();
-    test_mutator();
-    test_compare_value();
-    test_compare_pendapatan();
-    test_invalid_constructor();
+    test_constructor_and_accessor_bioskop();
+    test_mutator_bioskop();
+    test_compare_value_bioskop();
+    test_compare_pendapatan_bioskop();
+    test_invalid_constructor_bioskop();
 
     printf("✅ Semua unit test bioskop lulus.\n");
     return 0;
@@ -170,7 +169,7 @@ int test_bioskop() {
 // =============== STUDIO SECTION ================
 // ================================================
 
-void test_constructor_and_accessor() {
+void test_constructor_and_accessor_studio() {
     Studio* current_studio = constructor_studio("Studio 1", 5000000, 120);
     assert(current_studio != NULL);
     assert(strcmp(get_name_studio(current_studio), "Studio 1") == 0);
@@ -179,7 +178,7 @@ void test_constructor_and_accessor() {
     destructor_studio(current_studio);
 }
 
-void test_mutator() {
+void test_mutator_studio() {
     Studio* current_studio;
     create_studio(&current_studio, "Studio X", 1000000, 80);
     set_name_studio(current_studio, "Studio Z");
@@ -223,10 +222,10 @@ void test_mutator() {
 // }
 
 void test_studio() {
-    test_constructor_and_accessor();
+    test_constructor_and_accessor_studio();
     printf("[PASS] Constructor & Accessor\n");
 
-    test_mutator();
+    test_mutator_studio();
     printf("[PASS] Mutator\n");
 
     // test_jadwal_filtering_and_checking();

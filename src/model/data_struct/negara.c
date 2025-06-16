@@ -18,6 +18,7 @@ Negara* constructor_negara(const String nama, int total_pendapatan, int jumlah_b
 
     new_negara->nama_negara = strdup(nama);
     if (!new_negara->nama_negara) {
+        printf("strdup gagal");
         free(new_negara);
         return NULL;
     }
