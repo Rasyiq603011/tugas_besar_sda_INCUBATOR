@@ -11,7 +11,7 @@ struct DataProvinsi {
 // ============ CONSTRUCTOR SECTION ==============
 // ===============================================
 
-Provinsi* constructor(const String nama, int total_pendapatan, int jumlah_bioskop)
+Provinsi* constructor_provinsi(const String nama, int total_pendapatan, int jumlah_bioskop)
 {
     if (nama == NULL || total_pendapatan < 0 || jumlah_bioskop < 0) { return NULL;}
 
@@ -33,7 +33,7 @@ Provinsi* constructor(const String nama, int total_pendapatan, int jumlah_biosko
 
 void create_provinsi(Provinsi** new_provinsi, const String nama, int total_pendapatan, int jumlah_bioskop)
 {
-    *new_provinsi = constructor(nama, total_pendapatan, jumlah_bioskop);
+    *new_provinsi = constructor_provinsi(nama, total_pendapatan, jumlah_bioskop);
 }
 
 // ===============================================

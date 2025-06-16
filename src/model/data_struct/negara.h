@@ -20,7 +20,7 @@ void create_negara(Negara** new_negara, const String nama, int total_pendapatan,
 // ============== ACCESSOR SECTION ===============
 // ===============================================
 
-const String get_name_negara(Negara* current_negara);
+String get_name_negara(Negara* current_negara);
 
 int get_pendapatan_negara(Negara* current_negara);
 

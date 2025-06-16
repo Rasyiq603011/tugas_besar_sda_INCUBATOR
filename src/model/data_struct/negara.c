@@ -12,10 +12,16 @@ struct DataNegara {
 // ============ CONSTRUCTOR SECTION ==============
 // ===============================================
 
-Negara* constructor_negara(const String nama, int total_pendapatan, int jumlah_bioskop)
-{
+Negara* constructor_negara(const String nama, int total_pendapatan, int jumlah_bioskop) {
     Negara* new_negara = (Negara*) malloc(sizeof(Negara));
+    if (!new_negara) return NULL;
+
     new_negara->nama_negara = strdup(nama);
+    if (!new_negara->nama_negara) {
+        free(new_negara);
+        return NULL;
+    }
+
     new_negara->total_pendapatan_negara = total_pendapatan;
     new_negara->jumlah_bioskop_negara = jumlah_bioskop;
     return new_negara;
@@ -30,9 +36,9 @@ void create_negara(Negara** new_negara, const String nama, int total_pendapatan,
 // ============== ACCESSOR SECTION ===============
 // ===============================================
 
-const String get_name_negara(Negara* current_negara)
+String get_name_negara(Negara* current_negara)
 {
-    return current_negara ? current_negara->nama_negara : "";
+    return current_negara ? current_negara->nama_negara : "Hello";
 }
 
 int get_pendapatan_negara(Negara* current_negara)
@@ -51,9 +57,11 @@ int get_jumlah_bioskop_negara(Negara* current_negara)
 
 void set_name_negara(Negara* current_negara, const String nama)
 {
-    if (current_negara && nama) {
+    if (current_negara && nama) 
+    {
         String new_name = strdup(nama);
-        if (current_negara) {
+        if (new_name) 
+        {
             free(current_negara->nama_negara);
             current_negara->nama_negara = new_name;
         }
@@ -62,8 +70,10 @@ void set_name_negara(Negara* current_negara, const String nama)
 
 void set_pendapatan_negara(Negara* current_negara, int pendapatan)
 {
-    if (current_negara && pendapatan <= 0)
-    current_negara->total_pendapatan_negara = pendapatan;
+    if (current_negara && pendapatan >= 0)
+    {
+        current_negara->total_pendapatan_negara = pendapatan;
+    }
 }
 
 void set_jumlah_bioskop_negara(Negara* current_negara, int jumlah_bioskop)

@@ -127,6 +127,7 @@ cJSON* negara_to_json(Negara* current_negara, address provinsi_node)
     }
 
     cJSON* obj = cJSON_CreateObject();
+    printf("Nama negara: %s\n", get_name_negara(current_negara));
     cJSON_AddStringToObject(obj, "nama", get_name_negara(current_negara));
     cJSON_AddNumberToObject(obj, "pendapatan", get_pendapatan_negara(current_negara));
     cJSON_AddNumberToObject(obj, "jumlah_bioskop", get_jumlah_bioskop_negara(current_negara));
@@ -139,6 +140,9 @@ cJSON* tree_to_json(address node_tree)
     if (!node_tree) return NULL;
     switch (node_tree->tipe) {
         case TYPE_NEGARA:
+        	printf("masuk node negara\n");
+        	printf("%d", node_tree->tipe);
+        	printf("%d", get_name_negara(node_tree->info.negara));
             return negara_to_json(info_negara(node_tree), node_tree->first_son);
         case TYPE_PROVINSI:
             return provinsi_to_json(info_provinsi(node_tree), node_tree->first_son);
