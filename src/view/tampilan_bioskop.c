@@ -1,10 +1,10 @@
 #include "tampilan_bioskop.h"
 
-// Mendefinisikan lebar terminal dan kotak, agar konsisten dengan tampilan lainnya
+// Mendefinisikan lebar terminal dan kotak
 #define TERMINAL_WIDTH 80
 #define BOX_WIDTH 56
 
-// Fungsi ini menampilkan judul/header menu bioskop di tengah layar
+// Fungsi ini menampilkan judul/header
 void tampilan_header_bioskop(int y) 
 {
     const char* header = "PEMILIHAN BIOSKOP"; // Teks header
@@ -24,7 +24,7 @@ void tampilan_header_bioskop(int y)
     printf("============================================================");
 }
 
-// Fungsi ini menampilkan detail satu bioskop dalam list, dengan border sederhana
+// Fungsi ini menampilkan detail satu bioskop
 void tampilan_bioskop(int idx, int y, int selected, void* pointer_head)
 {
     address current_node = (address)pointer_head;
