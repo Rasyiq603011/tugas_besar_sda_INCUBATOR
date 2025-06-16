@@ -6,6 +6,15 @@ struct DataBioskop{
     String alamat_bioskop;
 };
 
+static char* strdup_safe(const char* src) {
+    if (!src) return NULL;
+    char* copy = malloc(strlen(src) + 1);
+    char* copy = malloc(strlen(src) + 1);
+    if (!copy) return NULL;
+    strcpy(copy, src);
+    return copy;
+}
+
 // ===============================================
 // ============ CONSTRUCTOR SECTION ==============
 // ===============================================
@@ -23,9 +32,9 @@ Bioskop* constructor_bioskop(const String nama, int total_pendapatan, const Stri
         return NULL;
     }
 
-    bioskop->nama_bioskop = strdup(nama);
+    bioskop->nama_bioskop = strdup_safe(nama);
     bioskop->total_pendapatan_bioskop = total_pendapatan;
-    bioskop->alamat_bioskop = strdup(alamat);
+    bioskop->alamat_bioskop = strdup_safe(alamat);
 
     if (!bioskop->nama_bioskop || !bioskop->alamat_bioskop) 
     {
@@ -39,6 +48,7 @@ Bioskop* constructor_bioskop(const String nama, int total_pendapatan, const Stri
 void create_bioskop(Bioskop** new_bioskop, const String nama, int total_pendapatan, const String alamat)
 {
     *new_bioskop = constructor_bioskop(nama, total_pendapatan, alamat);
+
 }
 
 // ===============================================
@@ -70,7 +80,7 @@ const String get_alamat_bioskop(const Bioskop* bioskop)
 void set_name_bioskop(Bioskop* bioskop, const String name) 
 {
     if (!bioskop || !name) return;
-    String new_name = strdup(name);
+    String new_name = strdup_safe(name);
     if (new_name) 
     {
         free(bioskop->nama_bioskop);
@@ -87,7 +97,7 @@ void set_pendapatan_bioskop(Bioskop* bioskop, int pendapatan)
 void set_alamat_bioskop(Bioskop* bioskop, const String alamat) 
 {
     if (!bioskop || !alamat) return;
-    String new_alamat = strdup(alamat);
+    String new_alamat = strdup_safe(alamat);
     if (new_alamat) 
     {
         free(bioskop->alamat_bioskop);
@@ -103,7 +113,9 @@ void destructor_bioskop(Bioskop* bioskop)
 {
     if (!bioskop) return;
     free(bioskop->nama_bioskop);
+    bioskop->nama_bioskop = NULL;
     free(bioskop->alamat_bioskop);
+    bioskop->alamat_bioskop = NULL;
     free(bioskop);
 }
 
@@ -125,5 +137,5 @@ int compare_value_bioskop(Bioskop* bioskop_pertama, Bioskop* bioskop_kedua)
     if (bioskop_pertama->total_pendapatan_bioskop != bioskop_kedua->total_pendapatan_bioskop) { return 0; } 
     if (strcmp(bioskop_pertama->nama_bioskop, bioskop_kedua->nama_bioskop) != 0) { return 0; }
     if (strcmp(bioskop_pertama->alamat_bioskop, bioskop_kedua->alamat_bioskop) != 0) { return 0; }
-    return 1; // All fields match
+    return 1; 
 }

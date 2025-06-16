@@ -167,7 +167,7 @@ static address parse_studio(cJSON* json) {
     if (!nama || !pendapatan || !jumlah_kursi) return NULL;
 
     Studio* new_studio = constructor_studio(nama->valuestring, pendapatan->valueint, jumlah_kursi->valueint);
-    List* list_jadwal;
+    List* list_jadwal = (List*)malloc(sizeof(List));
     CreateList(list_jadwal);
     pnode jadwal_node = list_jadwal->First;
 

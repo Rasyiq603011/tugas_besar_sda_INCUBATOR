@@ -45,8 +45,10 @@ int get_jumlah_total_pendapatan_film(Film* film)
 void set_judul_film(Film* film, String judul)
 {
     if (film == NULL || judul == NULL) return;
+    if (film->judul != NULL) free(film->judul);
     film->judul = strdup(judul);
 }
+
 
 // Mengatur jumlah penonton film
 void set_jumlah_penonton_film(Film* film, int jumlah_ditonton)
@@ -104,8 +106,11 @@ void destroy_film(Film* film)
 {
     if (film != NULL)
     {
+    	printf("free 1");
         free(film->judul);
-        film->judul = NULL;
+        printf("free 2");
+		film->judul = NULL;
+		printf("free 3");
         free(film);
     }
 }

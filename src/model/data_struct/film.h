@@ -2,6 +2,7 @@
 #define FILM_H
 #include <stdlib.h> 
 #include <string.h> 
+#include <stdio.h>
 
 typedef char* String;
 

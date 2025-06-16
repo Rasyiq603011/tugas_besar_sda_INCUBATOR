@@ -21,70 +21,60 @@ void Createpnode(pnode *P) {
 }
 
 void CreateList(List *L) {
-    First(*L) = Nil;
+    First(*L) = NULL;
+	printf("pass create list\n");
 }
 
 pnode alokasi(InfoList info, DataList type) {
-    pnode new_node = (pnode) malloc(sizeof(node));
-    switch (type)
-    {
+    if (!is_valid_type(type)) return Nil;
+    pnode new_node = (pnode)malloc(sizeof(node));
+    if (new_node == Nil) return Nil;
+
+    new_node->type = type;
+    Next(new_node) = Nil;
+
+    switch (type) {
         case TYPE_INTEGER:
-            if (new_node != Nil) {
-                info_integer(new_node) = info.integer;
-                Next(new_node) = Nil;
-            }
-            return new_node;
+            info_integer(new_node) = info.integer;
+            break;
         case TYPE_STRING:
-            if (new_node != Nil) {
-                info_string(new_node) = strdup(info.str);
-                if (info_string(new_node) == NULL) {
-                    free(new_node);
-                    return Nil;
-                }
-                Next(new_node) = Nil;
+            info_string(new_node) = strdup(info.str);
+            if (info_string(new_node) == NULL) {
+                free(new_node);
+                return Nil;
             }
-            return new_node;
+            break;
         case TYPE_JADWAL:
-            if (new_node != Nil) {
-                info_jadwal(new_node) = info.jadwal; 
-                Next(new_node) = Nil;
-            }
-            return new_node;
+            info_jadwal(new_node) = info.jadwal;
+            break;
         case TYPE_EVENT:
-            if (new_node != Nil) {
-                info_event(new_node) = info.event; 
-                Next(new_node) = Nil;
-            }
-            return new_node;
+            info_event(new_node) = info.event;
+            break;
         case TYPE_FILM:
-            if (new_node != Nil) {
-                info_film(new_node) = info.film; 
-                Next(new_node) = Nil;
-            }
-            return new_node;
+            info_film(new_node) = info.film;
+            break;
         case TYPE_RIWAYAT:
-            if (new_node != Nil) {
-                info_riwayat(new_node) = info.riwayat; 
-            }
-            return new_node;
+            info_riwayat(new_node) = info.riwayat;
+            break;
         default:
+            free(new_node);
             return Nil;
     }
+    return new_node;
 }
 
 void dealokasi(pnode P) {
-if (P == NULL) return;
+    if (P == NULL) return;
+
     switch (P->type) {
         case TYPE_STRING:
-            if (info_string(P) != NULL) {
-                free(info_string(P));
-            }
+            free(info_string(P));
             break;
         case TYPE_JADWAL:
             if (info_jadwal(P)) destructor_jadwal(info_jadwal(P));
             break;
         case TYPE_EVENT:
-            // if (info_event(P)) free_event(info_event(P));
+            // Add proper event cleanup if needed
             break;
         case TYPE_FILM:
             if (info_film(P)) destroy_film(info_film(P));
@@ -147,11 +137,20 @@ void insert_value_first(pnode *P, InfoList info, DataList type) {
     }
 }
 
-
 void insert_value_last(pnode *P, InfoList info, DataList type) {
     pnode newNode = alokasi(info, type);
     if (newNode != Nil) {
         InsertLast(&(*P), newNode);
+    }
+}
+
+void insert_value_after(pnode *P, InfoList before, InfoList info, DataList type_before, DataList type_insert) {
+    pnode target = search_by_value(*P, before);
+    if (target != Nil && target->type == type_before) {
+        pnode newNode = alokasi(info, type_insert);
+        if (newNode != Nil) {
+            InsertAfter(&target, newNode);
+        }
     }
 }
 
@@ -162,16 +161,13 @@ void insert_value_last(pnode *P, InfoList info, DataList type) {
 void delete_first(pnode *P, InfoList *info) {
     if (*P != Nil) {
         pnode temp = *P;
-        
+        printf("masuk delete first");
         if (info != NULL) {
             *info = temp->info;
         }
         
         *P = Next(temp);
-        
-        if (temp->type == TYPE_STRING) {
-            info_string(temp) = Nil;
-        }
+        printf("go to dealokasi");
         dealokasi(temp);
     }
 }
@@ -237,9 +233,6 @@ void delete_by_value(pnode *P, InfoList info, DataList type) {
             } else {
                 Next(prev) = Next(current);
             }
-            if (current->type == TYPE_STRING) {
-                free(info_string(current));
-            }
             dealokasi(current);
             return;
         }
@@ -279,24 +272,34 @@ int count_list(List L) {
 
 pnode search_by_value(pnode P, InfoList info) {
     while (P != Nil) {
-        switch (P->type) 
+        if (!is_valid_type(P->type))
         {
+            P = Next(P);
+            continue;
+        } 
+        switch (P->type) {
             case TYPE_INTEGER:
-                if (info_integer(P) == info.integer) {
-                    return P;
-                }
+                if (info_integer(P) == info.integer) return P;
                 break;
             case TYPE_STRING:
-                if (strcmp(info_string(P), info.str) == 0) {
-                    return P;
-                }
+                if (strcmp(info_string(P), info.str) == 0) return P;
                 break;
-            default:
+            case TYPE_JADWAL:
+                if (compare_jadwal_value(info_jadwal(P), info.jadwal)) return P;
+                break;
+            case TYPE_EVENT:
+                if (info_event(P) == info.event) return P;
+                break;
+            case TYPE_FILM:
+                if (compare_film_value(info_film(P), info.film)) return P;
+                break;
+            case TYPE_RIWAYAT:
+                if (info_riwayat(P) == info.riwayat) return P;
                 break;
         }
         P = Next(P);
     }
-    return Nil; // mereturn Nil jika tidak ditemukan
+    return Nil;
 }
 
 /*================================================================*/
