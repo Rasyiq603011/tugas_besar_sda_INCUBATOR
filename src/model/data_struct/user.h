@@ -2,6 +2,7 @@
 #define USER_H
 
 #include <stdlib.h>
+#include <string.h>
 #include "../linked.h"
 
 typedef char* String;
@@ -29,6 +30,7 @@ String get_username_user(User* user);
 String get_password_user(User* user);
 int get_saldo_user(User* user);
 Prioritas get_prioritas_user(User* user);
+pnode get_pointer_to_riwayat(User* user);
 
 // ===============================================
 // ============== MUTATOR SECTION ================
@@ -52,5 +54,11 @@ User* create_user(String username, String password, Prioritas prioritas);
 // ===============================================
 
 void destroy_user(User* user);
+
+// ===============================================
+// ================== CONVERTER ==================
+// ===============================================
+
+int convert_list_to_array(List* list, void*** out_array);
 
 #endif /* USER_H */

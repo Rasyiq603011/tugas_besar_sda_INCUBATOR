@@ -263,3 +263,41 @@ static Kursi* parse_kursi(cJSON* kursi_json)
     Kursi* new_kursi = constructor_kursi(id->valueint, status->valueint, tipe->valueint);
     return new_kursi;
 }
+
+bool is_username_available(const char* username_to_check) 
+{
+    FILE* file = fopen(DATABASE_USER, "r");
+    if (!file) return true; // jika file belum ada, berarti username pasti belum dipakai
+
+    fseek(file, 0, SEEK_END);
+    long filesize = ftell(file);
+    rewind(file);
+
+    char* content = malloc(filesize + 1);
+    fread(content, 1, filesize, file);
+    content[filesize] = '\0';
+    fclose(file);
+
+    cJSON* root = cJSON_Parse(content);
+    free(content);
+
+    if (!root || !cJSON_IsArray(root)) 
+    {
+        cJSON_Delete(root);
+        return true; // JSON rusak atau bukan array → anggap belum dipakai
+    }
+
+    for (int i = 0; i < cJSON_GetArraySize(root); i++) 
+    {
+        cJSON* user = cJSON_GetArrayItem(root, i);
+        cJSON* username = cJSON_GetObjectItem(user, "username");
+        if (username && strcmp(username->valuestring, username_to_check) == 0)
+        {
+            cJSON_Delete(root);
+            return false; // sudah dipakai
+        }
+    }
+
+    cJSON_Delete(root);
+    return true; // tidak ditemukan → username tersedia
+}

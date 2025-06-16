@@ -131,6 +131,10 @@ int get_jumlah_leaf(address P);
 
 int get_jumlah_node_by_type(address P, DataType tipe);
 
+// Mengembalikan jumlah anak 
+int get_jumlah_anak(address P);
+
+
 // ===================================================
 // ================== MUTATOR SECTION ================
 // ===================================================
@@ -166,5 +170,11 @@ void traversal_preorder_rekursif(address start, void (*Process) (address));
 // FUungsi untuk traversal level-order
 
 void TraverseBFS(Tree T, void (*Process)(address));
+
+// ===================================================
+// ==================== CONVERTER ====================
+// ===================================================
+
+int convert_children_to__array(address parent, void*** out_array);
 
 #endif
