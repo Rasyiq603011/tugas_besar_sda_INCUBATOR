@@ -29,6 +29,7 @@ void tampilan_studio(int idx, int y, int selected, void* pointer_head)
 {
     address current_node = (address)pointer_head;
     Studio* studio_data = current_node->info.studio;
+    if (studio_data == NULL) return;
 
     // Get the list of schedules and count them
     List* jadwal_list = get_jadwal_studio(studio_data);

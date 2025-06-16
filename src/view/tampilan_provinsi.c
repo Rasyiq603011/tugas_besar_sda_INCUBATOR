@@ -29,6 +29,7 @@ void tampilan_provinsi(int idx, int y, int selected, void* selected_node)
 {
     address node = (address)selected_node;
     Provinsi* provinsi_data = node->info.provinsi;
+    if (provinsi_data == NULL) return;
 
     const char* nama = get_name_provinsi(provinsi_data);
     int jumlah_bioskop = get_jumlah_bioskop_provinsi(provinsi_data);
