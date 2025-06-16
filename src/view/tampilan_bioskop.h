@@ -2,8 +2,9 @@
 #define TAMPILAN_BIOSKOP_H
 
 #include "../model/tree_data.h"
-#include "view.h"
 
 void tampilan_bioskop(int idx, int y, int selected, void * pointer_head);
+
+void tampilan_header_bioskop(int y);
 
 #endif
