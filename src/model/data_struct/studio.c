@@ -174,3 +174,32 @@ int is_exits_jadwal(const List Jadwal, date tanggal, Time start, Time end)
     return 0;
 }
 
+Studio* copy_studio(const Studio* original) {
+    if (!original) return NULL;
+
+    Studio* copy = (Studio*)malloc(sizeof(Studio));
+    if (!copy) return NULL;
+
+    copy->nama_studio = strdup(original->nama_studio);
+    if (!copy->nama_studio) {
+        free(copy);
+        return NULL;
+    }
+
+    copy->total_pendapatan_studio = original->total_pendapatan_studio;
+    copy->jumlah_kursi_studio = original->jumlah_kursi_studio;
+
+    copy->jadwal_studio = (List*)malloc(sizeof(List));
+    if (!copy->jadwal_studio) {
+        free(copy->nama_studio);
+        free(copy);
+        return NULL;
+    }
+    CreateList(copy->jadwal_studio);
+
+    copy_list(*(copy->jadwal_studio), original->jadwal_studio);
+
+    return copy;
+}
+
+

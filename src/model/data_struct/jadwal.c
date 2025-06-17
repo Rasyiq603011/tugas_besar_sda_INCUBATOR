@@ -228,3 +228,57 @@ void reset_film(Jadwal* jadwal)
     jadwal->is_linked = false;
 }
 
+Jadwal* deep_copy_jadwal(const Jadwal* source) {
+    if (!source) return NULL;
+
+    Jadwal* copy = (Jadwal*)malloc(sizeof(Jadwal));
+    if (!copy) return NULL;
+
+    copy->waktu_start = source->waktu_start;
+    copy->waktu_end = source->waktu_end;
+    copy->tanggal_tayang = source->tanggal_tayang;
+
+    copy->is_linked = source->is_linked;
+    if (source->is_linked && source->film != NULL) {
+        copy->film = source->film; 
+    } else {
+        strncpy(copy->FilmTitle, source->FilmTitle, sizeof(copy->FilmTitle) - 1);
+        copy->FilmTitle[sizeof(copy->FilmTitle) - 1] = '\0';
+        copy->film = NULL;
+    }
+
+    copy->harga_tiket = source->harga_tiket;
+    copy->jumlah_tiket = source->jumlah_tiket;
+
+    copy->daftar_kursi = (Kursi**)calloc(copy->jumlah_tiket, sizeof(Kursi*));
+    if (!copy->daftar_kursi) {
+        free(copy);
+        return NULL;
+    }
+
+    for (int i = 0; i < copy->jumlah_tiket; i++) {
+        Kursi* kursi_asal = source->daftar_kursi[i];
+        if (kursi_asal) {
+            copy->daftar_kursi[i] = constructor_kursi(
+                get_id_kursi(kursi_asal),
+                get_status_kursi(kursi_asal),
+                get_tipe_kursi(kursi_asal)
+            );
+
+            if (!copy->daftar_kursi[i]) {
+                for (int j = 0; j < i; j++) {
+                    destructor_kursi(copy->daftar_kursi[j]);
+                }
+                free(copy->daftar_kursi);
+                free(copy);
+                return NULL;
+            }
+        } else {
+            copy->daftar_kursi[i] = NULL;
+        }
+    }
+
+    return copy;
+}
+
+
