@@ -38,7 +38,7 @@ int scrollable_menu(void** data_array, int jumlah_item, void (*render)(int idx, 
     if (jumlah_item == 0 || data_array == NULL) 
     {
         printf("Tidak ada data untuk ditampilkan.\n");
-        return;
+        return 0;
     }
 
     int idx_terpilih = 0, key;
