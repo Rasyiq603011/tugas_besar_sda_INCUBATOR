@@ -7,6 +7,5 @@
 
 void tampilan_kota(int idx, int y, int selected, void* selected_node);
 
-void tampilan_header_kota(int y);
 
 #endif

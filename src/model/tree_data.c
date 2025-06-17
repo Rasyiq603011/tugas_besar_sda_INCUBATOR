@@ -7,10 +7,7 @@
 // Inisialisasi pohon: jika pohon kosong, root diset NULL
 void init_tree(Tree* T)
 {
-    if (is_tree_empty(*T))
-    {
-        T->root = NULL;
-    }    
+    T->root = NULL;
 }
 
 // Membuat simpul baru sesuai tipe dan info yang diberikan
@@ -155,20 +152,32 @@ int get_jumlah_anak(address P)
     return jumlah_anak;
 }
 
+address get_selected_node(address parent, int number)
+{   
+    address child = parent->first_son;
+    int count = 1;
+    while (child->next_brother != NULL && count <= number)
+    {
+        child = child->next_brother;
+        count++;
+    }
+    return child;
+}
+
 // ===================================================
 // ================== MUTATOR SECTION ================
 // ===================================================
 
 // Menambahkan child baru ke simpul parent
-void add_child(address parent, InfoType info, DataType tipe)
+void add_child(address* parent, InfoType info, DataType tipe)
 {
-    if (parent->first_son == NULL)
+    if ((*parent)->first_son == NULL)
     {
-        parent->first_son = create_node(info, tipe);
+        (*parent)->first_son = create_node(info, tipe);
         return;
     }
 
-    address last_son = get_last_son(parent);
+    address last_son = get_last_son(*parent);
     last_son->next_brother = create_node(info, tipe);
 }
 
@@ -303,4 +312,3 @@ int convert_children_to__array(address parent, void*** out_array)
     *out_array = array;
     return count;
 }
-

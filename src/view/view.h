@@ -13,6 +13,6 @@ void display_scorallable_menu(int opsi_terpilih, int jumlah_pilihan, char *optio
 
 void clear_line(int y);
 
-int scrollable_menu(void** data_array, int jumlah_item, void (*render)(int idx, int y_pos, int selected, void* data), int tinggi_blok, int max_tampil);
+int scrollable_menu(void** data_array, int jumlah_item, void (*render)(int idx, int y_pos, int selected, void* data), const char* header, int tinggi_blok, int max_tampil);
 
 #endif /*VIEW_H*/

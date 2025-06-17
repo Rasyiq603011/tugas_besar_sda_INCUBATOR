@@ -33,7 +33,7 @@ void display_menu(int opsi_terpilih, int jumlah_opsi, const char *options[jumlah
     }
 }
 
-int scrollable_menu(void** data_array, int jumlah_item, void (*render)(int idx, int y_pos, int selected, void* data), int tinggi_blok, int max_tampil)
+int scrollable_menu(void** data_array, int jumlah_item, void (*render)(int idx, int y_pos, int selected, void* data), const char* header, int tinggi_blok, int max_tampil)
 {
     if (jumlah_item == 0 || data_array == NULL) 
     {
@@ -46,6 +46,9 @@ int scrollable_menu(void** data_array, int jumlah_item, void (*render)(int idx, 
 
     do {
         system("cls");
+        gotoxy(30, 11); printf("=============================================================\n");
+        gotoxy(30, 12); printf("|%*s%s%*s|\n", (60 - strlen(header)) / 2, "", header, (60 - strlen(header)) / 2, "");
+        gotoxy(30, 13); printf("=============================================================\n");
 
         if (idx_terpilih < start)
             start = idx_terpilih;
