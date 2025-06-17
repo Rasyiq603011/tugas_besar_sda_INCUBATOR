@@ -141,7 +141,7 @@ int get_jumlah_anak(address P);
 
 // Menambahkan child baru ke simpul parent
 
-void add_child(address parent, InfoType info, DataType tipe);
+void add_child(address* parent, InfoType info, DataType tipe);
 
 // ===================================================
 // ================ DESTRUCTOR SECTION ===============

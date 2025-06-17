@@ -160,15 +160,15 @@ int get_jumlah_anak(address P)
 // ===================================================
 
 // Menambahkan child baru ke simpul parent
-void add_child(address parent, InfoType info, DataType tipe)
+void add_child(address* parent, InfoType info, DataType tipe)
 {
-    if (parent->first_son == NULL)
+    if ((*parent)->first_son == NULL)
     {
-        parent->first_son = create_node(info, tipe);
+        (*parent)->first_son = create_node(info, tipe);
         return;
     }
 
-    address last_son = get_last_son(parent);
+    address last_son = get_last_son(*parent);
     last_son->next_brother = create_node(info, tipe);
 }
 
@@ -277,6 +277,10 @@ void TraverseBFS(Tree T, void (*Process)(address)) {
     #undef MAX_QUEUE
 }
 
+void search_node()
+{
+
+}
 // ===================================================
 // ==================== CONVERTER ====================
 // ===================================================
