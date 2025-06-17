@@ -45,7 +45,7 @@ pnode alokasi(InfoList info, DataList type) {
             }
             break;
         case TYPE_JADWAL:
-            info_jadwal(new_node) = info.jadwal;
+            info_jadwal(new_node) = deep_copy_jadwal(info.jadwal);
             break;
         case TYPE_EVENT:
             info_event(new_node) = info.event;
