@@ -2,6 +2,8 @@
 #define TAMPILAN_RIWAYAT_H
 
 #include "../model/tree_data.h"
+#include "view.h"
 
-void tampilan_riwayat(int idx, int y, int selected, void* pointer_head);
+void tampilan_riwayat(int idx, int y, int selected, void* selected_node);
+
 #endif
