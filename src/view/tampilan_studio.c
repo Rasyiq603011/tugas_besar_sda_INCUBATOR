@@ -4,26 +4,6 @@
 #define TERMINAL_WIDTH 80
 #define BOX_WIDTH 56
 
-// Fungsi ini menampilkan judul/header
-void tampilan_header_studio(int y) 
-{
-    const char* header = "PEMILIHAN STUDIO"; // Teks header
-    int header_len = strlen(header); // Panjang teks header
-    int pos_x = (TERMINAL_WIDTH - BOX_WIDTH) / 2;
-    
-    // Cetak border atas
-    gotoxy(pos_x, y);
-    printf("============================================================");
-    
-    // Cetak header
-    gotoxy(pos_x + (BOX_WIDTH - header_len) / 2, y + 1);
-    printf("| %s |", header);
-    
-    // Cetak border bawah header
-    gotoxy(pos_x, y + 2);
-    printf("============================================================");
-}
-
 // Fungsi ini menampilkan detail satu studio
 void tampilan_studio(int idx, int y, int selected, void* pointer_head)
 {
