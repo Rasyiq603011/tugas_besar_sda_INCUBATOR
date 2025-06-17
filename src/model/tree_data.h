@@ -134,6 +134,8 @@ int get_jumlah_node_by_type(address P, DataType tipe);
 // Mengembalikan jumlah anak 
 int get_jumlah_anak(address P);
 
+// Mengembalikan node dengan 
+address get_selected_node(address parent, int number);
 
 // ===================================================
 // ================== MUTATOR SECTION ================

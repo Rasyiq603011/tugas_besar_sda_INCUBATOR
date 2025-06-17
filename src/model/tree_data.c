@@ -7,10 +7,7 @@
 // Inisialisasi pohon: jika pohon kosong, root diset NULL
 void init_tree(Tree* T)
 {
-    if (is_tree_empty(*T))
-    {
-        T->root = NULL;
-    }    
+    T->root = NULL;
 }
 
 // Membuat simpul baru sesuai tipe dan info yang diberikan
@@ -155,6 +152,18 @@ int get_jumlah_anak(address P)
     return jumlah_anak;
 }
 
+address get_selected_node(address parent, int number)
+{   
+    address child = parent->first_son;
+    int count = 1;
+    while (child->next_brother != NULL && count <= number)
+    {
+        child = child->next_brother;
+        count++;
+    }
+    return child;
+}
+
 // ===================================================
 // ================== MUTATOR SECTION ================
 // ===================================================
@@ -277,10 +286,6 @@ void TraverseBFS(Tree T, void (*Process)(address)) {
     #undef MAX_QUEUE
 }
 
-void search_node()
-{
-
-}
 // ===================================================
 // ==================== CONVERTER ====================
 // ===================================================
@@ -307,4 +312,3 @@ int convert_children_to__array(address parent, void*** out_array)
     *out_array = array;
     return count;
 }
-
