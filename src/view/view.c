@@ -86,6 +86,50 @@ void clear_line(int y)
     }
 }
 
+void input_text_field(int x, int y, char* buffer, int maxLen, bool isPassword) {
+    int pos = 0;
+    char ch;
+    gotoxy(x, y);
+    while (1) {
+        ch = getch();
+        if (ch == 13) { // ENTER
+            buffer[pos] = '\0';
+            break;
+        } else if (ch == 8 && pos > 0) { // BACKSPACE
+            pos--;
+            gotoxy(x + pos, y);
+            printf(" ");
+            gotoxy(x + pos, y);
+        } else if (ch >= 32 && ch <= 126 && pos < maxLen - 1) {
+            buffer[pos++] = ch;
+            printf("%c", isPassword ? '*' : ch);
+        }
+    }
+}
+
+int input_integer_field(int x, int y, int maxDigit) {
+    char buffer[10] = {0};
+    int pos = 0;
+    char ch;
+    gotoxy(x, y);
+    while (1) {
+        ch = getch();
+        if (ch == 13) { // ENTER
+            buffer[pos] = '\0';
+            break;
+        } else if (ch == 8 && pos > 0) {
+            pos--;
+            gotoxy(x + pos, y);
+            printf(" ");
+            gotoxy(x + pos, y);
+        } else if (ch >= '0' && ch <= '9' && pos < maxDigit) {
+            buffer[pos++] = ch;
+            printf("%c", ch);
+        }
+    }
+    return atoi(buffer);
+}
+
 void center_print(const char* text)
 {
     int len = strlen(text);

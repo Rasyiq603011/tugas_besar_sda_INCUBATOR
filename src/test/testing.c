@@ -98,32 +98,66 @@ void test_tree_json_roundtrip()
 }
 
 
-void test_menu_negara()
-{
-    Tree T;
-    printf("Pass 1");
-    init_tree(&T);
-    printf("Pass 2");
+//void test_menu_negara()
+//{
+//    Tree T;
+//    printf("Pass 1");
+//    init_tree(&T);
+//    printf("Pass 2");
+//
+//    Negara* N;
+//    create_negara(&N, "Amerisya Usyara", 10, 10);
+//    printf("Pass 3");
+//    add_child(&(T.root), NEGARA_INFO(N), TYPE_NEGARA);
+//    printf("Pass 4");
+//    create_negara(&N, "Indonesia", 10, 10);
+//    add_child(&T.root, NEGARA_INFO(N), TYPE_NEGARA);
+//    printf("buat node indonesia berhasil");
+//    create_negara(&N, "Malaysia", 10, 10);
+//    add_child(&T.root, NEGARA_INFO(N), TYPE_NEGARA); 
+//    create_negara(&N, "Singapura", 10, 10);
+//    add_child(&T.root, NEGARA_INFO(N), TYPE_NEGARA); 
+//    create_negara(&N, "Australia", 10, 10);
+//    add_child(&T.root, NEGARA_INFO(N), TYPE_NEGARA); 
+//    create_negara(&N, "Persib", 10, 10);
+//    add_child(&T.root, NEGARA_INFO(N), TYPE_NEGARA); 
+//
+//    handle_pemilihan_negara(T.root);
+//
+//    delete_tree(&T);
+//    printf("Passed");
+//}
 
-    Negara* N;
-    create_negara(&N, "Amerisya Usyara", 10, 10);
-    printf("Pass 3");
-    add_child(&(T.root), NEGARA_INFO(N), TYPE_NEGARA);
-    printf("Pass 4");
-    create_negara(&N, "Indonesia", 10, 10);
-    add_child(&T.root, NEGARA_INFO(N), TYPE_NEGARA);
-    printf("buat node indonesia berhasil");
-    create_negara(&N, "Malaysia", 10, 10);
-    add_child(&T.root, NEGARA_INFO(N), TYPE_NEGARA); 
-    create_negara(&N, "Singapura", 10, 10);
-    add_child(&T.root, NEGARA_INFO(N), TYPE_NEGARA); 
-    create_negara(&N, "Australia", 10, 10);
-    add_child(&T.root, NEGARA_INFO(N), TYPE_NEGARA); 
-    create_negara(&N, "Persib", 10, 10);
-    add_child(&T.root, NEGARA_INFO(N), TYPE_NEGARA); 
+void testing_pemilihan_kursi() {
+    int jumlah_kursi = 1000;
+    Kursi* daftar_kursi[1000];
 
-    handle_pemilihan_negara(T.root);
+    // Inisialisasi kursi dengan status tersedia dan tipe berbeda
+    for (int i = 0; i < jumlah_kursi; i++) {
+        int tipe = (i < 300) ? TYPE_GOLD : (i < 600) ? TYPE_SILVER : TYPE_BRONZE;
+        daftar_kursi[i] = constructor_kursi(i + 1, true, tipe);
+    }
 
-    delete_tree(&T);
-    printf("Passed");
+    // Jalankan pemilihan kursi secara interaktif
+    printf("=== TESTING TAMPILAN PEMILIHAN KURSI ===\n");
+    printf("Gunakan arrow key untuk navigasi, Enter untuk pilih, Esc untuk keluar.\n\n");
+
+    pemilihan_kursi(jumlah_kursi, daftar_kursi);
+
+    // Cetak hasil pemesanan kursi
+    printf("\nRingkasan Kursi Dipesan:\n");
+    for (int i = 0; i < jumlah_kursi; i++) {
+        if (!get_status_kursi(daftar_kursi[i])) {
+            char kode = 'A' + get_tipe_kursi(daftar_kursi[i]);
+            printf("Kursi %c-%03d telah dipesan.\n", kode, get_id_kursi(daftar_kursi[i]));
+        }
+    }
+
+    // Dealokasi
+    for (int i = 0; i < jumlah_kursi; i++) {
+        destructor_kursi(daftar_kursi[i]);
+    }
+
+    return;
 }
+

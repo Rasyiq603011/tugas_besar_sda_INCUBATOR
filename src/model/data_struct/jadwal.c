@@ -40,7 +40,8 @@ Jadwal* constructor_jadwal(Time waktu_start, Time Waktu_end, date tanggal, int h
     new_jadwal->jumlah_tiket = jumlah_kursi;
 
     new_jadwal->daftar_kursi = (Kursi**)calloc(jumlah_kursi, sizeof(Kursi*));
-    if (!new_jadwal->daftar_kursi) {
+    if (!new_jadwal->daftar_kursi) 
+    {
         free(new_jadwal);
         return NULL;
     }
@@ -228,7 +229,8 @@ void reset_film(Jadwal* jadwal)
     jadwal->is_linked = false;
 }
 
-Jadwal* deep_copy_jadwal(const Jadwal* source) {
+Jadwal* deep_copy_jadwal(const Jadwal* source) 
+{
     if (!source) return NULL;
 
     Jadwal* copy = (Jadwal*)malloc(sizeof(Jadwal));

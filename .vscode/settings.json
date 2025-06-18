@@ -1,5 +1,5 @@
 {
-  "C_Cpp_Runner.msvcBatchPath": "",
+  "C_Cpp_Runner.msvcBatchPath": "C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Auxiliary/Build/vcvarsall.bat",
   "files.associations": {
     "tree_data.h": "c",
     "negara.h": "c",
@@ -7,7 +7,18 @@
     "kota.h": "c",
     "studio.h": "c",
     "bioskop.h": "c",
-    "handle_crud_tree.h": "c"
+    "handle_crud_tree.h": "c",
+    "kursi_view.h": "c",
+    "test_event.h": "c",
+    "queue.h": "c",
+    "stdbool.h": "c",
+    "event.h": "c",
+    "stdlib.h": "c",
+    "user.h": "c",
+    "linked.h": "c",
+    "date.h": "c",
+    "handle_event.h": "c",
+    "tambah_jadwal_view.h": "c"
   },
   "C_Cpp_Runner.cCompilerPath": "gcc",
   "C_Cpp_Runner.cppCompilerPath": "g++",

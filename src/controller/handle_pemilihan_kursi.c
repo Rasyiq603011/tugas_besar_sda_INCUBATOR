@@ -23,6 +23,7 @@ void display_kursi(int jumlah_kursi, Kursi* daftar_kursi[], int terpilih, int pa
     int total_pages = (jumlah_kursi + JUMLAH_TAMPILAN_KURSI_MAKS - 1) / JUMLAH_TAMPILAN_KURSI_MAKS;
 
     out = GetStdHandle(STD_OUTPUT_HANDLE);
+    init_kursi_view();
     set_attribut_kursi(display_count, visual_kursi, daftar_kursi, terpilih, offset);
     inisialisasi_small_rect();
 

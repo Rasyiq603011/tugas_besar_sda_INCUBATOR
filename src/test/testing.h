@@ -3,10 +3,11 @@
 #include <stdio.h>
 #include <assert.h>
 #include <string.h>
+#include "../controller/handle_pemilihan_kursi.h"
 #include "../model/file_manipulation/crud_film.h"
 #include "../model/file_manipulation/read_json.h"
 #include "../model/file_manipulation/write_json.h"
-#include "../controller/handle_menu_pemilihan.h"
+//#include "../controller/handle_menu_pemilihan.h"
 
 #define TEMP_FILM_FILE "../assets/test_film.dat"
 #define TEMP_TREE_FILE "../assets/test_bioskop.dat"
@@ -16,5 +17,7 @@ void test_crud_film();
 void test_tree_json_roundtrip();
 
 void test_menu_negara();
+
+void testing_pemilihan_kursi();
 
 #endif
