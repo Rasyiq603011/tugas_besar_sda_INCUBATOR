@@ -9,7 +9,7 @@ struct DataUser
     String username;
     String password;
     int saldo;
-    List riwayat;
+    Riwayat* riwayat;
     Prioritas prioritas;
 };
 
@@ -41,9 +41,9 @@ Prioritas get_prioritas_user(User* user)
     return user->prioritas;
 }
 
-pnode get_pointer_to_riwayat(User* user)
+Riwayat* get_pointer_to_riwayat(User* user)
 {
-    return user->riwayat.First;
+    return user->riwayat;
 }
 
 // ===============================================
@@ -80,20 +80,38 @@ void kurangi_saldo_user(User* user, int harga_tiket)
     user->saldo -= harga_tiket;
 }
 
-void add_riwayat_user(User* user, pnode new_riwayat)
+void add_riwayat_user(User* user, Riwayat* new_riwayat)
 {
-    if (user->riwayat.First == NULL)
+    if (user->riwayat == NULL)
     {
-        user->riwayat.First = new_riwayat;
+        user->riwayat = new_riwayat;
         return;
     }
     
-    pnode temp = user->riwayat.First;
-    while (temp->next != NULL)
+    Riwayat* temp = user->riwayat;
+    while (get_next_riwayat(temp) != NULL)
     {
-        temp = temp->next;
+        temp = get_next_riwayat(temp);
     }
-    temp->next = new_riwayat;
+    set_next_riwayat(temp, new_riwayat);
+}
+
+void hapus_riwayat(User** user)
+{
+    if ((*user)->riwayat != NULL)
+    {   
+        Riwayat* temp;
+        while ((*user)->riwayat != NULL)
+        {
+            temp = ((*user)->riwayat);
+            (*user)->riwayat = get_next_riwayat((*user)->riwayat);
+
+            if (temp != NULL)
+            {
+                free(temp);
+            }
+        }
+    }
 }
 
 // ===============================================
@@ -107,7 +125,7 @@ User* create_user(String username, String password, Prioritas prioritas)
     user->username = strdup(username);
     user->password = strdup(password);
     user->prioritas = prioritas;
-    user->riwayat.First = NULL;
+    user->riwayat = NULL;
     return user;
 }
 
@@ -116,40 +134,13 @@ User* create_user(String username, String password, Prioritas prioritas)
 // ===============================================
 
 // Menghapus objek user dan membebaskan memori yang digunakan
-void destroy_user(User* user)
+void destroy_user(User** user)
 {
-    if (user != NULL)
+    if (*user != NULL)
     {
-        free(user->username);  // membebaskan memori username
-        free(user->password);  // membebaskan memori password (seharusnya ini, bukan username dua kali)
-        clear_list(&(user->riwayat.First));
-        free(user);            // membebaskan memori objek user
+        free((*user)->username);  // membebaskan memori username
+        free((*user)->password);  // membebaskan memori password (seharusnya ini, bukan username dua kali)
+        hapus_riwayat(user);
+        free(*user);            // membebaskan memori objek user
     }
-}
-
-// ===============================================
-// ================== CONVERTER ==================
-// ===============================================
-
-int convert_list_to_array(List* list, void*** out_array)
- {
-    int count = count_list(*list);
-    if (count == 0) 
-    {
-        *out_array = NULL;
-        return 0;
-    }
-
-    void** array = (void**)malloc(sizeof(void*) * count);
-    pnode curr = list->First;
-    int i = 0;
-
-    while (curr != NULL && i < count)
-    {
-        array[i++] = (void*) info_riwayat(curr); // cast Riwayat*
-        curr = Next(curr);
-    }
-
-    *out_array = array;
-    return count;
 }

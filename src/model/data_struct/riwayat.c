@@ -11,6 +11,7 @@ struct DataRiwayat {
     char jam[6];
     int harga_tiket;
     String kursi;
+    Riwayat* next;
 };
 
 // ===============================================
@@ -47,6 +48,13 @@ String get_kursi_riwayat(Riwayat* riwayat)
     return riwayat->kursi;
 }
 
+Riwayat* get_next_riwayat(Riwayat* riwayat)
+{
+    if (riwayat != NULL){
+        return riwayat->next;
+    }
+}
+
 // ===============================================
 // ============== MUTATOR SECTION ================
 // ===============================================
@@ -81,6 +89,11 @@ void set_kursi_riwayat(Riwayat* riwayat, String kursi)
     riwayat->kursi = kursi;
 }
 
+void set_next_riwayat(Riwayat* riwayat, Riwayat* new_riwayat)
+{
+    riwayat->next = new_riwayat;
+}
+
 // ===============================================
 // ============ CONSTRUCTOR SECTION ==============
 // ===============================================
@@ -89,11 +102,11 @@ void set_kursi_riwayat(Riwayat* riwayat, String kursi)
 Riwayat* create_riwayat(String judul_film, char tanggal[10], char jam[6], int harga_tiket, String kursi)
 {
     Riwayat* new_node = (Riwayat*) malloc(sizeof(Riwayat));
-    new_node->judul_film = judul_film;
+    new_node->judul_film = strdup(judul_film);
     strcpy(new_node->tanggal, tanggal);
     strcpy(new_node->jam, jam);
     new_node->harga_tiket = harga_tiket;
-    new_node->kursi = kursi;
+    new_node->kursi = strdup(kursi);
     return new_node; 
 }
 
@@ -110,4 +123,38 @@ void destroy_riwayat(Riwayat* riwayat)
         free(riwayat->kursi);      // membebaskan memori string kursi
         free(riwayat);             // membebaskan memori objek riwayat
     }
+}
+
+// ===============================================
+// ================== CONVERTER ==================
+// ===============================================
+
+int convert_riwayat_to_array(Riwayat* head, void*** out_array) 
+{
+    if (head == NULL) 
+    {
+        *out_array = NULL;
+        return 0;
+    }
+
+    // Hitung jumlah elemen
+    int count = 0;
+    Riwayat* curr = head;
+    while (curr != NULL) 
+    {
+        count++;
+        curr = get_next_riwayat(curr);
+    }
+
+    // Alokasi array pointer
+    void** array = (void**)malloc(sizeof(void*) * count);
+    curr = head;
+    for (int i = 0; i < count && curr != NULL; i++) 
+    {
+        array[i] = (void*)curr; // casting Riwayat* ke void*
+        curr = get_next_riwayat(curr);
+    }
+
+    *out_array = array;
+    return count;
 }

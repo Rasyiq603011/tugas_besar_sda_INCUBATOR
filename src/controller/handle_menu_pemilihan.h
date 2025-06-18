@@ -8,6 +8,7 @@
 #include "../view/tampilan_kota.h"
 #include "../view/tampilan_bioskop.h"
 #include "../view/tampilan_studio.h"
+#include "../view/tampilan_jadwal.h"
 
 void handle_pemilihan_negara(address root);
 
