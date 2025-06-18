@@ -68,5 +68,6 @@ void handle_pemilihan_studio(address root)
 void handle_pemilihan_jadwal(address root)
 {
     void** array;
-    int jumlah = 
+    int jumlah = convert_children_to__array(root, &array);
+    int pilihan = scrollable_menu(array, jumlah, tampilan_jadwal, "Tampilan Jadwal", 2, 5);
 }
