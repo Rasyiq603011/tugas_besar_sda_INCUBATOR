@@ -1,9 +1,63 @@
 #include "handle_menu_admin.h"
 
-void handle_tambah_jadwal()
+void handle_tambah_jadwal(Studio* current_studio)
 {
-    printf("ini menu untuk tambah jadwal");
+    if (!current_studio) return;
+
+    Time waktu_start, waktu_end;
+    date tanggal;
+    char* judul = NULL;
+    int harga_tiket, jumlah_kursi;
+    List* daftar_jadwal = get_jadwal_studio(current_studio);
+
+    while (1) 
+    {
+
+        boolean input_sukses = handle_input_data_jadwal(&waktu_start, &waktu_end, &tanggal, judul, &harga_tiket, &jumlah_kursi);
+
+        if (!input_sukses) 
+        {
+            printf("❌ Input tidak valid.\n");
+        }
+         else if (is_exits_jadwal(*daftar_jadwal, tanggal, waktu_start, waktu_end)) 
+        {
+            printf("❌ Jadwal bentrok dengan jadwal lain!\n");
+        }
+         else 
+        {
+
+            Jadwal* jadwal_baru = constructor_jadwal(waktu_start, waktu_end, tanggal, harga_tiket, judul, jumlah_kursi);
+            free(judul);
+            judul = NULL;
+
+            if (!jadwal_baru) 
+            {
+                printf("❌ Gagal membuat jadwal!\n");
+                continue;
+            }
+
+            insert_value_last(&daftar_jadwal->First, JADWAL_INFO(jadwal_baru), TYPE_JADWAL);
+            printf("✅ Jadwal berhasil ditambahkan!\n");
+            break;
+        }
+
+        if (judul) 
+        {
+            free(judul);
+            judul = NULL;
+        }
+
+        char opsi;
+        printf("Apakah Anda ingin melanjutkan tambah jadwal ? (y/n): ");
+        scanf(" %c", &opsi); getchar(); 
+
+        if (opsi == 'n' || opsi == 'N') {
+            printf("Proses pembatalan penambahan jadwal.\n");
+            break;
+        }
+    }
 }
+
 
 void handle_hapus_jadwal()
 {

@@ -1,6 +1,6 @@
 #ifndef HANDLE_MENU_ADMIN_H
 #define HANDLE_MENU_ADMIN_H
-#include "../model/linked.h"
+#include "handle_crud_tree.h"s
 
 void handle_tambah_jadwal();
 

@@ -18,6 +18,8 @@ Jadwal* constructor_jadwal(Time waktu_start, Time Waktu_end, date tanggal, int h
 
 void create_jadwal(Jadwal** new_jadwal, Time waktu_start, Time waktu_end, date tanggal,int harga_tiket, String film, int jumlah_kursi);
 
+boolean is_jadwal_linked(Jadwal* current_jadwal);
+
 // ===============================================
 // ============== ACCESSOR SECTION ===============
 // ===============================================

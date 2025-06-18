@@ -180,12 +180,16 @@ void copy_list(List L1, List *L2);
 boolean compare_list(List L1, List L2);
 
 // Function untuk menggabungkan isi L2 ke L1 (dengan deep copy)
-void merge_list(List* L1, List L2);
+void merge_list(List* L1, List* L2);
 
 // Function untuk mendapatkan nilai di posisi depan
 InfoList get_front_value(List L);
 
 // Function untuk mendapatkan nilai di posisi belakang
 InfoList get_tail_value(List L);
+
+void** list_to_array(List L, int* out_size);
+
+pnode get_node_at(List L, int index);
 
 #endif /* LINKED_H */

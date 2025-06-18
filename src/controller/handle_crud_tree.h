@@ -1,15 +1,14 @@
 #ifndef HANDLE_CRUD_TREE_H
 #define HANDLE_CRUD_TREE_H
+#define DATABASE_BIOSKOP "../../assets/database_bioskop.json"
 #include "../model/file_manipulation/read_json.h"
 
-void tambah_jadwal_ke_studio(Studio* studio);
+void handle_inisialisasi_data(Tree* tree, List* list_film);
 
-void input_judul_film(char* buffer, int size);
-int input_harga_tiket();
-int input_jumlah_kursi();
-void input_tanggal(date* tanggal);
-void input_waktu(Time* waktu, const char* label);
+void linked_jadwal_to_film(address node, void* context);
 
+boolean handle_input_data_jadwal(Time* time_start, Time* time_end, date* date_jadwal, String judul_film, int* harga_tiket);
 
+boolean handle_input_data_event(Time* time_start, Time* time_end, date* date_jadwal, String judul_film, int* harga_tiket);
 
 #endif

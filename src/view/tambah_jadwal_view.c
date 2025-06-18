@@ -1,17 +1,5 @@
 #include "tambah_jadwal_view.h"
 
-    Time waktu_start;
-    Time waktu_end;
-    date tanggal_tayang;
-    union {
-        Film* film;
-        char FilmTitle[128];
-    };
-    bool is_linked;
-    int harga_tiket;
-    int jumlah_tiket;
-    Kursi** daftar_kursi;
-
 void input_jadwal(char* waktu_start, char* waktu_end, char* tanggal_tayang, char* judul_film, int* harga_tiket) 
 {
     system("cls");

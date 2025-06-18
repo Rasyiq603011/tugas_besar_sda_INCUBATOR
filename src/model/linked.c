@@ -349,8 +349,8 @@ boolean compare_list(List L1, List L2) {
     return (p1 == NULL && p2 == NULL);
 }
 
-void merge_list(List* L1, List L2) {
-    pnode P = First(L2);
+void merge_list(List* L1, List* L2) {
+    pnode P = First(*L2);
     while (P != NULL) {
         pnode newNode = alokasi(P->info, P->type);
         if (newNode) {
@@ -379,3 +379,60 @@ InfoList get_tail_value(List L) {
     }
     return result;
 }
+
+void** list_to_array(List L, int* out_size) 
+{
+    int size = count_list(L);
+    if (out_size) *out_size = size;
+
+    if (size == 0) return NULL;
+
+    void** array = (void**)malloc(size * sizeof(void*));
+    if (!array) return NULL;
+
+    pnode P = First(L);
+    int i = 0;
+    while (P != NULL) 
+    {
+        switch (P->type) 
+        {
+            case TYPE_INTEGER:
+                array[i] = &P->info.integer;
+                break;
+            case TYPE_STRING:
+                array[i] = P->info.str;
+                break;
+            case TYPE_JADWAL:
+                array[i] = P->info.jadwal;
+                break;
+            case TYPE_EVENT:
+                array[i] = P->info.event;
+                break;
+            case TYPE_FILM:
+                array[i] = P->info.film;
+                break;
+            default:
+                array[i] = NULL;
+        }
+        i++;
+        P = Next(P);
+    }
+
+    return array;
+}
+
+pnode get_node_at(List L, int index) 
+{
+    if (index < 0) return NULL;
+
+    int i = 0;
+    pnode P = First(L);
+    while (P != NULL && i < index) 
+    {
+        P = Next(P);
+        i++;
+    }
+
+    return (i == index) ? P : NULL;
+}
+

@@ -249,7 +249,7 @@ void traversal_preorder_rekursif(address start, void (*Process) (address))
     traversal_preorder_rekursif(start->next_brother, Process);
 }
 
-// FUungsi untuk traversal level-order
+// Fungsi untuk traversal level-order
 void TraverseBFS(Tree T, void (*Process)(address)) {
     if (is_tree_empty(T)) return;
     
@@ -286,6 +286,24 @@ void TraverseBFS(Tree T, void (*Process)(address)) {
     #undef MAX_QUEUE
 }
 
+void mutator_traversal_preorder(Tree T, void (*Process)(address, void*), void* accessible)
+{
+    if (!is_tree_empty)
+    {
+        traversal_preorder_rekursif(T.root, Process);
+    }
+}
+
+void mutator_traversal_preorder_rekursif(address root, void (*Process)(address, void*), void* context)
+{
+    if (root == NULL) return;
+
+    Process(root, context);
+    mutator_traversal_preorder_rekursif(root->first_son, Process, context);
+    mutator_traversal_preorder_rekursif(root->next_brother, Process, context);
+}
+
+
 // ===================================================
 // ==================== CONVERTER ====================
 // ===================================================
@@ -305,7 +323,7 @@ int convert_children_to__array(address parent, void*** out_array)
     int i = 0;
     while (curr != NULL && i < count) 
     {
-        array[i++] = (void*)curr;  // casting address to void*
+        array[i++] = (void*)curr;
         curr = curr->next_brother;
     }
 

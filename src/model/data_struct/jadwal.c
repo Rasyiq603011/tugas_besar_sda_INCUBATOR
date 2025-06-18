@@ -16,7 +16,6 @@ struct DataJadwal {
     Kursi** daftar_kursi;
 };
 
-
 // ===============================================
 // ============ CONSTRUCTOR SECTION ==============
 // ===============================================
@@ -58,6 +57,11 @@ Jadwal* constructor_jadwal(Time waktu_start, Time Waktu_end, date tanggal, int h
 void create_jadwal(Jadwal** new_jadwal, Time waktu_start, Time waktu_end, date tanggal,int harga_tiket, String film, int jumlah_kursi)
 {
     *new_jadwal = constructor_jadwal(waktu_start, waktu_end, tanggal, harga_tiket, film, jumlah_kursi);
+}
+
+boolean is_jadwal_linked(Jadwal* current_jadwal)
+{
+    return current_jadwal ? current_jadwal->is_linked : false;
 }
 
 // ===============================================

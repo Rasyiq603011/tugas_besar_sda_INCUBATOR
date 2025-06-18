@@ -21,7 +21,9 @@
     "tambah_jadwal_view.h": "c",
     "view.h": "c",
     "handle_menu_admin.h": "c",
-    "handle_menu.h": "c"
+    "handle_menu.h": "c",
+    "handle_menu_pemilihan.h": "c",
+    "jadwal.h": "c"
   },
   "C_Cpp_Runner.cCompilerPath": "gcc",
   "C_Cpp_Runner.cppCompilerPath": "g++",
