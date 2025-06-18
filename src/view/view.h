@@ -15,4 +15,8 @@ void clear_line(int y);
 
 int scrollable_menu(void** data_array, int jumlah_item, void (*render)(int idx, int y_pos, int selected, void* data), const char* header, int tinggi_blok, int max_tampil);
 
+void center_print(const char* text);
+
+void show_splashscreen(); 
+
 #endif /*VIEW_H*/

@@ -129,3 +129,56 @@ int input_integer_field(int x, int y, int maxDigit) {
     }
     return atoi(buffer);
 }
+
+void center_print(const char* text)
+{
+    int len = strlen(text);
+    int padding = (TERMINAL_WIDTH - len) / 2;
+    for (int i = 0; i < padding; i++) printf(" ");
+    printf("%s\n", text);
+}
+
+void show_splashscreen() {
+    const char* title[] = {
+        " ██████╗██╗███╗   ██╗███████╗███╗   ███╗ █████╗ ████████╗██╗ ██████╗ ██╗   ██╗███████╗",
+        "██╔════╝██║████╗  ██║██╔════╝████╗ ████║██╔══██╗╚══██╔══╝██║██╔═══██╗██║   ██║██╔════╝",
+        "██║     ██║██╔██╗ ██║█████╗  ██╔████╔██║███████║   ██║   ██║██║   ██║██║   ██║█████╗  ",
+        "██║     ██║██║╚██╗██║██╔══╝  ██║╚██╔╝██║██╔══██║   ██║   ██║██║▄▄ ██║██║   ██║██╔══╝  ",
+        "╚██████╗██║██║ ╚████║███████╗██║ ╚═╝ ██║██║  ██║   ██║   ██║╚██████╔╝╚██████╔╝███████╗",
+        " ╚═════╝╚═╝╚═╝  ╚═══╝╚══════╝╚═╝     ╚═╝╚═╝  ╚═╝   ╚═╝   ╚═╝ ╚══▀▀═╝  ╚═════╝ ╚══════╝",
+        NULL
+    };
+
+    system("cls");
+    
+    // Menampilkan judul dengan efek animasi
+    printf("\033[1;96m"); // Cyan terang
+    for (int i = 0; title[i] != NULL; i++) {
+        center_print(title[i]);
+        Sleep(200);  // Delay untuk efek animasi
+    }
+    printf("\033[0m");
+    
+    printf("\n");
+    center_print("============================================================");
+    center_print("          SELAMAT DATANG DI BIOSKOP KITA (VERSI FIX)        ");
+    center_print("============================================================");
+    printf("\n");
+    
+    // Efek loading sederhana
+    center_print("Loading");
+    for (int i = 0; i < 3; i++) {
+        Sleep(500);
+        printf(".");
+        fflush(stdout);
+    }
+    printf("\n\n");
+    
+    printf("\033[1;33m");
+    center_print("Tekan ENTER untuk melanjutkan...");
+    printf("\033[0m");
+    
+    getchar();
+    
+    system("cls");
+}
