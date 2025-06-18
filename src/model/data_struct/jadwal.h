@@ -74,4 +74,6 @@ int compare_jadwal_value(const Jadwal* jadwal_pertama, const Jadwal* jadwal_kedu
 
 void reset_film(Jadwal* jadwal);
 
+Jadwal* deep_copy_jadwal(const Jadwal* source);
+
 #endif /*JADWAL_H*/

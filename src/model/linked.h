@@ -8,7 +8,6 @@
 #include "data_struct/film.h"
 #include "data_struct/jadwal.h"
 #include "data_struct/event.h"
-#include "data_struct/riwayat.h"
 
 typedef char* String;
 
@@ -17,8 +16,7 @@ typedef enum {
     TYPE_STRING = 1,
     TYPE_JADWAL = 2,
     TYPE_EVENT = 3,
-    TYPE_FILM = 4,
-    TYPE_RIWAYAT = 5
+    TYPE_FILM = 4
 } DataList;
 
 typedef union {
@@ -27,8 +25,7 @@ typedef union {
     Jadwal* jadwal;
     Event* event;
     Film* film;
-    Riwayat* riwayat;
-}InfoList;
+} InfoList;
 
 typedef struct node *pnode;
 typedef struct node {
@@ -51,13 +48,11 @@ typedef struct {
 #define info_jadwal(P) ((P)->info.jadwal)
 #define info_event(P) ((P)->info.event)
 #define info_film(P) ((P)->info.film)
-#define info_riwayat(P) ((P)->info.riwayat)
 #define INT_INFO(x) ((InfoList){.integer = (x)})
 #define STR_INFO(x) ((InfoList){.str = (x)})
 #define JADWAL_INFO(x) ((InfoList){.jadwal = (x)})
 #define EVENT_INFO(x) ((InfoList){.event = (x)})
 #define FILM_INFO(x) ((InfoList){.film = (x)})
-#define RIWAYAT_INFO(x) ((InfoList){.riwayat = (x)})
 
 /*========================================================*/
 /*==================== MAIN FUNCTIONS ====================*/
@@ -105,7 +100,7 @@ void InsertAfter(pnode *pBef, pnode PNew);
 
 // I.S : pnode *P Sudah di Create
 // F.S : pnode newNode sudah dimasukan kedalam List dengan sebelum *pAft
-void InsertBefore(pnode *pAft, pnode *p, pnode PNew);
+void InsertBefore(pnode *head, pnode pAft, pnode PNew);
 
 // Function untuk menyisipkan nilai di posisi first
 void insert_value_first(pnode *P, InfoList info, DataList type);
@@ -181,7 +176,11 @@ void reverse_list(List *L);
 // Catatan: Untuk list string, semua string akan di-deep copy
 void copy_list(List L1, List *L2);
 
+// Function untuk membandingkan dua list, akan return true jika identik
 boolean compare_list(List L1, List L2);
+
+// Function untuk menggabungkan isi L2 ke L1 (dengan deep copy)
+void merge_list(List* L1, List L2);
 
 // Function untuk mendapatkan nilai di posisi depan
 InfoList get_front_value(List L);

@@ -62,7 +62,7 @@ void handle_menu_admin()
         /* code */
         break;
     case 2:
-        /* code */
+        management_event();
         break;
     case 3:
         return; 
@@ -143,4 +143,45 @@ void handle_menu_awal()
         break;
     }
 
+}
+
+// ===============================================
+// ============== EVENT MENU SECTION =============
+// ===============================================
+
+void management_event()
+{
+    while (1)
+    {
+        int pilihan;
+        const int jumlah_opsi = 4;
+        const char* options[] = {
+            "TAMBAH EVENT",
+            "PROSES ANTRIAN EVENT",
+            "HAPUS EVENT",
+            "KEMBALI"
+        };
+        const char* header = "MANAGEMENT EVENT";
+        pilihan = handle_display_menu(jumlah_opsi, options, header);
+    
+        switch (pilihan) 
+        {
+            case 0: 
+                handle_tambah_event();
+                break;
+                
+            case 1:
+                handle_proses_antrian_event();
+                break;
+                
+            case 2: 
+                handle_hapus_event();
+                break;
+                
+            case 3: // Back to menu
+                return;
+            default:
+                break;
+        }
+    }
 }

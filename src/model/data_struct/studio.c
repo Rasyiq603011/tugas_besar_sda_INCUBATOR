@@ -148,6 +148,23 @@ List* get_jadwal_by_date(const List jadwal, date tanggal)
     return filter_list;
 }
 
+List* get_jadwal_by_film(Studio* studio, const char* keyword) {
+    if (!studio || !keyword || !studio->jadwal_studio) return NULL;
+
+    List* hasil = create_list();
+    pnode current = studio->jadwal_studio->First;
+
+    while (current) {
+        Jadwal* current_jadwal = info_jadwal(current);
+
+        if (strcasestr_custom(get_film_name(current_jadwal), keyword)) {
+            insert_value_last(&(hasil->First), Info(current), Type(current));
+        }
+        current = current->next;
+    }
+
+    return hasil;
+}
 
 int is_exits_jadwal(const List Jadwal, date tanggal, Time start, Time end)
 {
@@ -202,4 +219,21 @@ Studio* copy_studio(const Studio* original) {
     return copy;
 }
 
+char* strcasestr_custom(const char* haystack, const char* needle) {
+    if (!*needle) return (char*)haystack;
 
+    for (; *haystack; ++haystack) {
+        const char *h = haystack;
+        const char *n = needle;
+
+        while (*h && *n && tolower((unsigned char)*h) == tolower((unsigned char)*n)) {
+            ++h;
+            ++n;
+        }
+
+        if (!*n) {
+            return (char*)haystack;  // Ditemukan
+        }
+    }
+    return NULL; // Tidak ditemukan
+}

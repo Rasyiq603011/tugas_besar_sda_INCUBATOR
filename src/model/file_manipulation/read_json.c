@@ -266,7 +266,7 @@ static Kursi* parse_kursi(cJSON* kursi_json)
 
 bool is_username_available(const char* username_to_check) 
 {
-    FILE* file = fopen(DATABASE_USER, "r");
+    FILE* file = fopen("ooutput.h", "r");
     if (!file) return true; // jika file belum ada, berarti username pasti belum dipakai
 
     fseek(file, 0, SEEK_END);

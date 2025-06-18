@@ -2,7 +2,8 @@
 
 int main(int argc, char *argv[])
 {
-    test_tree_json_roundtrip();
+    testing_queue();
+    // testing_pemilihan_kursi();
     return 0;
 }
 
