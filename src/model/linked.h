@@ -127,6 +127,9 @@ void delete_last(pnode *P, InfoList *info);
 // Function untuk menghapus node berdasarkan nilai
 void delete_by_value(pnode *P, InfoList info, DataList type);
 
+// Function untuk menghapus node berdasarkan address
+void delete_by_address(pnode *P, pnode deleted);
+
 // IS : l tidak kosong
 // FS : mendealokasi/menghapus seluruh isi list 
 // Catatan: Jika list berisi string, seluruh memori untuk string tersebut juga akan dibebaskan

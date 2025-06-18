@@ -227,6 +227,27 @@ void delete_by_value(pnode *P, InfoList info, DataList type) {
     }
 }
 
+void delete_by_address(pnode *P, pnode deleted) {
+    if (*P == NULL || deleted == NULL) return;
+
+    pnode current = *P;
+    pnode prev = NULL;
+
+    while (current != NULL) {
+        if (current == deleted) {
+            if (prev == NULL) {
+                *P = current->next;
+            } else {
+                prev->next = current->next;
+            }
+            dealokasi(current);
+            return;
+        }
+        prev = current;
+        current = current->next;
+    }
+}
+
 void clear_list(pnode *P) {
     InfoList dummy_info;
     while (*P != Nil) {

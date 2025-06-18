@@ -39,16 +39,14 @@ int handle_display_menu(int jumlah_opsi, const char* options[], const char* head
 // ============= MENU ADMIN SECTION ==============
 // ===============================================
 
-void handle_menu_admin()
+void handle_menu_admin(Tree bioskop)
 {
     int pilihan;
-    const int jumlah_opsi = 5;
+    const int jumlah_opsi = 3;
     const char* options[] = {
-        "TAMBAH JADWAL FILM",
-        "HAPUS JADWAL FILM",
-        "ATUR EVENT",
-        "LOGOUT",
-        "QUIT"
+        "MANAGEMENT JADWAL",
+        "MANAGEMENT EVENT",
+        "LOGOUT"
     };
     const char* header = "MENU UTAMA ADMIN";
     pilihan = handle_display_menu(jumlah_opsi, options, header);
@@ -56,17 +54,12 @@ void handle_menu_admin()
     switch (pilihan)
     {
     case 0:
-        handle_tambah_jadwal();
+        navigasi_tree_for_admin(bioskop);
         break;
     case 1:
-        handle_hapus_jadwal();
-        break;
-    case 2:
         management_event();
         break;
-    case 3:
-        return; 
-    case 4:
+    case 2:
         return;
     default:
         break;
@@ -81,13 +74,12 @@ void handle_menu_admin()
 void handle_menu_user()
 {
     int pilihan;
-    const int jumlah_opsi = 5;
+    const int jumlah_opsi = 4;
     const char* options[] = {
         "PEMBELIAN TIKET",
         "INFORMASI EVENT",
         "RIWAYAT",
-        "LOGOUT",
-        "QUIT"
+        "LOGOUT"
     };
     const char* header = "MENU UTAMA USER";
     pilihan = handle_display_menu(jumlah_opsi, options, header);
@@ -151,43 +143,3 @@ void handle_menu_awal()
 
 }
 
-// ===============================================
-// ============== EVENT MENU SECTION =============
-// ===============================================
-
-void management_event()
-{
-    while (1)
-    {
-        int pilihan;
-        const int jumlah_opsi = 4;
-        const char* options[] = {
-            "TAMBAH EVENT",
-            "PROSES ANTRIAN EVENT",
-            "HAPUS EVENT",
-            "KEMBALI"
-        };
-        const char* header = "MANAGEMENT EVENT";
-        pilihan = handle_display_menu(jumlah_opsi, options, header);
-    
-        switch (pilihan) 
-        {
-            case 0: 
-                handle_tambah_event();
-                break;
-                
-            case 1:
-                handle_proses_antrian_event();
-                break;
-                
-            case 2: 
-                handle_hapus_event();
-                break;
-                
-            case 3: 
-                return;
-            default:
-                break;
-        }
-    }
-}
