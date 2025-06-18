@@ -1,6 +1,7 @@
 #ifndef HANDLE_MENU_H
 #define HANDLE_MENU_H
 #include "../view/view.h"
+#include "handle_menu_admin.h"
 
 void handle_option_menu(int key, int* opsi_terpilih, int jumlah_opsi);
 

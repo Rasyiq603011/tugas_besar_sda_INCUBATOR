@@ -1,4 +1,14 @@
-#include "handle_event.h"
+#include "handle_menu_admin.h"
+
+void handle_tambah_jadwal()
+{
+    printf("ini menu untuk tambah jadwal");
+}
+
+void handle_hapus_jadwal()
+{
+    pritnf("ini menu untuk hapus jadwal");
+}
 
 
 void handle_tambah_event()

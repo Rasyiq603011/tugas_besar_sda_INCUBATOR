@@ -56,10 +56,10 @@ void handle_menu_admin()
     switch (pilihan)
     {
     case 0:
-        /* code */
+        handle_tambah_jadwal();
         break;
     case 1:
-        /* code */
+        handle_hapus_jadwal();
         break;
     case 2:
         management_event();
@@ -95,6 +95,8 @@ void handle_menu_user()
     switch (pilihan)
     {
     case 0:
+        // LOAD DATA TREE
+        // PANGGIL PROVINSI
         /* code */
         break;
     case 1:
@@ -129,13 +131,17 @@ void handle_menu_awal()
     const char* header = "MENU SEBAGAI?";
     pilihan = handle_display_menu(jumlah_opsi, options, header);
 
+    // LOAD DATA USER
+
     switch (pilihan)
     {
     case 0:
-        handle_menu_admin();
+        // HANDLE LOGIN ADMIN
         break;
     case 1:
-        handle_menu_user();
+        // HANDLE LOGIN USER
+        // LOAD DATA DI MENU LOGIN 
+        // KETIKA LOGIN BERHASIL LOAD TREE
         break;
     case 2:
         return; 
@@ -178,7 +184,7 @@ void management_event()
                 handle_hapus_event();
                 break;
                 
-            case 3: // Back to menu
+            case 3: 
                 return;
             default:
                 break;

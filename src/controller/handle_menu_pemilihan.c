@@ -8,7 +8,9 @@ void handle_pemilihan_negara(address root)
 {
     void** array;
     int jumlah = convert_children_to__array(root, &array);
+
     int pilihan = scrollable_menu(array, jumlah, tampilan_negara, "Tampilan Negara", 3, 1);
+    // KALO PILIHAN -1 LANGSUNG RETURN
     free(array);
     handle_pemilihan_provinsi(root);
 }
@@ -24,6 +26,7 @@ void handle_pemilihan_provinsi(address root)
     free(array);
     handle_pemilihan_kota(get_selected_node(root, pilihan+1));
 }
+
 // ======================================================
 // ================ PEMILIHAN KOTA SECTION ==============
 // ======================================================
@@ -32,9 +35,11 @@ void handle_pemilihan_kota(address root)
     void** array;
     int jumlah = convert_children_to__array(root, &array);
     int pilihan = scrollable_menu(array, jumlah, tampilan_kota, "Tampilan Kota", 3, 4);
+    // KALO PILIHAN -1 LANGSUNG RETURN
     free(array);
     handle_pemilihan_kota(get_selected_node(root, pilihan+1));
 }
+
 // ======================================================
 // ============== PEMILIHAN BIOSKOP SECTION =============
 // ======================================================
