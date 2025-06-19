@@ -3,8 +3,17 @@
 #include "../view/view.h"
 #include "handle_menu_admin.h"
 #include "handle_menu_pemilihan.h"
+#include "handle_tampilan_riwayat.h"
+
+// ===============================================
+// ============= OPTION SECTION ==================
+// ===============================================
 
 void handle_option_menu(int key, int* opsi_terpilih, int jumlah_opsi);
+
+// ===============================================
+// ============= DISPLAY SECTION =================
+// ===============================================
 
 int handle_display_menu(int jumlah_opsi, const char* options[], const char* header);
 

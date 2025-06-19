@@ -27,7 +27,8 @@
     "tampilan_jadwal.h": "c",
     "tampilan_data_struct.h": "c",
     "time_adt.h": "c",
-    "film.h": "c"
+    "film.h": "c",
+    "handle_tampilan_riwayat.h": "c"
   },
   "C_Cpp_Runner.cCompilerPath": "gcc",
   "C_Cpp_Runner.cppCompilerPath": "g++",

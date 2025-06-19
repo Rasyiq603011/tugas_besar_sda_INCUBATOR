@@ -1,5 +1,9 @@
 #include "handle_menu.h"
 
+// ===============================================
+// ============= OPTION SECTION ==================
+// ===============================================
+
 void handle_option_menu(int key, int* opsi_terpilih, int jumlah_opsi)
 {
     if (key == 72) 
@@ -13,6 +17,10 @@ void handle_option_menu(int key, int* opsi_terpilih, int jumlah_opsi)
             Beep(1200,100);	                
         }
 }
+
+// ===============================================
+// ============= DISPLAY SECTION =================
+// ===============================================
 
 int handle_display_menu(int jumlah_opsi, const char* options[], const char* header)
 {
@@ -72,7 +80,7 @@ void handle_menu_admin(Tree bioskop)
 // ============== MENU USER SECTION ==============
 // ===============================================
 
-void handle_menu_user(User** user, address root)
+void handle_menu_user(User* user, Tree T)
 {
     int pilihan;
     const int jumlah_opsi = 4;
@@ -89,7 +97,7 @@ void handle_menu_user(User** user, address root)
     {
     case 0:
         // PANGGIL PROVINSI
-        handle_pemilihan_provinsi(root);
+        handle_pemilihan_provinsi(T.root);
         /* code */
         break;
     case 1:
@@ -97,9 +105,11 @@ void handle_menu_user(User** user, address root)
         break;
     case 2:
         /* code */
+        handle_tampilan_riwayat(user);
         break;
     case 3:
         destroy_user(user);
+        delete_tree(&T);
         return; 
     case 4:
         return;
