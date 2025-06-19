@@ -4,16 +4,16 @@
 // ============== PEMILIHAN NEGARA SECTION ==============
 // ======================================================
 
-void handle_pemilihan_negara(address root)
-{
-    void** array;
-    int jumlah = convert_children_to__array(root, &array);
+//void handle_pemilihan_negara(address root)
+//{
+//    void** array;
+//    int jumlah = convert_children_to__array(root, &array);
 
-    int pilihan = scrollable_menu(array, jumlah, tampilan_negara, "Tampilan Negara", 3, 1);
+//    int pilihan = scrollable_menu(array, jumlah, tampilan_negara, "Tampilan Negara", 3, 1);
     // KALO PILIHAN -1 LANGSUNG RETURN
-    free(array);
-    handle_pemilihan_provinsi(root);
-}
+//    free(array);
+//    handle_pemilihan_provinsi(root);
+//}
 
 // ======================================================
 // ============= PEMILIHAN PROVINSI SECTION =============

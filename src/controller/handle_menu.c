@@ -60,6 +60,7 @@ void handle_menu_admin(Tree bioskop)
         management_event();
         break;
     case 2:
+        destroy_admin();
         return;
     default:
         break;
@@ -71,7 +72,7 @@ void handle_menu_admin(Tree bioskop)
 // ============== MENU USER SECTION ==============
 // ===============================================
 
-void handle_menu_user()
+void handle_menu_user(User** user, address root)
 {
     int pilihan;
     const int jumlah_opsi = 4;
@@ -87,8 +88,8 @@ void handle_menu_user()
     switch (pilihan)
     {
     case 0:
-        // LOAD DATA TREE
         // PANGGIL PROVINSI
+        handle_pemilihan_provinsi(root);
         /* code */
         break;
     case 1:
@@ -98,6 +99,7 @@ void handle_menu_user()
         /* code */
         break;
     case 3:
+        destroy_user(user);
         return; 
     case 4:
         return;

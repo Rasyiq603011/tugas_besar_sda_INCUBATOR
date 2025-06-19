@@ -5,7 +5,7 @@
 #include "../view/tampilan_data_struct.h"
 
 
-void handle_pemilihan_negara(address root);
+//void handle_pemilihan_negara(address root);
 
 void handle_pemilihan_provinsi(address root);
 
