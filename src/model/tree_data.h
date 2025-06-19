@@ -173,6 +173,10 @@ void traversal_preorder_rekursif(address start, void (*Process) (address));
 
 void TraverseBFS(Tree T, void (*Process)(address));
 
+void mutator_traversal_preorder(Tree T, void (*Process)(address, void*), void* accessible);
+
+void mutator_traversal_preorder_rekursif(address root, void (*Process)(address, void*), void* context);
+
 // ===================================================
 // ==================== CONVERTER ====================
 // ===================================================

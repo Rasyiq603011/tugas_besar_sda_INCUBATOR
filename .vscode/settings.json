@@ -23,7 +23,13 @@
     "handle_menu_admin.h": "c",
     "handle_menu.h": "c",
     "handle_menu_pemilihan.h": "c",
-    "jadwal.h": "c"
+    "jadwal.h": "c",
+    "tampilan_jadwal.h": "c",
+    "tampilan_data_struct.h": "c",
+    "time_adt.h": "c",
+    "film.h": "c",
+    "read_json.h": "c",
+    "*.json": "c"
   },
   "C_Cpp_Runner.cCompilerPath": "gcc",
   "C_Cpp_Runner.cppCompilerPath": "g++",

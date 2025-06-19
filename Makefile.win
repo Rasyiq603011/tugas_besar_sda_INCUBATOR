@@ -4,8 +4,8 @@
 CPP      = g++.exe
 CC       = gcc.exe
 WINDRES  = windres.exe
-OBJ      = bin/Main.o bin/kursi_view.o bin/message_view.o bin/tampilan_bioskop.o bin/tampilan_detail_film.o bin/tampilan_kota.o bin/tampilan_login.o bin/tampilan_negara.o bin/tampilan_provinsi.o bin/tampilan_riwayat.o bin/tampilan_signup.o bin/tampilan_studio.o bin/view.o bin/date.o bin/linked.o bin/time_adt.o bin/tree_data.o bin/admin.o bin/bioskop.o bin/event.o bin/film.o bin/jadwal.o bin/kota.o bin/kursi.o bin/negara.o bin/provinsi.o bin/riwayat.o bin/studio.o bin/user.o bin/cJSON.o bin/crud_film.o bin/read_json.o bin/write_json.o bin/data_struct_test.o bin/test_linked_list.o bin/testing.o bin/handle_database.o bin/handle_menu.o bin/handle_menu_pemilihan.o bin/handle_pemilihan_kursi.o bin/handle_pemilihan_pengguna.o bin/handle_tampilan_riwayat.o bin/test_event.o bin/testing_queue.o
-LINKOBJ  = bin/Main.o bin/kursi_view.o bin/message_view.o bin/tampilan_bioskop.o bin/tampilan_detail_film.o bin/tampilan_kota.o bin/tampilan_login.o bin/tampilan_negara.o bin/tampilan_provinsi.o bin/tampilan_riwayat.o bin/tampilan_signup.o bin/tampilan_studio.o bin/view.o bin/date.o bin/linked.o bin/time_adt.o bin/tree_data.o bin/admin.o bin/bioskop.o bin/event.o bin/film.o bin/jadwal.o bin/kota.o bin/kursi.o bin/negara.o bin/provinsi.o bin/riwayat.o bin/studio.o bin/user.o bin/cJSON.o bin/crud_film.o bin/read_json.o bin/write_json.o bin/data_struct_test.o bin/test_linked_list.o bin/testing.o bin/handle_database.o bin/handle_menu.o bin/handle_menu_pemilihan.o bin/handle_pemilihan_kursi.o bin/handle_pemilihan_pengguna.o bin/handle_tampilan_riwayat.o bin/test_event.o bin/testing_queue.o
+OBJ      = bin/handle_crud_tree.o bin/handle_menu.o bin/handle_menu_admin.o bin/handle_menu_pemilihan.o bin/handle_pemilihan_kursi.o bin/handle_tampilan_riwayat.o bin/date.o bin/linked.o bin/queue.o bin/stack_tree.o bin/time_adt.o bin/tree_data.o bin/cJSON.o bin/crud_film.o bin/read_json.o bin/write_json.o bin/admin.o bin/bioskop.o bin/event.o bin/film.o bin/jadwal.o bin/kota.o bin/kursi.o bin/negara.o bin/provinsi.o bin/riwayat.o bin/studio.o bin/user.o bin/kursi_view.o bin/message_view.o bin/tambah_jadwal_view.o bin/tampilan_data_struct.o bin/tampilan_jadwal.o bin/tampilan_login_signup.o bin/tampilan_riwayat.o bin/view.o bin/Main.o
+LINKOBJ  = bin/handle_crud_tree.o bin/handle_menu.o bin/handle_menu_admin.o bin/handle_menu_pemilihan.o bin/handle_pemilihan_kursi.o bin/handle_tampilan_riwayat.o bin/date.o bin/linked.o bin/queue.o bin/stack_tree.o bin/time_adt.o bin/tree_data.o bin/cJSON.o bin/crud_film.o bin/read_json.o bin/write_json.o bin/admin.o bin/bioskop.o bin/event.o bin/film.o bin/jadwal.o bin/kota.o bin/kursi.o bin/negara.o bin/provinsi.o bin/riwayat.o bin/studio.o bin/user.o bin/kursi_view.o bin/message_view.o bin/tambah_jadwal_view.o bin/tampilan_data_struct.o bin/tampilan_jadwal.o bin/tampilan_login_signup.o bin/tampilan_riwayat.o bin/view.o bin/Main.o
 LIBS     = -L"C:/Program Files (x86)/Dev-Cpp/MinGW64/lib" -L"C:/Program Files (x86)/Dev-Cpp/MinGW64/x86_64-w64-mingw32/lib" -static-libgcc
 INCS     = -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/include" -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/x86_64-w64-mingw32/include" -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/lib/gcc/x86_64-w64-mingw32/4.9.2/include"
 CXXINCS  = -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/include" -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/x86_64-w64-mingw32/include" -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/lib/gcc/x86_64-w64-mingw32/4.9.2/include" -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/lib/gcc/x86_64-w64-mingw32/4.9.2/include/c++"
@@ -24,44 +24,23 @@ clean: clean-custom
 $(BIN): $(OBJ)
 	$(CC) $(LINKOBJ) -o $(BIN) $(LIBS)
 
-bin/Main.o: src/Main.c
-	$(CC) -c src/Main.c -o bin/Main.o $(CFLAGS)
+bin/handle_crud_tree.o: src/controller/handle_crud_tree.c
+	$(CC) -c src/controller/handle_crud_tree.c -o bin/handle_crud_tree.o $(CFLAGS)
 
-bin/kursi_view.o: src/view/kursi_view.c
-	$(CC) -c src/view/kursi_view.c -o bin/kursi_view.o $(CFLAGS)
+bin/handle_menu.o: src/controller/handle_menu.c
+	$(CC) -c src/controller/handle_menu.c -o bin/handle_menu.o $(CFLAGS)
 
-bin/message_view.o: src/view/message_view.c
-	$(CC) -c src/view/message_view.c -o bin/message_view.o $(CFLAGS)
+bin/handle_menu_admin.o: src/controller/handle_menu_admin.c
+	$(CC) -c src/controller/handle_menu_admin.c -o bin/handle_menu_admin.o $(CFLAGS)
 
-bin/tampilan_bioskop.o: src/view/tampilan_bioskop.c
-	$(CC) -c src/view/tampilan_bioskop.c -o bin/tampilan_bioskop.o $(CFLAGS)
+bin/handle_menu_pemilihan.o: src/controller/handle_menu_pemilihan.c
+	$(CC) -c src/controller/handle_menu_pemilihan.c -o bin/handle_menu_pemilihan.o $(CFLAGS)
 
-bin/tampilan_detail_film.o: src/view/tampilan_detail_film.c
-	$(CC) -c src/view/tampilan_detail_film.c -o bin/tampilan_detail_film.o $(CFLAGS)
+bin/handle_pemilihan_kursi.o: src/controller/handle_pemilihan_kursi.c
+	$(CC) -c src/controller/handle_pemilihan_kursi.c -o bin/handle_pemilihan_kursi.o $(CFLAGS)
 
-bin/tampilan_kota.o: src/view/tampilan_kota.c
-	$(CC) -c src/view/tampilan_kota.c -o bin/tampilan_kota.o $(CFLAGS)
-
-bin/tampilan_login.o: src/view/tampilan_login.c
-	$(CC) -c src/view/tampilan_login.c -o bin/tampilan_login.o $(CFLAGS)
-
-bin/tampilan_negara.o: src/view/tampilan_negara.c
-	$(CC) -c src/view/tampilan_negara.c -o bin/tampilan_negara.o $(CFLAGS)
-
-bin/tampilan_provinsi.o: src/view/tampilan_provinsi.c
-	$(CC) -c src/view/tampilan_provinsi.c -o bin/tampilan_provinsi.o $(CFLAGS)
-
-bin/tampilan_riwayat.o: src/view/tampilan_riwayat.c
-	$(CC) -c src/view/tampilan_riwayat.c -o bin/tampilan_riwayat.o $(CFLAGS)
-
-bin/tampilan_signup.o: src/view/tampilan_signup.c
-	$(CC) -c src/view/tampilan_signup.c -o bin/tampilan_signup.o $(CFLAGS)
-
-bin/tampilan_studio.o: src/view/tampilan_studio.c
-	$(CC) -c src/view/tampilan_studio.c -o bin/tampilan_studio.o $(CFLAGS)
-
-bin/view.o: src/view/view.c
-	$(CC) -c src/view/view.c -o bin/view.o $(CFLAGS)
+bin/handle_tampilan_riwayat.o: src/controller/handle_tampilan_riwayat.c
+	$(CC) -c src/controller/handle_tampilan_riwayat.c -o bin/handle_tampilan_riwayat.o $(CFLAGS)
 
 bin/date.o: src/model/date.c
 	$(CC) -c src/model/date.c -o bin/date.o $(CFLAGS)
@@ -69,11 +48,29 @@ bin/date.o: src/model/date.c
 bin/linked.o: src/model/linked.c
 	$(CC) -c src/model/linked.c -o bin/linked.o $(CFLAGS)
 
+bin/queue.o: src/model/queue.c
+	$(CC) -c src/model/queue.c -o bin/queue.o $(CFLAGS)
+
+bin/stack_tree.o: src/model/stack_tree.c
+	$(CC) -c src/model/stack_tree.c -o bin/stack_tree.o $(CFLAGS)
+
 bin/time_adt.o: src/model/time_adt.c
 	$(CC) -c src/model/time_adt.c -o bin/time_adt.o $(CFLAGS)
 
 bin/tree_data.o: src/model/tree_data.c
 	$(CC) -c src/model/tree_data.c -o bin/tree_data.o $(CFLAGS)
+
+bin/cJSON.o: src/model/file_manipulation/cJSON.c
+	$(CC) -c src/model/file_manipulation/cJSON.c -o bin/cJSON.o $(CFLAGS)
+
+bin/crud_film.o: src/model/file_manipulation/crud_film.c
+	$(CC) -c src/model/file_manipulation/crud_film.c -o bin/crud_film.o $(CFLAGS)
+
+bin/read_json.o: src/model/file_manipulation/read_json.c
+	$(CC) -c src/model/file_manipulation/read_json.c -o bin/read_json.o $(CFLAGS)
+
+bin/write_json.o: src/model/file_manipulation/write_json.c
+	$(CC) -c src/model/file_manipulation/write_json.c -o bin/write_json.o $(CFLAGS)
 
 bin/admin.o: src/model/data_struct/admin.c
 	$(CC) -c src/model/data_struct/admin.c -o bin/admin.o $(CFLAGS)
@@ -111,47 +108,29 @@ bin/studio.o: src/model/data_struct/studio.c
 bin/user.o: src/model/data_struct/user.c
 	$(CC) -c src/model/data_struct/user.c -o bin/user.o $(CFLAGS)
 
-bin/cJSON.o: src/model/file_manipulation/cJSON.c
-	$(CC) -c src/model/file_manipulation/cJSON.c -o bin/cJSON.o $(CFLAGS)
+bin/kursi_view.o: src/view/kursi_view.c
+	$(CC) -c src/view/kursi_view.c -o bin/kursi_view.o $(CFLAGS)
 
-bin/crud_film.o: src/model/file_manipulation/crud_film.c
-	$(CC) -c src/model/file_manipulation/crud_film.c -o bin/crud_film.o $(CFLAGS)
+bin/message_view.o: src/view/message_view.c
+	$(CC) -c src/view/message_view.c -o bin/message_view.o $(CFLAGS)
 
-bin/read_json.o: src/model/file_manipulation/read_json.c
-	$(CC) -c src/model/file_manipulation/read_json.c -o bin/read_json.o $(CFLAGS)
+bin/tambah_jadwal_view.o: src/view/tambah_jadwal_view.c
+	$(CC) -c src/view/tambah_jadwal_view.c -o bin/tambah_jadwal_view.o $(CFLAGS)
 
-bin/write_json.o: src/model/file_manipulation/write_json.c
-	$(CC) -c src/model/file_manipulation/write_json.c -o bin/write_json.o $(CFLAGS)
+bin/tampilan_data_struct.o: src/view/tampilan_data_struct.c
+	$(CC) -c src/view/tampilan_data_struct.c -o bin/tampilan_data_struct.o $(CFLAGS)
 
-bin/data_struct_test.o: src/test/data_struct_test.c
-	$(CC) -c src/test/data_struct_test.c -o bin/data_struct_test.o $(CFLAGS)
+bin/tampilan_jadwal.o: src/view/tampilan_jadwal.c
+	$(CC) -c src/view/tampilan_jadwal.c -o bin/tampilan_jadwal.o $(CFLAGS)
 
-bin/test_linked_list.o: src/test/test_linked_list.c
-	$(CC) -c src/test/test_linked_list.c -o bin/test_linked_list.o $(CFLAGS)
+bin/tampilan_login_signup.o: src/view/tampilan_login_signup.c
+	$(CC) -c src/view/tampilan_login_signup.c -o bin/tampilan_login_signup.o $(CFLAGS)
 
-bin/testing.o: src/test/testing.c
-	$(CC) -c src/test/testing.c -o bin/testing.o $(CFLAGS)
+bin/tampilan_riwayat.o: src/view/tampilan_riwayat.c
+	$(CC) -c src/view/tampilan_riwayat.c -o bin/tampilan_riwayat.o $(CFLAGS)
 
-bin/handle_database.o: src/controller/handle_database.c
-	$(CC) -c src/controller/handle_database.c -o bin/handle_database.o $(CFLAGS)
+bin/view.o: src/view/view.c
+	$(CC) -c src/view/view.c -o bin/view.o $(CFLAGS)
 
-bin/handle_menu.o: src/controller/handle_menu.c
-	$(CC) -c src/controller/handle_menu.c -o bin/handle_menu.o $(CFLAGS)
-
-bin/handle_menu_pemilihan.o: src/controller/handle_menu_pemilihan.c
-	$(CC) -c src/controller/handle_menu_pemilihan.c -o bin/handle_menu_pemilihan.o $(CFLAGS)
-
-bin/handle_pemilihan_kursi.o: src/controller/handle_pemilihan_kursi.c
-	$(CC) -c src/controller/handle_pemilihan_kursi.c -o bin/handle_pemilihan_kursi.o $(CFLAGS)
-
-bin/handle_pemilihan_pengguna.o: src/controller/handle_pemilihan_pengguna.c
-	$(CC) -c src/controller/handle_pemilihan_pengguna.c -o bin/handle_pemilihan_pengguna.o $(CFLAGS)
-
-bin/handle_tampilan_riwayat.o: src/controller/handle_tampilan_riwayat.c
-	$(CC) -c src/controller/handle_tampilan_riwayat.c -o bin/handle_tampilan_riwayat.o $(CFLAGS)
-
-bin/test_event.o: src/test/test_event.c
-	$(CC) -c src/test/test_event.c -o bin/test_event.o $(CFLAGS)
-
-bin/testing_queue.o: src/test/testing_queue.c
-	$(CC) -c src/test/testing_queue.c -o bin/testing_queue.o $(CFLAGS)
+bin/Main.o: src/Main.c
+	$(CC) -c src/Main.c -o bin/Main.o $(CFLAGS)

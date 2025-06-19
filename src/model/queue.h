@@ -31,6 +31,6 @@ QueueData peekFrontPriority(const Queue* q);
 
 int priorityQueueSize(const Queue* q);
 
-void clearPriorityQueue(Queue* q, void (*destroy)(QueueData));
+void clearPriorityQueue(Queue* q);
 
 #endif

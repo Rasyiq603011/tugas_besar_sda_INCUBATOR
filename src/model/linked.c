@@ -204,7 +204,7 @@ void delete_by_value(pnode *P, InfoList info, DataList type) {
                 match = compare_jadwal_value(info_jadwal(current), info.jadwal);
                 break;
             case TYPE_EVENT:
-                match = compare_event(info_event(current), info.event);
+                match = compare_event_value(info_event(current), info.event);
                 break;
             case TYPE_FILM:
                 match = compare_film_value(info_film(current), info.film);
@@ -286,7 +286,7 @@ pnode search_by_value(pnode P, InfoList info) {
                 if (compare_jadwal_value(info_jadwal(P), info.jadwal)) return P;
                 break;
             case TYPE_EVENT:
-                if (compare_event(info_event(P), info.event)) return P;
+                if (compare_event_value(info_event(P), info.event)) return P;
                 break;
             case TYPE_FILM:
                 if (compare_film_value(info_film(P), info.film)) return P;
@@ -356,7 +356,7 @@ boolean compare_list(List L1, List L2) {
                 if (!compare_jadwal_value(info_jadwal(p1), info_jadwal(p2))) return false;
                 break;
             case TYPE_EVENT:
-                if (!compare_event(info_event(p1), info_event(p2))) return false;
+                if (!compare_event_value(info_event(p1), info_event(p2))) return false;
                 break;
             case TYPE_FILM:
                 if (!compare_film_value(info_film(p1), info_film(p2))) return false;

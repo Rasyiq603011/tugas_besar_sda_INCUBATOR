@@ -87,7 +87,8 @@ List* get_all_jadwal_by_film_from_node(address node_mulai, const char* keyword)
 {
     if (!node_mulai || !keyword) return NULL;
 
-    List* hasil = create_list();   
+    List* hasil;
+    CreateList(hasil);  
     StackTree stack;
     init_stack(&stack);
     push_stack(&stack, node_mulai);
@@ -102,7 +103,8 @@ List* get_all_jadwal_by_film_from_node(address node_mulai, const char* keyword)
             if (new_list_jadwal && new_list_jadwal->First) {
                 merge_list(hasil, new_list_jadwal);
             } else {
-                free_list(new_list_jadwal);
+                clear_list(&(new_list_jadwal->First));
+                free(new_list_jadwal);
             }
         }
 
@@ -118,7 +120,8 @@ List* get_all_event_from_tree_node(address node_mulai)
 {
     if (!node_mulai) return NULL;
 
-    List* hasil = create_list();   
+    List* hasil;
+    CreateList(hasil);  
     StackTree stack;
     init_stack(&stack);
     push_stack(&stack, node_mulai);
@@ -134,7 +137,8 @@ List* get_all_event_from_tree_node(address node_mulai)
             {
                 merge_list(hasil, new_list_event);
             } else {
-                free_list(new_list_event);
+                clear_list(&(new_list_event->First));
+                free(new_list_event);
             }
         }
 

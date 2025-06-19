@@ -19,9 +19,9 @@ void navigasi_tree_for_admin(Tree bioskop, DataType nav_for)
         if (jumlah == 0)
         {
             free(array);
-            if (!is_empty(stack)) 
+            if (!is_empty_stack(&stack)) 
             {
-                current = pop(&stack);
+                current = pop_stack(&stack);
                 continue;
             }
              else 
@@ -35,26 +35,29 @@ void navigasi_tree_for_admin(Tree bioskop, DataType nav_for)
         const char* title = get_title_for_type(type);
 
         int pilihan = scrollable_menu(array, jumlah, render, title, 3, 4);
+        if (pilihan == -1) return;
         free(array);
 
         if (pilihan == -1) {
-            if (is_empty(stack)) break;
-            current = pop(&stack);
+            if (is_empty_stack(&stack)) break;
+            current = pop_stack(&stack);
         } else {
-            push(&stack, current);
+            push_stack(&stack, current);
             current = get_selected_node(current, pilihan + 1);
 
             if (get_tipe_node(current) == TYPE_STUDIO) 
             {
                 if (nav_for == TYPE_JADWAL)
                 {
-                    management_jadwal(get_info_node(current).studio);
+                    int aksi = management_jadwal(get_info_node(current).studio);
+                    if (aksi == 0) return;
                 }
                 if (nav_for == TYPE_EVENT)
                 {
-                    management_event(get_info_node(current).studio);
+                    int aksi = management_event(get_info_node(current).studio);
+                    if (aksi == 0) return;
                 }
-                current = pop(&stack);
+                current = pop_stack(&stack);
             }
         }
     }
@@ -67,7 +70,7 @@ void (*get_renderer_for_type(DataType type))(int, int, int, void*)
         case TYPE_PROVINSI: return tampilan_kota;
         case TYPE_KOTA: return tampilan_bioskop;
         case TYPE_BIOSKOP: return tampilan_studio;
-        default: return;
+        default: return NULL;
     }
 }
 
@@ -87,7 +90,7 @@ const char* get_title_for_type(DataType type)
 // ============== MENU MANAGEMENT JADWAL SECTION =============
 // ===========================================================
 
-void management_jadwal(Studio* current_studio)
+int management_jadwal(Studio* current_studio)
 {
     while (1)
     {
@@ -113,12 +116,9 @@ void management_jadwal(Studio* current_studio)
                 break;
                 
             case 2: 
-                // balik ke menu utama Admin
-                break;
-                
+                return 0;
             case 3: 
-                // kembali ke pemilihan studio
-                return;
+                return -1;
             default:
                 break;
         }
@@ -137,55 +137,56 @@ void handle_tambah_jadwal(Studio* current_studio)
 
     while (1) 
     {
+        system("cls");
 
-        boolean input_sukses = handle_input_data_jadwal(&waktu_start, &waktu_end, &tanggal, judul_film, &harga_tiket) ;
+        boolean input_sukses = handle_input_data_jadwal(&waktu_start, &waktu_end, &tanggal, judul_film, &harga_tiket);
 
-        if (!input_sukses) 
-        {
-            printf("❌ Input tidak valid.\n");
+        if (!input_sukses) {
+            gotoxy(35, 14); printf("❌ Input tidak valid!");
         }
-         else if (is_exits_jadwal(*daftar_jadwal, tanggal, waktu_start, waktu_end)) 
-        {
-            printf("❌ Jadwal bentrok dengan jadwal lain!\n");
+        else if (is_exists_bentrok_for_jadwal(*daftar_jadwal, tanggal, waktu_start, waktu_end)) {
+            gotoxy(35, 14); printf("❌ Jadwal bentrok dengan jadwal lain!");
         }
-         else 
-        {
-
+        else {
             Jadwal* jadwal_baru = constructor_jadwal(waktu_start, waktu_end, tanggal, harga_tiket, judul_film, jumlah_kursi);
             free(judul_film);
             judul_film = NULL;
-            if (!jadwal_baru) 
-            {
-                printf("❌ Gagal membuat jadwal!\n");
+
+            if (!jadwal_baru) {
+                gotoxy(35, 14); printf("❌ Gagal membuat jadwal!");
+                Sleep(1000);
                 continue;
             }
 
             insert_value_last(&daftar_jadwal->First, JADWAL_INFO(jadwal_baru), TYPE_JADWAL);
-            printf("✅ Jadwal berhasil ditambahkan!\n");
-            break;
+            gotoxy(35, 14); printf("✅ Jadwal berhasil ditambahkan!");
+            Sleep(1500);
         }
 
-        if (judul_film) 
-        {
+        if (judul_film) {
             free(judul_film);
             judul_film = NULL;
         }
 
-        char opsi;
-        printf("Apakah Anda ingin melanjutkan tambah jadwal ? (y/n): ");
-        scanf(" %c", &opsi); getchar(); 
+        const char* opsi[] = { "LANJUT TAMBAH JADWAL", "BATALKAN" };
+        int konfirmasi = display_konfirmasi_menu(
+            "KONFIRMASI PENAMBAHAN JADWAL",
+            "Apakah Anda ingin menambahkan jadwal lainnya?",
+            opsi, 2
+        );
 
-        if (opsi == 'n' || opsi == 'N') {
-            printf("Proses pembatalan penambahan jadwal.\n");
+        if (konfirmasi == 1) {
+            gotoxy(35, 16); printf("Keluar dari menu tambah jadwal...");
+            Sleep(1000);
             break;
         }
     }
 }
 
-
 void handle_hapus_jadwal(Studio* current_studio)
 {
-    pnode selected_jadwal = handle_pemilihan_jadwal(*get_all_jadwal(current_studio));
+    pnode selected_jadwal;
+	int pilihan = handle_pemilihan_jadwal(*get_all_jadwal(current_studio), &selected_jadwal);
 
     if (selected_jadwal == NULL) return;
     
@@ -198,16 +199,17 @@ void handle_hapus_jadwal(Studio* current_studio)
 // ============== EVENT MENU SECTION =============
 // ===============================================
 
-void management_event(Studio* Studio)
+int management_event(Studio* Studio)
 {
     while (1)
     {
         int pilihan;
-        const int jumlah_opsi = 4;
+        const int jumlah_opsi = 5;
         const char* options[] = {
             "TAMBAH EVENT",
             "PROSES ANTRIAN EVENT",
             "HAPUS EVENT",
+            "KEMBALI KE MENU UTAMA",
             "KEMBALI"
         };
         const char* header = "MANAGEMENT EVENT";
@@ -227,14 +229,16 @@ void management_event(Studio* Studio)
                 handle_hapus_event(Studio);
                 break;
             case 3: 
-                return;
+                return 0;
+            case 4: 
+                return -1;
             default:
                 break;
         }
     }
 }
 
-void handle_tambah_event(List* jadwal_studio)
+void handle_tambah_event(Studio* current_studio)
 {
     String nama_event, waktu_start, waktu_end, judul_film;
     int jumlah_kuota_sesi, jumlah_sesi;
@@ -253,7 +257,7 @@ void handle_tambah_event(List* jadwal_studio)
     Event* new_event = constructor_event(nama_event, start ,end , judul_film, jumlah_kuota_sesi, jumlah_sesi);
     if (!new_event) return;
     
-    insert_value_last(&(First(*jadwal_studio)), EVENT_INFO(new_event), TYPE_EVENT);
+    insert_value_last(&(First(*get_jadwal_studio(current_studio))), EVENT_INFO(new_event), TYPE_EVENT);
 }
 
 void handle_proses_antrian_event(Studio* current_studio)

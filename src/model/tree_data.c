@@ -290,7 +290,7 @@ void mutator_traversal_preorder(Tree T, void (*Process)(address, void*), void* a
 {
     if (!is_tree_empty)
     {
-        traversal_preorder_rekursif(T.root, Process);
+        mutator_traversal_preorder_rekursif(T.root, Process, accessible);
     }
 }
 

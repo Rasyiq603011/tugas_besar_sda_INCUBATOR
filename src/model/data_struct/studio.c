@@ -143,7 +143,8 @@ List* get_jadwal_by_film(Studio* studio, const char* keyword)
 {
     if (!studio || !keyword || !studio->jadwal_studio) return NULL;
 
-    List* hasil = create_list();
+	List* hasil;
+    CreateList(hasil);  
     pnode current = studio->jadwal_studio->First;
 
     while (current) 
@@ -234,7 +235,8 @@ List* get_jadwal_dan_event_by_film(Studio* studio, const char* keyword)
 {
     if (!studio || !keyword || !studio->jadwal_studio) return NULL;
 
-    List* hasil = create_list();
+    List* hasil;
+    CreateList(hasil);  
     pnode current;
     for (current = studio->jadwal_studio->First; current; current = Next(current)) 
     {
@@ -377,7 +379,7 @@ int is_exists_bentrok_for_event(const List jadwal, date tanggal_mulai, date tang
     {
         if (Type(current) == TYPE_JADWAL)
         {
-            date tanggal_jadwal = get_tanggal_tayang(current);
+            date tanggal_jadwal = get_tanggal_tayang(info_jadwal(current));
             if (compare_date(tanggal_jadwal, tanggal_mulai)) return 1;
             if (compare_date(tanggal_jadwal, tanggal_selesai)) return 1;
         }

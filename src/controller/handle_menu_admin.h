@@ -3,6 +3,7 @@
 #include "handle_crud_tree.h"
 #include "../model/stack_tree.h"
 #include "../view/tampilan_data_struct.h"
+#include "handle_menu.h"
 
 /*
  * I.S.  : Tree bioskop sudah dimuat ke memori, root tree tidak NULL.
@@ -52,14 +53,14 @@ void handle_hapus_jadwal(Studio* current_studio);
  * F.S.  : Menampilkan menu interaktif untuk manajemen event: tambah, proses antrian, dan hapus event.
  * Fungsi: Menyediakan menu utama untuk fitur manajemen event khususnya berbasis antrian prioritas.
  */
-void management_event();
+int management_event(Studio* current_studio);
 
 /*
  * I.S.  : User akan diminta mengisi data event (nama, film, tanggal, sesi, kuota).
  * F.S.  : Jika input valid, maka event baru akan dibuat dan siap dimasukkan ke dalam sistem.
  * Fungsi: Mengumpulkan data input dan menginisialisasi objek Event baru menggunakan konstruktor.
  */
-void handle_tambah_event();
+void handle_tambah_event(Studio* current_studio);
 
 /*
  * I.S.  : Queue antrian event sudah terisi, array tujuan untuk hasil proses sudah dialokasikan.

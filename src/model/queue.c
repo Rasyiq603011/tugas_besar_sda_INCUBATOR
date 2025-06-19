@@ -13,7 +13,8 @@ bool isPriorityQueueEmpty(const Queue* q)
     return q->size == 0;
 }
 
-void enqueuePriority(Queue* q, QueueData data) {
+void enqueuePriority(Queue* q, QueueData data) 
+{
     Pqueue newNode = (Pqueue) malloc(sizeof(QueueNode));
     if (!newNode) return;
 
@@ -82,11 +83,11 @@ int priorityQueueSize(const Queue* q)
     return q->size;
 }
 
-void clearPriorityQueue(Queue* q, void (*destroy)(QueueData)) 
+void clearPriorityQueue(Queue* q) 
 {
     while (!isPriorityQueueEmpty(q)) {
         QueueData data = dequeuePriority(q);
-        if (destroy) destroy(data);
+        destroy_user(data);
     }
 }
 

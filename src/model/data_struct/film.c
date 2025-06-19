@@ -123,3 +123,27 @@ int compare_film_value(Film* film_pertama, Film* film_kedua)
 {
     return (strcmp(film_pertama->judul, film_kedua->judul) == 0);
 }
+
+// ===================================================
+// ================== COPY SECTION ===================
+// ===================================================
+
+// Melakukan deep copy pada objek Film
+Film* deep_copy_film(Film* source)
+{
+    if (source == NULL) return NULL;
+
+    Film* copy = (Film*)malloc(sizeof(Film));
+    if (copy == NULL) return NULL;
+
+    copy->judul = strdup(source->judul);
+    if (copy->judul == NULL) {
+        free(copy);
+        return NULL;
+    }
+
+    copy->jumlah_ditonton = source->jumlah_ditonton;
+    copy->total_pendapatan = source->total_pendapatan;
+
+    return copy;
+}

@@ -83,7 +83,7 @@ int kelola_operasi(int key, int current_option, int jumlah_kursi, int* page)
     return new_option;
 }
 
-void pemilihan_kursi(int jumlah_kursi, Kursi* daftar_kursi[]) {
+Kursi* pemilihan_kursi(int jumlah_kursi, Kursi* daftar_kursi[]) {
     int key, option = 0, page = 0;
 
     while (1) 
@@ -106,6 +106,7 @@ void pemilihan_kursi(int jumlah_kursi, Kursi* daftar_kursi[]) {
                 char kode = 'A' + get_tipe_kursi(daftar_kursi[global_index]);
                 printf("\nKursi %c-%03d berhasil dipesan!\n", kode, get_id_kursi(daftar_kursi[global_index]));
                 Sleep(1000);
+                return daftar_kursi[global_index];
             }
              else 
             {
@@ -118,7 +119,7 @@ void pemilihan_kursi(int jumlah_kursi, Kursi* daftar_kursi[]) {
          else if (key == 27) 
         { // Esc key
             printf("\nKeluar dari pemilihan kursi.\n");
-            break;
+            return NULL;
         }
     }
 }

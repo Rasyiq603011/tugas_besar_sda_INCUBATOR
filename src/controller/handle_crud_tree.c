@@ -4,8 +4,14 @@ void handle_inisialisasi_data(Tree* tree, List* list_film)
 {
     load_from_binary(list_film);
     tree->root = load_tree_from_file(DATABASE_BIOSKOP);
-    mutator_traversal_preorder(*tree, linked_jadwal_to_film, (void*) list_film);
-    
+    mutator_traversal_preorder(*tree, linked_jadwal_to_film, (void*) list_film); 
+}
+
+void handle_saving_data(Tree* tree, List* list_film)
+{
+    mutator_traversal_preorder(*tree, linked_jadwal_to_film, (void*) list_film); 
+    save_to_file(*list_film);
+    save_tree_to_file(tree->root, DATABASE_BIOSKOP);
 }
 
 void linked_jadwal_to_film(address node, void* context) {

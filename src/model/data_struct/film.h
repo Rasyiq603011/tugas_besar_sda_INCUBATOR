@@ -44,4 +44,6 @@ void destroy_film(Film* film);
 
 int compare_film_value(Film* film_pertama, Film* film_kedua);
 
+Film* deep_copy_film(Film* source);
+
 #endif

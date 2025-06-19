@@ -4,12 +4,12 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <conio.h>
 #include "cJSON.h"
 #include "../linked.h"
 #include "../tree_data.h"
 
-#define FILENAME "../../assets/bioskop_database.json"
-#define DATABASE_USER "../assets/users.json"
+#define DATABASE_USER "../../../assets/users.json"
 
 // === INTERFACE ===
 address load_tree_from_file(const char* filename);

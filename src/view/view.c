@@ -45,6 +45,7 @@ int scrollable_menu(void** data_array, int jumlah_item, void (*render)(int idx, 
     int start = 0;
 
     do {
+        gotoxy(30, 2); printf("Tekan 'esc' untuk kembali");
         system("cls");
         gotoxy(30, 11); printf("=============================================================\n");
         gotoxy(30, 12); printf("|%*s%s%*s|\n", (60 - strlen(header)) / 2, "", header, (60 - strlen(header)) / 2, "");
@@ -72,9 +73,16 @@ int scrollable_menu(void** data_array, int jumlah_item, void (*render)(int idx, 
             if (key == 72 && idx_terpilih > 0) idx_terpilih--;
             else if (key == 80 && idx_terpilih < jumlah_item - 1) idx_terpilih++;
         }
-    } while (key != 13);
+    } while (key != 13 || key != 27);
 
-    return idx_terpilih;
+    if (key == 13)
+    {
+        return idx_terpilih;
+    }else
+    {
+        return -1;
+    }
+    
 }
 
 void clear_line(int y)
@@ -181,4 +189,39 @@ void show_splashscreen() {
     getchar();
     
     system("cls");
+}
+
+int display_konfirmasi_menu(const char* header, const char* message, const char* options[], int jumlah_opsi)
+{
+    int selected = 0, key;
+
+    while (1)
+    {
+        system("cls");
+        gotoxy(30, 11); printf("=============================================================\n");
+        gotoxy(30, 12); printf("|%*s%s%*s|\n", (60 - strlen(header)) / 2, "", header, (60 - strlen(header)) / 2, "");
+        gotoxy(30, 13); printf("=============================================================\n");
+
+        gotoxy(32, 15); printf("%-60s", message);
+
+        for (int i = 0; i < jumlah_opsi; i++) {
+            gotoxy(50, 17 + i);
+            if (i == selected) {
+                printf("\033[1;30;47m>> %-24s <<\033[0m", options[i]);
+            } else {
+                printf("   %-24s", options[i]);
+            }
+        }
+
+        key = getch();
+        if (key == 13) {
+            return selected;
+        } else if (key == 224) {
+            key = getch();
+            if (key == 72 && selected > 0) selected--;
+            else if (key == 80 && selected < jumlah_opsi - 1) selected++;
+        } else if (key == 27) {
+            return jumlah_opsi - 1; // default ke opsi terakhir jika ESC
+        }
+    }
 }

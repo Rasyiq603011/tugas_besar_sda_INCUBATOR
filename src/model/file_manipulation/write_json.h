@@ -8,8 +8,7 @@
 #include "../linked.h"
 #include "../tree_data.h"
 
-#define DATABASE_BIOSKOP "../../assets/bioskop_database.json"
-#define DATABASE_USER "../assets/users.json"
+#define DATABASE_USER "../../../assets/users.json"
 
 cJSON* kursi_to_json(Kursi* current_kursi);
 

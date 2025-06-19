@@ -11,6 +11,6 @@ void display_kursi(int jumlah_kursi, Kursi* daftar_kursi[], int terpilih, int pa
 
 int kelola_operasi(int key, int current_option, int jumlah_kursi, int* page);
 
-void pemilihan_kursi(int jumlah_kursi, Kursi* daftar_kursi[]);
+Kursi* pemilihan_kursi(int jumlah_kursi, Kursi* daftar_kursi[]);
 
 #endif /*HANDLE_PEMILIHAN_KURSI*/

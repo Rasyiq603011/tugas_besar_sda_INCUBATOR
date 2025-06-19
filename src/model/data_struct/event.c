@@ -75,7 +75,7 @@ void destructor_event(Event* current_event)
 
     free(current_event->nama_event);
     free(current_event->daftar_user);
-    destructor_queue(&current_event->antrian_proses);
+    clearPriorityQueue(&current_event->antrian_proses);
     free(current_event);
 }
 
@@ -229,15 +229,16 @@ void set_event_queue(Event* current_event, Queue* new_queue)
 {
     if (!current_event || !new_queue) return;
 
-    clearPriorityQueue(&(current_event->antrian_proses), destroy_user);
+    clearPriorityQueue(&(current_event->antrian_proses));
 
     createPriorityQueue(&current_event->antrian_proses);
 
     Queue temp = *new_queue;
     Pqueue node = temp.front;
 
-    while (node != NULL) {
-        enqueue_user(&current_event->antrian_proses, node->data);
+    while (node != NULL) 
+    {
+        enqueuePriority(&current_event->antrian_proses, node->data);
         node = node->next;
     }
 }

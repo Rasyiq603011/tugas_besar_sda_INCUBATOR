@@ -193,89 +193,102 @@ void save_tree_to_file(address root, const char* filename)
     cJSON_Delete(json_tree);
 }
 
+static cJSON* load_users_from_file(const char* filename) {
+    FILE* file = fopen(filename, "r");
+    if (!file) return cJSON_CreateArray();
+
+    fseek(file, 0, SEEK_END);
+    long size = ftell(file);
+    rewind(file);
+
+    char* content = (char*)malloc(size + 1);
+    if (!content || fread(content, 1, size, file) != size) {
+        fclose(file);
+        free(content);
+        return cJSON_CreateArray(); // fallback
+    }
+    content[size] = '\0';
+    fclose(file);
+
+    cJSON* root = cJSON_Parse(content);
+    free(content);
+    return root ? root : cJSON_CreateArray();
+}
+
+static void write_users_to_file(const char* filename, cJSON* root) {
+    FILE* file = fopen(filename, "w");
+    if (!file) return;
+
+    char* json_string = cJSON_PrintUnformatted(root);
+    if (json_string) {
+        fprintf(file, "%s", json_string);
+        free(json_string);
+    }
+    fclose(file);
+}
+
+static cJSON* convert_riwayat_to_json(Riwayat* riwayat) {
+    cJSON* array = cJSON_CreateArray();
+    while (riwayat) {
+        cJSON* obj = cJSON_CreateObject();
+        cJSON_AddStringToObject(obj, "judul_film", get_judul_film_riwayat(riwayat) ?: "");
+        cJSON_AddStringToObject(obj, "tanggal", get_tanggal_riwayat(riwayat) ?: "");
+        cJSON_AddStringToObject(obj, "jam", get_jam_riwayat(riwayat) ?: "");
+        cJSON_AddNumberToObject(obj, "harga_tiket", get_harga_tiket_riwayat(riwayat));
+        cJSON_AddStringToObject(obj, "kursi", get_kursi_riwayat(riwayat) ?: "");
+        cJSON_AddItemToArray(array, obj);
+        riwayat = get_next_riwayat(riwayat);
+    }
+    return array;
+}
+
+static cJSON* create_user_json_object(User* user) {
+    cJSON* obj = cJSON_CreateObject();
+    cJSON_AddStringToObject(obj, "username", get_username_user(user) ?: "");
+    cJSON_AddStringToObject(obj, "password", get_password_user(user) ?: "");
+    cJSON_AddNumberToObject(obj, "saldo", get_saldo_user(user));
+    cJSON_AddNumberToObject(obj, "prioritas", get_prioritas_user(user));
+    cJSON_AddItemToObject(obj, "riwayat", convert_riwayat_to_json(get_pointer_to_riwayat(user)));
+    return obj;
+}
+
+// ===============================
+// Main Function
+// ===============================
+
 void save_user_to_json(User* user) 
 {
-   FILE* file = fopen(DATABASE_USER, "r");
-   long file_size = 0;
-   char* file_content = NULL;
-   cJSON* root = NULL;
+    if (!user) return;
 
-   // Step 1: Baca file JSON jika ada
-   if (file)
-   {
-       fseek(file, 0, SEEK_END);
-       file_size = ftell(file);
-       rewind(file);
+    const char* target_username = get_username_user(user);
+    if (!target_username) return;
 
-       file_content = (char*)malloc(file_size + 1);
-       fread(file_content, 1, file_size, file);
-       file_content[file_size] = '\0';
-       fclose(file);
+    cJSON* root = load_users_from_file(DATABASE_USER);
 
-       root = cJSON_Parse(file_content);
-       free(file_content);
-   }
+    // Cari jika user sudah ada
+    int index = -1;
+    for (int i = 0; i < cJSON_GetArraySize(root); ++i) {
+        cJSON* item = cJSON_GetArrayItem(root, i);
+        cJSON* uname = cJSON_GetObjectItem(item, "username");
+        if (uname && strcmp(uname->valuestring, target_username) == 0) {
+            index = i;
+            break;
+        }
+    }
 
-   if (!root) 
-   {
-       root = cJSON_CreateArray();  // buat array jika file belum ada atau kosong
-   }
+    // Buat object user JSON
+    cJSON* user_obj = create_user_json_object(user);
 
-   // Step 2: Cari user dengan username yang sama
-   const char* target_username = get_username_user(user);
-   int found_index = -1;
-   for (int i = 0; i < cJSON_GetArraySize(root); ++i) 
-   {
-       cJSON* item = cJSON_GetArrayItem(root, i);
-       cJSON* username = cJSON_GetObjectItem(item, "username");
-       if (username && strcmp(username->valuestring, target_username) == 0) 
-       {
-           found_index = i;
-           break;
-       }
-   }
+    // Replace atau tambahkan
+    if (index != -1) {
+        cJSON_ReplaceItemInArray(root, index, user_obj);
+    } else {
+        cJSON_AddItemToArray(root, user_obj);
+    }
 
-   // Step 3: Buat objek user baru
-   cJSON* user_obj = cJSON_CreateObject();
-   cJSON_AddStringToObject(user_obj, "username", get_username_user(user));
-   cJSON_AddStringToObject(user_obj, "password", get_password_user(user));
-   cJSON_AddNumberToObject(user_obj, "saldo", get_saldo_user(user));
-   cJSON_AddNumberToObject(user_obj, "prioritas", get_prioritas_user(user)); // enum disimpan sebagai angka
+    // Tulis ke file
+    write_users_to_file(DATABASE_USER, root);
 
-   // Step 3b: Tambahkan array riwayat
-   cJSON* riwayat_array = cJSON_CreateArray();
-   Riwayat* riwayat_node = get_pointer_to_riwayat(user);
-
-   while (riwayat_node != NULL) {
-       cJSON* riwayat_obj = cJSON_CreateObject();
-
-       cJSON_AddStringToObject(riwayat_obj, "judul_film", get_judul_film_riwayat(riwayat_node));
-       cJSON_AddStringToObject(riwayat_obj, "tanggal", get_tanggal_riwayat(riwayat_node));
-       cJSON_AddStringToObject(riwayat_obj, "jam", get_jam_riwayat(riwayat_node));
-       cJSON_AddNumberToObject(riwayat_obj, "harga_tiket", get_harga_tiket_riwayat(riwayat_node));
-       cJSON_AddStringToObject(riwayat_obj, "kursi", get_kursi_riwayat(riwayat_node));
-
-       cJSON_AddItemToArray(riwayat_array, riwayat_obj);
-       riwayat_node = get_next_riwayat(riwayat_node);
-   }
-
-   cJSON_AddItemToObject(user_obj, "riwayat", riwayat_array);
-
-   // Step 4: Jika user ditemukan, ganti, jika tidak, tambahkan
-   if (found_index != -1) {
-       cJSON_ReplaceItemInArray(root, found_index, user_obj);
-   } else {
-       cJSON_AddItemToArray(root, user_obj);
-   }
-
-   // Step 5: Simpan kembali ke file
-   file = fopen(DATABASE_USER, "w");
-   if (file) {
-       char* json_output = cJSON_Print(root);
-       fprintf(file, "%s", json_output);
-       fclose(file);
-       free(json_output);
-   }
-
-   cJSON_Delete(root);
+    // Cleanup
+    cJSON_Delete(root);
 }

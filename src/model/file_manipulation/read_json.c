@@ -332,7 +332,7 @@ User* load_user_from_json(const char* username_target)
 bool is_username_available(const char* username_to_check, const char* filename) 
 {
     FILE* file = fopen(filename, "r");
-    if (!file) return true; // jika file belum ada, berarti username pasti belum dipakai
+    if (!file) return false; // jika file belum ada, berarti username pasti belum dipakai
 
     fseek(file, 0, SEEK_END);
     long filesize = ftell(file);
@@ -400,6 +400,10 @@ bool is_password_correct(const char* username, const char* password_input, const
         if (uname && pass && strcmp(uname->valuestring, username) == 0) 
         {
             bool result = strcmp(pass->valuestring, password_input) == 0;
+            printf(pass->valuestring);
+            getch();
+            getch();
+            getch();
             cJSON_Delete(root);
             return result;
         }

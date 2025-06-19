@@ -42,7 +42,7 @@ void set_saldo_user(User* user, int saldo);
 void set_prioritas_user(User* user, Prioritas prioritas);
 void kurangi_saldo_user(User* user, int harga_tiket);
 void add_riwayat_user(User* user, Riwayat* new_riwayat);
-void hapus_riwayat(User** user);
+void hapus_riwayat(User* user);
 
 // ===============================================
 // ============ CONSTRUCTOR SECTION ==============
@@ -54,6 +54,6 @@ User* create_user(String username, String password, Prioritas prioritas, int sal
 // ============= DESTRUCTOR SECTION ==============
 // ===============================================
 
-void destroy_user(User** user);
+void destroy_user(User* user);
 
 #endif /* USER_H */

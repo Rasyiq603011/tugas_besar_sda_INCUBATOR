@@ -1,7 +1,5 @@
 #include "crud_film.h"
 
-
-
 void create_list_film(List *L) {
     clear_screen();
     printf("=== Tambah Film Baru ===\n");
