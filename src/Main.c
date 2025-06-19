@@ -1,10 +1,32 @@
-#include "test/testing.h"
+#include "controller/handle_menu.h"
 
 int main(int argc, char *argv[])
 {
-//    testing_queue();
-    testing_pemilihan_kursi();
-    return 0;
+    int pilihan;
+    do{
+        const int jumlah_opsi = 3;
+        const char* options[] = {
+            "MASUK SEBAGAI ADMIN",
+            "MASUK SEBAGAI USER",
+            "KELUAR"
+        };
+        const char* header = "MENU SEBAGAI?";
+        pilihan = handle_display_menu(jumlah_opsi, options, header);
+
+        // LOAD DATA USER
+
+        switch (pilihan)
+        {
+        case 0:
+            handle_login_admin();
+            break;
+        case 1:
+            handle_menu_masuk_user();
+            break;
+        default:
+            break;
+        }
+    } while (pilihan != 2);
 }
 
 
