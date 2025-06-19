@@ -219,21 +219,184 @@ Studio* copy_studio(const Studio* original) {
     return copy;
 }
 
-char* strcasestr_custom(const char* haystack, const char* needle) {
+char* strcasestr_custom(const char* haystack, const char* needle) 
+{
     if (!*needle) return (char*)haystack;
 
-    for (; *haystack; ++haystack) {
+    for (; *haystack; ++haystack) 
+    {
         const char *h = haystack;
         const char *n = needle;
 
-        while (*h && *n && tolower((unsigned char)*h) == tolower((unsigned char)*n)) {
+        while (*h && *n && tolower((unsigned char)*h) == tolower((unsigned char)*n)) 
+        {
             ++h;
             ++n;
         }
 
-        if (!*n) {
+        if (!*n) 
+        {
             return (char*)haystack;  // Ditemukan
         }
     }
     return NULL; // Tidak ditemukan
 }
+
+int is_exists_bentrok_for_jadwal(const List jadwal, date tanggal, Time start, Time end) 
+{
+    if (ListEmpty(jadwal)) return 0;
+
+    for (pnode current = jadwal.First; current != NULL; current = Next(current)) 
+    {
+        if (Type(current) == TYPE_JADWAL)
+        {
+            date tanggal_jadwal = get_tanggal_tayang(info_jadwal(current));
+            if (!compare_date(tanggal_jadwal, tanggal)) continue;
+            Time waktu_mulai = get_waktu_start(info_jadwal(current));
+            Time waktu_selesai = get_waktu_end(info_jadwal(current));
+
+            if (is_time_in_arrange(waktu_mulai, waktu_selesai, start) ||
+                is_time_in_arrange(waktu_mulai, waktu_selesai, end) ||
+                is_time_in_arrange(start, end, waktu_mulai)) return 1;
+        }
+
+        if (Type(current) == TYPE_EVENT)
+        {
+            date tanggal_mulai = get_event_start(info_event(current));
+            date tanggal_selesai = get_event_end(info_event(current));
+            if (compare_date(tanggal_mulai, tanggal)) return 1;
+            if (compare_date(tanggal_selesai, tanggal)) return 1;
+        }
+    }
+    return 0;
+}
+
+int is_exists_bentrok_for_event(const List jadwal, date tanggal_mulai, date tanggal_selesai) 
+{
+    if (ListEmpty(jadwal)) return 0;
+
+    for (pnode current = jadwal.First; current != NULL; current = Next(current)) 
+    {
+        if (Type(current) == TYPE_JADWAL)
+        {
+            date tanggal_jadwal = get_tanggal_tayang(current);
+            if (compare_date(tanggal_jadwal, tanggal_mulai)) return 1;
+            if (compare_date(tanggal_jadwal, tanggal_selesai)) return 1;
+        }
+
+        if (Type(current) == TYPE_EVENT)
+        {
+            date tanggal_mulai = get_event_start(info_event(current));
+            if (compare_date(tanggal_mulai, tanggal_mulai)) return 1;
+            if (compare_date(tanggal_mulai, tanggal_selesai)) return 1;
+            date tanggal_selesai = get_event_end(info_event(current));
+            if (compare_date(tanggal_selesai, tanggal_mulai)) return 1;
+            if (compare_date(tanggal_selesai, tanggal_selesai)) return 1;
+        }
+    }
+    return 0;
+}
+
+int compare_waktu_mulai_jadwal(pnode a, pnode b) 
+{
+    Time t1 = get_waktu_start(info_jadwal(a));
+    Time t2 = get_waktu_start(info_jadwal(b));
+    return CompareTime(t1, t2);
+}
+
+void sort_jadwal_by_start_time(List* jadwal) 
+{
+    if (ListEmpty(*jadwal)) return;
+
+    pnode sorted = NULL;
+    pnode current;
+    for (current = First(*jadwal); current != NULL;) 
+    {
+        pnode next = Next(current);
+
+        if (!sorted || compare_waktu_mulai_jadwal(current, sorted) < 0) 
+        {
+            Next(current) = sorted;
+            sorted = current;
+        } else {
+            pnode temp = sorted;
+            while (Next(temp) && compare_waktu_mulai_jadwal(Next(temp), current) <= 0) 
+            {
+                temp = Next(temp);
+            }
+            Next(current) = Next(temp);
+            Next(temp) = current;
+        }
+
+        current = next;
+    }
+
+    First(*jadwal) = sorted;
+}
+
+List* get_all_event(const Studio* studio) 
+{
+    if (!studio || !studio->jadwal_studio) return NULL;
+
+    List* event_list = (List*)malloc(sizeof(List));
+    if (!event_list) return NULL;
+    CreateList(event_list);
+    pnode current;
+    for (current = studio->jadwal_studio->First; current != NULL; current = Next(current)) 
+    {
+        if (Type(current) == TYPE_EVENT) 
+        {
+            insert_value_last(&(event_list->First), Info(current), TYPE_EVENT);
+        }
+    }
+
+    return event_list;
+}
+
+List* get_all_jadwal(const Studio* studio) 
+{
+    if (!studio || !studio->jadwal_studio) return NULL;
+
+    List* jadwal_list = (List*)malloc(sizeof(List));
+    if (!jadwal_list) return NULL;
+    CreateList(jadwal_list);
+    pnode current;
+    for (current = studio->jadwal_studio->First; current != NULL; current = Next(current)) 
+    {
+        if (Type(current) == TYPE_JADWAL) 
+        {
+            insert_value_last(&(jadwal_list->First), Info(current), TYPE_JADWAL);
+        }
+    }
+
+    return jadwal_list;
+}
+
+List* get_jadwal_dan_event_by_film(Studio* studio, const char* keyword) 
+{
+    if (!studio || !keyword || !studio->jadwal_studio) return NULL;
+
+    List* hasil = create_list();
+    pnode current;
+    for (current = studio->jadwal_studio->First; current; current = Next(current)) 
+    {
+        if (Type(current) == TYPE_JADWAL)
+        {
+            if (strcasestr_custom(get_film_name(info_jadwal(current)), keyword)) 
+            {
+                insert_value_last(&(hasil->First), Info(current), Type(current));
+            }
+        }
+
+        if (Type(current) == TYPE_EVENT)
+        {
+            if (strcasestr_custom(get_event_film_title(info_event(current)), keyword)) 
+            {
+                insert_value_last(&(hasil->First), Info(current), Type(current));
+            }
+        }
+
+    }
+    return hasil;
+}
+

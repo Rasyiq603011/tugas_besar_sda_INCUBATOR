@@ -79,3 +79,15 @@ pnode handle_pemilihan_jadwal(List current_jadwal)
     return get_node_at(current_jadwal, pilihan);
 }
 
+// ======================================================
+// =========== PEMILIHAN EVENT FILM SECTION ============
+// ======================================================
+
+pnode handle_pemilihan_event(List current_event)
+{
+    int jumlah, pilihan;
+    void** array = list_to_array(current_event, &jumlah);
+    pilihan = scrollable_menu(array, jumlah, tampilan_event, "Event yang Tersedia", 3, 4);
+    free(array);
+    return get_node_at(current_event, pilihan);
+}

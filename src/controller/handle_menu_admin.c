@@ -4,7 +4,7 @@
 // =========== NAVIGASI PEMILIHAN MENU STACK SECTION ============
 // ==============================================================
 
-void navigasi_tree_for_admin(Tree bioskop)
+void navigasi_tree_for_admin(Tree bioskop, DataType nav_for)
 {
     StackTree stack;
     init_stack(&stack);
@@ -44,8 +44,16 @@ void navigasi_tree_for_admin(Tree bioskop)
             push(&stack, current);
             current = get_selected_node(current, pilihan + 1);
 
-            if (get_tipe_node(current) == TYPE_STUDIO) {
-                management_jadwal(get_info_node(current).studio);
+            if (get_tipe_node(current) == TYPE_STUDIO) 
+            {
+                if (nav_for == TYPE_JADWAL)
+                {
+                    management_jadwal(get_info_node(current).studio);
+                }
+                if (nav_for == TYPE_EVENT)
+                {
+                    management_event(get_info_node(current).studio);
+                }
                 current = pop(&stack);
             }
         }
@@ -105,10 +113,11 @@ void management_jadwal(Studio* current_studio)
                 break;
                 
             case 2: 
-                handle_hapus_event();
+                // balik ke menu utama Admin
                 break;
                 
             case 3: 
+                // kembali ke pemilihan studio
                 return;
             default:
                 break;
@@ -176,11 +185,11 @@ void handle_tambah_jadwal(Studio* current_studio)
 
 void handle_hapus_jadwal(Studio* current_studio)
 {
-    pnode selected_jadwal = handle_pemilihan_jadwal(*get_jadwal_studio(current_studio));
+    pnode selected_jadwal = handle_pemilihan_jadwal(*get_all_jadwal(current_studio));
 
     if (selected_jadwal == NULL) return;
     
-    delete_by_address(&(get_jadwal_studio(current_studio)->First), selected_jadwal);
+    delete_by_address(&(get_all_jadwal(current_studio)->First), selected_jadwal);
     
 }
 
@@ -189,7 +198,7 @@ void handle_hapus_jadwal(Studio* current_studio)
 // ============== EVENT MENU SECTION =============
 // ===============================================
 
-void management_event()
+void management_event(Studio* Studio)
 {
     while (1)
     {
@@ -207,17 +216,16 @@ void management_event()
         switch (pilihan) 
         {
             case 0: 
-                handle_tambah_event();
+                handle_tambah_event(Studio);
                 break;
                 
             case 1:
-                handle_proses_antrian_event();
+                handle_proses_antrian_event(Studio);
                 break;
                 
             case 2: 
-                handle_hapus_event();
+                handle_hapus_event(Studio);
                 break;
-                
             case 3: 
                 return;
             default:
@@ -226,7 +234,7 @@ void management_event()
     }
 }
 
-void handle_tambah_event()
+void handle_tambah_event(List* jadwal_studio)
 {
     String nama_event, waktu_start, waktu_end, judul_film;
     int jumlah_kuota_sesi, jumlah_sesi;
@@ -243,36 +251,41 @@ void handle_tambah_event()
     }
 
     Event* new_event = constructor_event(nama_event, start ,end , judul_film, jumlah_kuota_sesi, jumlah_sesi);
+    if (!new_event) return;
     
-    
-    // InsertAkhirV(&Head(*buku), judul_film, stock);
-    // printf("Buku berhasil ditambahkan!\n");
+    insert_value_last(&(First(*jadwal_studio)), EVENT_INFO(new_event), TYPE_EVENT);
 }
 
-void handle_proses_antrian_event()
+void handle_proses_antrian_event(Studio* current_studio)
 {
+    pnode selected_event = handle_pemilihan_event(*get_all_event(current_studio));
 
+    if (selected_event == NULL) return;
 
+    int jumlah_proses = proses_antrian_event(get_event_queue(info_event(selected_event)),get_event_daftar_user(info_event(selected_event)), get_total_kuota(info_event(selected_event)));
 }
 
-int proses_antrian_event(Queue* q, QueueData* outArray, int maxSize)
+int proses_antrian_event(Queue* antrian_user, QueueData* antrian_fix, int maxSize)
 {
-    if (!q || !outArray || maxSize <= 0) return 0;
+    if (!antrian_user || !antrian_fix || maxSize <= 0) return 0;
 
     int count = 0;
-    while (!isPriorityQueueEmpty(q) && count < maxSize) 
+    while (!isPriorityQueueEmpty(antrian_user) && count < maxSize) 
     {
-        QueueData data = dequeuePriority(q);
+        QueueData data = dequeuePriority(antrian_user);
         if (data) 
         {
-            outArray[count++] = data;
+            antrian_fix[count++] = data;
         }
     }
-
     return count;
 }
 
-void handle_hapus_event()
+void handle_hapus_event(Studio* current_studio)
 {
+    pnode selected_event = handle_pemilihan_event(*get_all_event(current_studio));
 
+    if (selected_event == NULL) return;
+    
+    delete_by_address(&(get_all_event(current_studio)->First), selected_event);
 }

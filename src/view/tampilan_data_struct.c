@@ -257,3 +257,40 @@ void tampilan_jadwal(int idx, int y, int selected, void* selected_node)
     free(tanggal);
 }
 
+void tampilan_event(int idx, int y, int selected, void* selected_node)
+{
+    Event* e = (Event*) selected_node;
+    if (e == NULL) return;
+
+    const char *highlight_start = selected ? "\033[1;37;44m" : "";
+    const char *highlight_end = selected ? "\033[0m" : "";
+
+    char buffer[WIDTH + 1];
+    char kiri[30], kanan[30];
+
+    char* tanggal_mulai = date_to_string(get_event_start(e));
+    char* tanggal_akhir = date_to_string(get_event_end(e));
+
+    if (tanggal_mulai == NULL || tanggal_akhir == NULL) {
+        if (tanggal_mulai) free(tanggal_mulai);
+        if (tanggal_akhir) free(tanggal_akhir);
+        return;
+    }
+
+    // Baris 1: Nama Event (kiri) & Judul Film (kanan)
+    gotoxy(X_POS, y);
+    snprintf(kiri, sizeof(kiri), "Event: %s", get_name_event(e));
+    snprintf(kanan, sizeof(kanan), "Film: %s", get_event_film_title(e));
+    snprintf(buffer, WIDTH + 1, "%-30s%-30s", kiri, kanan);
+    printf("%s%-*s%s", highlight_start, WIDTH, buffer, highlight_end);
+
+    // Baris 2: Tanggal Mulai (kiri) & Tanggal Akhir (kanan)
+    gotoxy(X_POS, y + 1);
+    snprintf(kiri, sizeof(kiri), "Mulai: %s", tanggal_mulai);
+    snprintf(kanan, sizeof(kanan), "Berakhir: %s", tanggal_akhir);
+    snprintf(buffer, WIDTH + 1, "%-30s%-30s", kiri, kanan);
+    printf("%s%-*s%s", highlight_start, WIDTH, buffer, highlight_end);
+
+    free(tanggal_mulai);
+    free(tanggal_akhir);
+}

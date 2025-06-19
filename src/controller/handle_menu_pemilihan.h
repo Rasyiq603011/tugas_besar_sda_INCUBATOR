@@ -17,5 +17,7 @@ void handle_pemilihan_studio(address root);
 
 pnode handle_pemilihan_jadwal(List current_jadwal);
 
+pnode handle_pemilihan_event(List current_event);
+
 #endif /* HANDLE_MENU_PEMILIHAN_H*/
 
