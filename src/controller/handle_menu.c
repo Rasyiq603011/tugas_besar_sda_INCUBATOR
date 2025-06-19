@@ -1,5 +1,9 @@
 #include "handle_menu.h"
 
+// ===============================================
+// ============= OPTION SECTION ==================
+// ===============================================
+
 void handle_option_menu(int key, int* opsi_terpilih, int jumlah_opsi)
 {
     if (key == 72) 
@@ -13,6 +17,10 @@ void handle_option_menu(int key, int* opsi_terpilih, int jumlah_opsi)
             Beep(1200,100);	                
         }
 }
+
+// ===============================================
+// ============= DISPLAY SECTION =================
+// ===============================================
 
 int handle_display_menu(int jumlah_opsi, const char* options[], const char* header)
 {
