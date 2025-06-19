@@ -45,6 +45,7 @@ int scrollable_menu(void** data_array, int jumlah_item, void (*render)(int idx, 
     int start = 0;
 
     do {
+        gotoxy(30, 2); printf("Tekan 'esc' untuk kembali");
         system("cls");
         gotoxy(30, 11); printf("=============================================================\n");
         gotoxy(30, 12); printf("|%*s%s%*s|\n", (60 - strlen(header)) / 2, "", header, (60 - strlen(header)) / 2, "");
@@ -72,9 +73,16 @@ int scrollable_menu(void** data_array, int jumlah_item, void (*render)(int idx, 
             if (key == 72 && idx_terpilih > 0) idx_terpilih--;
             else if (key == 80 && idx_terpilih < jumlah_item - 1) idx_terpilih++;
         }
-    } while (key != 13);
+    } while (key != 13 || key != 27);
 
-    return idx_terpilih;
+    if (key == 13)
+    {
+        return idx_terpilih;
+    }else
+    {
+        return -1;
+    }
+    
 }
 
 void clear_line(int y)

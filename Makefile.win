@@ -4,8 +4,8 @@
 CPP      = g++.exe
 CC       = gcc.exe
 WINDRES  = windres.exe
-OBJ      = bin/Main.o bin/kursi_view.o bin/message_view.o bin/tampilan_bioskop.o bin/tampilan_detail_film.o bin/tampilan_kota.o bin/tampilan_login.o bin/tampilan_negara.o bin/tampilan_provinsi.o bin/tampilan_riwayat.o bin/tampilan_signup.o bin/tampilan_studio.o bin/view.o bin/date.o bin/linked.o bin/time_adt.o bin/tree_data.o bin/admin.o bin/bioskop.o bin/event.o bin/film.o bin/jadwal.o bin/kota.o bin/kursi.o bin/negara.o bin/provinsi.o bin/riwayat.o bin/studio.o bin/user.o bin/cJSON.o bin/crud_film.o bin/read_json.o bin/write_json.o bin/data_struct_test.o bin/test_linked_list.o bin/testing.o bin/handle_database.o bin/handle_menu.o bin/handle_menu_pemilihan.o bin/handle_pemilihan_kursi.o bin/handle_pemilihan_pengguna.o bin/handle_tampilan_riwayat.o bin/test_event.o bin/testing_queue.o
-LINKOBJ  = bin/Main.o bin/kursi_view.o bin/message_view.o bin/tampilan_bioskop.o bin/tampilan_detail_film.o bin/tampilan_kota.o bin/tampilan_login.o bin/tampilan_negara.o bin/tampilan_provinsi.o bin/tampilan_riwayat.o bin/tampilan_signup.o bin/tampilan_studio.o bin/view.o bin/date.o bin/linked.o bin/time_adt.o bin/tree_data.o bin/admin.o bin/bioskop.o bin/event.o bin/film.o bin/jadwal.o bin/kota.o bin/kursi.o bin/negara.o bin/provinsi.o bin/riwayat.o bin/studio.o bin/user.o bin/cJSON.o bin/crud_film.o bin/read_json.o bin/write_json.o bin/data_struct_test.o bin/test_linked_list.o bin/testing.o bin/handle_database.o bin/handle_menu.o bin/handle_menu_pemilihan.o bin/handle_pemilihan_kursi.o bin/handle_pemilihan_pengguna.o bin/handle_tampilan_riwayat.o bin/test_event.o bin/testing_queue.o
+OBJ      = bin/Main.o bin/kursi_view.o bin/message_view.o bin/tampilan_riwayat.o bin/view.o bin/date.o bin/linked.o bin/time_adt.o bin/tree_data.o bin/admin.o bin/bioskop.o bin/event.o bin/film.o bin/jadwal.o bin/kota.o bin/kursi.o bin/negara.o bin/provinsi.o bin/riwayat.o bin/studio.o bin/user.o bin/cJSON.o bin/crud_film.o bin/read_json.o bin/write_json.o bin/data_struct_test.o bin/test_linked_list.o bin/testing.o bin/handle_menu.o bin/handle_menu_pemilihan.o bin/handle_pemilihan_kursi.o bin/handle_tampilan_riwayat.o bin/test_event.o bin/testing_queue.o
+LINKOBJ  = bin/Main.o bin/kursi_view.o bin/message_view.o bin/tampilan_riwayat.o bin/view.o bin/date.o bin/linked.o bin/time_adt.o bin/tree_data.o bin/admin.o bin/bioskop.o bin/event.o bin/film.o bin/jadwal.o bin/kota.o bin/kursi.o bin/negara.o bin/provinsi.o bin/riwayat.o bin/studio.o bin/user.o bin/cJSON.o bin/crud_film.o bin/read_json.o bin/write_json.o bin/data_struct_test.o bin/test_linked_list.o bin/testing.o bin/handle_menu.o bin/handle_menu_pemilihan.o bin/handle_pemilihan_kursi.o bin/handle_tampilan_riwayat.o bin/test_event.o bin/testing_queue.o
 LIBS     = -L"C:/Program Files (x86)/Dev-Cpp/MinGW64/lib" -L"C:/Program Files (x86)/Dev-Cpp/MinGW64/x86_64-w64-mingw32/lib" -static-libgcc
 INCS     = -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/include" -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/x86_64-w64-mingw32/include" -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/lib/gcc/x86_64-w64-mingw32/4.9.2/include"
 CXXINCS  = -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/include" -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/x86_64-w64-mingw32/include" -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/lib/gcc/x86_64-w64-mingw32/4.9.2/include" -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/lib/gcc/x86_64-w64-mingw32/4.9.2/include/c++"
@@ -33,32 +33,8 @@ bin/kursi_view.o: src/view/kursi_view.c
 bin/message_view.o: src/view/message_view.c
 	$(CC) -c src/view/message_view.c -o bin/message_view.o $(CFLAGS)
 
-bin/tampilan_bioskop.o: src/view/tampilan_bioskop.c
-	$(CC) -c src/view/tampilan_bioskop.c -o bin/tampilan_bioskop.o $(CFLAGS)
-
-bin/tampilan_detail_film.o: src/view/tampilan_detail_film.c
-	$(CC) -c src/view/tampilan_detail_film.c -o bin/tampilan_detail_film.o $(CFLAGS)
-
-bin/tampilan_kota.o: src/view/tampilan_kota.c
-	$(CC) -c src/view/tampilan_kota.c -o bin/tampilan_kota.o $(CFLAGS)
-
-bin/tampilan_login.o: src/view/tampilan_login.c
-	$(CC) -c src/view/tampilan_login.c -o bin/tampilan_login.o $(CFLAGS)
-
-bin/tampilan_negara.o: src/view/tampilan_negara.c
-	$(CC) -c src/view/tampilan_negara.c -o bin/tampilan_negara.o $(CFLAGS)
-
-bin/tampilan_provinsi.o: src/view/tampilan_provinsi.c
-	$(CC) -c src/view/tampilan_provinsi.c -o bin/tampilan_provinsi.o $(CFLAGS)
-
 bin/tampilan_riwayat.o: src/view/tampilan_riwayat.c
 	$(CC) -c src/view/tampilan_riwayat.c -o bin/tampilan_riwayat.o $(CFLAGS)
-
-bin/tampilan_signup.o: src/view/tampilan_signup.c
-	$(CC) -c src/view/tampilan_signup.c -o bin/tampilan_signup.o $(CFLAGS)
-
-bin/tampilan_studio.o: src/view/tampilan_studio.c
-	$(CC) -c src/view/tampilan_studio.c -o bin/tampilan_studio.o $(CFLAGS)
 
 bin/view.o: src/view/view.c
 	$(CC) -c src/view/view.c -o bin/view.o $(CFLAGS)
@@ -132,9 +108,6 @@ bin/test_linked_list.o: src/test/test_linked_list.c
 bin/testing.o: src/test/testing.c
 	$(CC) -c src/test/testing.c -o bin/testing.o $(CFLAGS)
 
-bin/handle_database.o: src/controller/handle_database.c
-	$(CC) -c src/controller/handle_database.c -o bin/handle_database.o $(CFLAGS)
-
 bin/handle_menu.o: src/controller/handle_menu.c
 	$(CC) -c src/controller/handle_menu.c -o bin/handle_menu.o $(CFLAGS)
 
@@ -143,9 +116,6 @@ bin/handle_menu_pemilihan.o: src/controller/handle_menu_pemilihan.c
 
 bin/handle_pemilihan_kursi.o: src/controller/handle_pemilihan_kursi.c
 	$(CC) -c src/controller/handle_pemilihan_kursi.c -o bin/handle_pemilihan_kursi.o $(CFLAGS)
-
-bin/handle_pemilihan_pengguna.o: src/controller/handle_pemilihan_pengguna.c
-	$(CC) -c src/controller/handle_pemilihan_pengguna.c -o bin/handle_pemilihan_pengguna.o $(CFLAGS)
 
 bin/handle_tampilan_riwayat.o: src/controller/handle_tampilan_riwayat.c
 	$(CC) -c src/controller/handle_tampilan_riwayat.c -o bin/handle_tampilan_riwayat.o $(CFLAGS)

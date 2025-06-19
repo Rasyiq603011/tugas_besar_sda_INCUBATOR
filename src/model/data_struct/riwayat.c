@@ -7,8 +7,8 @@
 // Struktur data untuk menyimpan riwayat pembelian tiket
 struct DataRiwayat {
     String judul_film;
-    char tanggal[11];
-    char jam[6];
+    String tanggal;
+    String jam;
     int harga_tiket;
     String kursi;
     Riwayat* next;
@@ -62,19 +62,19 @@ Riwayat* get_next_riwayat(Riwayat* riwayat)
 // Mengatur judul film dalam riwayat
 void set_judul_film_riwayat(Riwayat* riwayat, String judul_film)
 {
-    riwayat->judul_film = judul_film;
+    riwayat->judul_film = strdup(judul_film);
 }
 
 // Mengatur tanggal dalam riwayat
-void set_tanggal_riwayat(Riwayat* riwayat, char tanggal[10])
+void set_tanggal_riwayat(Riwayat* riwayat, String tanggal)
 {
-    strcpy(riwayat->tanggal, tanggal);
+    riwayat->tanggal = strdup(tanggal);
 }
 
 // Mengatur jam dalam riwayat
-void set_jam_riwayat(Riwayat* riwayat, char jam[5])
+void set_jam_riwayat(Riwayat* riwayat, String jam)
 {
-    strcpy(riwayat->jam, jam);
+    riwayat->jam = strdup(jam);
 }
 
 // Mengatur harga tiket dalam riwayat
@@ -86,7 +86,7 @@ void set_harga_tiket_riwayat(Riwayat* riwayat, int harga_tiket)
 // Mengatur kursi dalam riwayat
 void set_kursi_riwayat(Riwayat* riwayat, String kursi)
 {
-    riwayat->kursi = kursi;
+    riwayat->kursi = strdup(kursi);
 }
 
 void set_next_riwayat(Riwayat* riwayat, Riwayat* new_riwayat)

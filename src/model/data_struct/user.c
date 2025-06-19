@@ -96,15 +96,15 @@ void add_riwayat_user(User* user, Riwayat* new_riwayat)
     set_next_riwayat(temp, new_riwayat);
 }
 
-void hapus_riwayat(User** user)
+void hapus_riwayat(User* user)
 {
-    if ((*user)->riwayat != NULL)
+    if (user->riwayat != NULL)
     {   
         Riwayat* temp;
-        while ((*user)->riwayat != NULL)
+        while (user->riwayat != NULL)
         {
-            temp = ((*user)->riwayat);
-            (*user)->riwayat = get_next_riwayat((*user)->riwayat);
+            temp = user->riwayat;
+            user->riwayat = get_next_riwayat(user->riwayat);
 
             if (temp != NULL)
             {
@@ -135,13 +135,13 @@ User* create_user(String username, String password, Prioritas prioritas, int sal
 // ===============================================
 
 // Menghapus objek user dan membebaskan memori yang digunakan
-void destroy_user(User** user)
+void destroy_user(User* user)
 {
-    if (*user != NULL)
+    if (user != NULL)
     {
-        free((*user)->username);  // membebaskan memori username
-        free((*user)->password);  // membebaskan memori password (seharusnya ini, bukan username dua kali)
+        free(user->username);  // membebaskan memori username
+        free(user->password);  // membebaskan memori password (seharusnya ini, bukan username dua kali)
         hapus_riwayat(user);
-        free(*user);            // membebaskan memori objek user
+        free(user);            // membebaskan memori objek user
     }
 }
