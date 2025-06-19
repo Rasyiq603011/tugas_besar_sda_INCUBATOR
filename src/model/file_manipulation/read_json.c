@@ -329,9 +329,9 @@ User* load_user_from_json(const char* username_target)
     return NULL; // user tidak ditemukan
 }
 
-bool is_username_available(const char* username_to_check) 
+bool is_username_available(const char* username_to_check, const char* filename) 
 {
-    FILE* file = fopen(DATABASE_USER, "r");
+    FILE* file = fopen(filename, "r");
     if (!file) return true; // jika file belum ada, berarti username pasti belum dipakai
 
     fseek(file, 0, SEEK_END);
@@ -368,9 +368,9 @@ bool is_username_available(const char* username_to_check)
     return true; // tidak ditemukan → username tersedia
 }
 
-bool is_password_correct(const char* username, const char* password_input) 
+bool is_password_correct(const char* username, const char* password_input, const char* filename) 
 {
-    FILE* file = fopen(DATABASE_USER, "r");
+    FILE* file = fopen(filename, "r");
     if (!file) return false;
 
     fseek(file, 0, SEEK_END);
@@ -399,7 +399,7 @@ bool is_password_correct(const char* username, const char* password_input)
 
         if (uname && pass && strcmp(uname->valuestring, username) == 0) 
         {
-            boolean result = strcmp(pass->valuestring, password_input) == 0;
+            bool result = strcmp(pass->valuestring, password_input) == 0;
             cJSON_Delete(root);
             return result;
         }
