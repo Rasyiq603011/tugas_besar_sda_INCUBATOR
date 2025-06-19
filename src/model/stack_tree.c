@@ -83,7 +83,8 @@ void traverse_print_tree_stack_adt(address root)
     free_stack(&stack);
 }
 
-List* get_all_jadwal_by_film_from_node(address node_mulai, const char* keyword) {
+List* get_all_jadwal_by_film_from_node(address node_mulai, const char* keyword) 
+{
     if (!node_mulai || !keyword) return NULL;
 
     List* hasil = create_list();   
@@ -102,6 +103,38 @@ List* get_all_jadwal_by_film_from_node(address node_mulai, const char* keyword) 
                 merge_list(hasil, new_list_jadwal);
             } else {
                 free_list(new_list_jadwal);
+            }
+        }
+
+        if (current->next_brother) push_stack(&stack, current->next_brother);
+        if (current->first_son) push_stack(&stack, current->first_son);
+    }
+
+    free_stack(&stack);
+    return hasil;
+}
+
+List* get_all_event_from_tree_node(address node_mulai) 
+{
+    if (!node_mulai) return NULL;
+
+    List* hasil = create_list();   
+    StackTree stack;
+    init_stack(&stack);
+    push_stack(&stack, node_mulai);
+
+    while (!is_empty_stack(&stack)) {
+        address current = pop_stack(&stack);
+
+        if (current->tipe == TYPE_STUDIO) {
+            Studio* studio = info_studio(current);
+            List* new_list_event = get_all_event(studio);
+
+            if (new_list_event && new_list_event->First) 
+            {
+                merge_list(hasil, new_list_event);
+            } else {
+                free_list(new_list_event);
             }
         }
 

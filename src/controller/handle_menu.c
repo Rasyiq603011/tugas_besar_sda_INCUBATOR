@@ -72,13 +72,13 @@ void handle_menu_admin(Tree bioskop)
 // ============== MENU USER SECTION ==============
 // ===============================================
 
-void handle_menu_user(User** user, address root)
+void handle_menu_user(User* user, address root)
 {
     int pilihan;
     const int jumlah_opsi = 4;
     const char* options[] = {
         "PEMBELIAN TIKET",
-        "INFORMASI EVENT",
+        "EVENT BIOSKOP",
         "RIWAYAT",
         "LOGOUT"
     };
@@ -93,7 +93,7 @@ void handle_menu_user(User** user, address root)
         /* code */
         break;
     case 1:
-        /* code */
+        handle_event_bioskop(root, user);
         break;
     case 2:
         /* code */
@@ -142,6 +142,13 @@ void handle_menu_awal()
     default:
         break;
     }
+}
 
+handle_event_bioskop(address root, User* user)
+{
+    List* data_event = get_all_event_from_tree_node(root);
+
+    pnode selected_event = handle_pemilihan_event(*data_event);
+    
 }
 

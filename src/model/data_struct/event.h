@@ -17,7 +17,7 @@ typedef struct DataEvent Event;
 
 Event* constructor_event(String nama_event ,date start, date end, const char* film_title, int kuota, int sesi);
 
-void create_jadwal(Event** new_event, String nama_event, date start, date end, const char* film_title, int kuota, int sesi);
+void create_event(Event** new_event, String nama_event, date start, date end, const char* film_title, int kuota, int sesi);
 
 void destructor_event(Event* current_event);
 

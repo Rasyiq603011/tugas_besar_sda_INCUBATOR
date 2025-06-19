@@ -40,7 +40,6 @@ void set_pendapatan_studio(Studio* current_studio, int pendapatan);
 void set_jadwal_studio(Studio* current_studio, List* jadwal);
 
 void set_jumlah_kursi_studio(Studio* current_studio, int jumlah_kursi);
-
 // ===============================================
 // ============ DESTRUCTOR SECTION ===============
 // ===============================================
@@ -48,26 +47,12 @@ void set_jumlah_kursi_studio(Studio* current_studio, int jumlah_kursi);
 void destructor_studio(Studio* current_studio);
 
 // ===============================================
-// ============ ADDITIONAL SECTION ===============
+// ============ FILTER DATA SECTION ==============
 // ===============================================
-
-int compare_studio_value(const Studio* studio_pertama, const Studio* studio_kedua);
 
 List* get_jadwal_by_date(const List jadwal, date tanggal);
 
 List* get_jadwal_by_film(Studio* studio, const char* keyword);
-
-int is_exits_jadwal(const List Jadwal, date tanggal, Time start, Time end);
-
-Studio* copy_studio(const Studio* original);
-
-char* strcasestr_custom(const char* haystack, const char* needle);
-
-int is_exists_bentrok_for_jadwal(const List jadwal, date tanggal, Time start, Time end);
-
-int is_exists_bentrok_for_event(const List jadwal, date tanggal_mulai, date tanggal_selesai);
-
-int compare_waktu_mulai_jadwal(pnode a, pnode b);
 
 void sort_jadwal_by_start_time(List* jadwal);
 
@@ -76,5 +61,25 @@ List* get_all_event(const Studio* studio);
 List* get_all_jadwal(const Studio* studio);
 
 List* get_jadwal_dan_event_by_film(Studio* studio, const char* keyword);
+
+// ===============================================
+// ============ COMPARISON SECTION ===============
+// ===============================================
+
+int compare_studio_value(const Studio* studio_pertama, const Studio* studio_kedua);
+
+int compare_waktu_mulai_jadwal(pnode a, pnode b);
+
+// ===============================================
+// ============ ADDITIONAL SECTION ===============
+// ===============================================
+
+Studio* copy_studio(const Studio* original);
+
+char* strcasestr_custom(const char* haystack, const char* needle);
+
+int is_exists_bentrok_for_jadwal(const List jadwal, date tanggal, Time start, Time end);
+
+int is_exists_bentrok_for_event(const List jadwal, date tanggal_mulai, date tanggal_selesai);
 
 #endif /*STUDIO_H*/

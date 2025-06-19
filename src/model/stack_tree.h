@@ -26,6 +26,10 @@ void free_stack(StackTree* stack);
 
 void traverse_print_tree_stack_adt(address root);
 
+List* get_all_jadwal_by_film_from_node(address node_mulai, const char* keyword);
+
+List* get_all_event_from_tree_node(address node_mulai);
+
 #endif
 
 
