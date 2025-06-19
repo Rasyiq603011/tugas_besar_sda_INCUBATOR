@@ -46,4 +46,11 @@ void tampilan_studio(int idx, int y, int selected, void* pointer_head);
  */
 void tampilan_jadwal(int idx, int y, int selected, void* selected_node);
 
+/*
+ * I.S.  : Parameter event berisi data valid, indeks dan posisi tampilan ditentukan, serta status terpilih diketahui.
+ * F.S.  :
+ * Fungsi: Menyajikan informasi terperinci untuk satu Event dalam tampilan list event di studio.
+ */
+void tampilan_event(int idx, int y, int selected, void* selected_node);
+
 #endif /* TAMPILAN_DATA_STRUCT_H */

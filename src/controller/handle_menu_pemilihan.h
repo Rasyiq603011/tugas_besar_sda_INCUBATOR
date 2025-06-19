@@ -19,5 +19,7 @@ int handle_pemilihan_jadwal(List current_jadwal, pnode* out_node);
 
 int handle_pemilihan_kursi(address studio, User* user);
 
+pnode handle_pemilihan_event(List current_event);
+
 #endif /* HANDLE_MENU_PEMILIHAN_H*/
 

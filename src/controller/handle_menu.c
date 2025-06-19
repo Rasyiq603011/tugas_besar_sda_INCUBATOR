@@ -54,10 +54,10 @@ void handle_menu_admin(Tree bioskop)
     switch (pilihan)
     {
     case 0:
-        navigasi_tree_for_admin(bioskop);
+        navigasi_tree_for_admin(bioskop, TYPE_JADWAL);
         break;
     case 1:
-        management_event();
+        navigasi_tree_for_admin(bioskop, TYPE_EVENT);
         break;
     case 2:
         destroy_admin();

@@ -53,8 +53,28 @@ void destructor_studio(Studio* current_studio);
 
 int compare_studio_value(const Studio* studio_pertama, const Studio* studio_kedua);
 
-List* get_jadwal_by_date(List jadwal, date tanggal);
+List* get_jadwal_by_date(const List jadwal, date tanggal);
 
-int is_exits_jadwal(List Jadwal, date tanggal, Time start, Time end);
+List* get_jadwal_by_film(Studio* studio, const char* keyword);
+
+int is_exits_jadwal(const List Jadwal, date tanggal, Time start, Time end);
+
+Studio* copy_studio(const Studio* original);
+
+char* strcasestr_custom(const char* haystack, const char* needle);
+
+int is_exists_bentrok_for_jadwal(const List jadwal, date tanggal, Time start, Time end);
+
+int is_exists_bentrok_for_event(const List jadwal, date tanggal_mulai, date tanggal_selesai);
+
+int compare_waktu_mulai_jadwal(pnode a, pnode b);
+
+void sort_jadwal_by_start_time(List* jadwal);
+
+List* get_all_event(const Studio* studio);
+
+List* get_all_jadwal(const Studio* studio);
+
+List* get_jadwal_dan_event_by_film(Studio* studio, const char* keyword);
 
 #endif /*STUDIO_H*/

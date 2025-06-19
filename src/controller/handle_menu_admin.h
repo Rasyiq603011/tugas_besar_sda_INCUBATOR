@@ -10,7 +10,7 @@
  *         lalu masuk ke menu manajemen jadwal di studio.
  * Fungsi: Mengelola navigasi antar node pohon menggunakan stack dan memungkinkan user mengelola jadwal di level studio.
  */
-void navigasi_tree_for_admin(Tree bioskop);
+void navigasi_tree_for_admin(Tree bioskop, DataType nav_for);
 
 /*
  * I.S.  : Nilai enum DataType diberikan.

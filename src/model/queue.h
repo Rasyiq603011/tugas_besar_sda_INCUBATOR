@@ -18,25 +18,19 @@ typedef struct {
     int size;
 } Queue;
 
-// Membuat PriorityQueue kosong
-void createQueue(Queue* q);
 
-// Mengembalikan true jika Queue kosong
-bool isQueueEmpty(const Queue* q);
+void createPriorityQueue(Queue* q);
 
-// Menambahkan elemen ke Queue berdasarkan prioritas
-void enqueue(Queue* q, QueueData data);
+bool isPriorityQueueEmpty(const Queue* q);
 
-// Menghapus elemen dari depan Queue dan mengembalikannya
-QueueData dequeue(Queue* q);
+void enqueuePriority(Queue* q, QueueData data);
 
-// Mengakses data di depan Queue tanpa menghapusnya
-QueueData peekFront(const Queue* q);
+QueueData dequeuePriority(Queue* q);
 
-// Mendapatkan ukuran Queue
-int QueueSize(const Queue* q);
+QueueData peekFrontPriority(const Queue* q);
 
-// Menghapus seluruh isi Queue
-void clearQueue(Queue* q, void (*destroy)(QueueData));
+int priorityQueueSize(const Queue* q);
+
+void clearPriorityQueue(Queue* q, void (*destroy)(QueueData));
 
 #endif
