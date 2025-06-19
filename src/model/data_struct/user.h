@@ -48,7 +48,7 @@ void hapus_riwayat(User** user);
 // ============ CONSTRUCTOR SECTION ==============
 // ===============================================
 
-User* create_user(String username, String password, Prioritas prioritas);
+User* create_user(String username, String password, Prioritas prioritas, int saldo);
 
 // ===============================================
 // ============= DESTRUCTOR SECTION ==============

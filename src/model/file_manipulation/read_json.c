@@ -264,9 +264,74 @@ static Kursi* parse_kursi(cJSON* kursi_json)
     return new_kursi;
 }
 
-bool is_username_available(const char* username_to_check) 
+User* load_user_from_json(const char* username_target) 
 {
-    FILE* file = fopen("ooutput.h", "r");
+    FILE* file = fopen(DATABASE_USER, "r");
+    if (!file) return NULL;
+
+    fseek(file, 0, SEEK_END);
+    long size = ftell(file);
+    rewind(file);
+
+    char* content = malloc(size + 1);
+    fread(content, 1, size, file);
+    content[size] = '\0';
+    fclose(file);
+
+    cJSON* root = cJSON_Parse(content);
+    free(content);
+    if (!cJSON_IsArray(root)) {
+        cJSON_Delete(root);
+        return NULL;
+    }
+
+    for (int i = 0; i < cJSON_GetArraySize(root); i++) 
+    {
+        cJSON* user_obj = cJSON_GetArrayItem(root, i);
+        cJSON* uname = cJSON_GetObjectItem(user_obj, "username");
+
+        if (uname && strcmp(uname->valuestring, username_target) == 0) 
+        {
+            // Ambil field utama
+            cJSON* pass = cJSON_GetObjectItem(user_obj, "password");
+            cJSON* saldo = cJSON_GetObjectItem(user_obj, "saldo");
+            cJSON* prioritas = cJSON_GetObjectItem(user_obj, "prioritas");
+
+            int parsed_saldo = saldo ? saldo->valueint : 0;
+            Prioritas parsed_prioritas = prioritas ? (Prioritas)prioritas->valueint : REGULER;
+
+            User* user = create_user(uname->valuestring, pass->valuestring, parsed_prioritas, parsed_saldo);
+
+            // Ambil array riwayat
+            cJSON* riwayat_arr = cJSON_GetObjectItem(user_obj, "riwayat");
+            if (cJSON_IsArray(riwayat_arr)) 
+            {   
+                for (int j = 0; j < cJSON_GetArraySize(riwayat_arr); j++) 
+                {
+                    cJSON* riw = cJSON_GetArrayItem(riwayat_arr, j);
+                    const char* judul = cJSON_GetObjectItem(riw, "judul_film")->valuestring;
+                    const char* tanggal = cJSON_GetObjectItem(riw, "tanggal")->valuestring;
+                    const char* jam = cJSON_GetObjectItem(riw, "jam")->valuestring;
+                    int harga = cJSON_GetObjectItem(riw, "harga_tiket")->valueint;
+                    const char* kursi = cJSON_GetObjectItem(riw, "kursi")->valuestring;
+
+                    Riwayat* new_riwayat = create_riwayat(strdup(judul), (char*)tanggal, (char*)jam, harga, strdup(kursi));
+                    add_riwayat_user(user, new_riwayat);
+                }
+            }
+
+            cJSON_Delete(root);
+            return user;
+        }
+    }
+
+    cJSON_Delete(root);
+    return NULL; // user tidak ditemukan
+}
+
+bool is_username_available(const char* username_to_check, const char* filename) 
+{
+    FILE* file = fopen(filename, "r");
     if (!file) return true; // jika file belum ada, berarti username pasti belum dipakai
 
     fseek(file, 0, SEEK_END);
@@ -286,8 +351,9 @@ bool is_username_available(const char* username_to_check)
         cJSON_Delete(root);
         return true; // JSON rusak atau bukan array → anggap belum dipakai
     }
-
-    for (int i = 0; i < cJSON_GetArraySize(root); i++) 
+    
+    int i;
+    for (i = 0; i < cJSON_GetArraySize(root); i++) 
     {
         cJSON* user = cJSON_GetArrayItem(root, i);
         cJSON* username = cJSON_GetObjectItem(user, "username");
@@ -300,4 +366,45 @@ bool is_username_available(const char* username_to_check)
 
     cJSON_Delete(root);
     return true; // tidak ditemukan → username tersedia
+}
+
+bool is_password_correct(const char* username, const char* password_input, const char* filename) 
+{
+    FILE* file = fopen(filename, "r");
+    if (!file) return false;
+
+    fseek(file, 0, SEEK_END);
+    long size = ftell(file);
+    rewind(file);
+
+    char* content = malloc(size + 1);
+    fread(content, 1, size, file);
+    content[size] = '\0';
+    fclose(file);
+
+    cJSON* root = cJSON_Parse(content);
+    free(content);
+    if (!cJSON_IsArray(root)) 
+    {
+        cJSON_Delete(root);
+        return false;
+    }
+
+    int i;
+    for (i = 0; i < cJSON_GetArraySize(root); i++) 
+    {
+        cJSON* user_obj = cJSON_GetArrayItem(root, i);
+        cJSON* uname = cJSON_GetObjectItem(user_obj, "username");
+        cJSON* pass = cJSON_GetObjectItem(user_obj, "password");
+
+        if (uname && pass && strcmp(uname->valuestring, username) == 0) 
+        {
+            bool result = strcmp(pass->valuestring, password_input) == 0;
+            cJSON_Delete(root);
+            return result;
+        }
+    }
+
+    cJSON_Delete(root);
+    return false; // username tidak ditemukan
 }

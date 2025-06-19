@@ -193,87 +193,89 @@ void save_tree_to_file(address root, const char* filename)
     cJSON_Delete(json_tree);
 }
 
-//void save_user_to_json(User* user) 
-//{
-//    FILE* file = fopen(DATABASE_USER, "r");
-//    long file_size = 0;
-//    char* file_content = NULL;
-//    cJSON* root = NULL;
-//
-//    // Step 1: Baca file JSON jika ada
-//    if (file)
-//    {
-//        fseek(file, 0, SEEK_END);
-//        file_size = ftell(file);
-//        rewind(file);
-//
-//        file_content = (char*)malloc(file_size + 1);
-//        fread(file_content, 1, file_size, file);
-//        file_content[file_size] = '\0';
-//        fclose(file);
-//
-//        root = cJSON_Parse(file_content);
-//        free(file_content);
-//    }
-//
-//    if (!root) 
-//    {
-//        root = cJSON_CreateArray();  // buat array jika file belum ada atau kosong
-//    }
-//
-//    // Step 2: Cari user dengan username yang sama
-//    const char* target_username = get_username_user(user);
-//    int found_index = -1;
-//    for (int i = 0; i < cJSON_GetArraySize(root); ++i) 
-//    {
-//        cJSON* item = cJSON_GetArrayItem(root, i);
-//        cJSON* username = cJSON_GetObjectItem(item, "username");
-//        if (username && strcmp(username->valuestring, target_username) == 0) 
-//        {
-//            found_index = i;
-//            break;
-//        }
-//    }
-//
-//    // Step 3: Buat objek user baru
-//    cJSON* user_obj = cJSON_CreateObject();
-//    cJSON_AddStringToObject(user_obj, "username", get_username_user(user));
-//    cJSON_AddStringToObject(user_obj, "password", get_password_user(user));
-//
-//    cJSON* riwayat_array = cJSON_CreateArray();
-//    pnode riwayat_node = get_pointer_to_riwayat(user);
-//
-//    while (riwayat_node != NULL) {
-//        Riwayat* data = info_riwayat(riwayat_node);
-//        cJSON* riwayat_obj = cJSON_CreateObject();
-//
-//        cJSON_AddStringToObject(riwayat_obj, "judul_film", get_judul_film_riwayat(data));
-//        cJSON_AddStringToObject(riwayat_obj, "tanggal", get_tanggal_riwayat(data));
-//        cJSON_AddStringToObject(riwayat_obj, "jam", get_jam_riwayat(data));
-//        cJSON_AddNumberToObject(riwayat_obj, "harga_tiket", get_harga_tiket_riwayat(data));
-//        cJSON_AddStringToObject(riwayat_obj, "kursi", get_kursi_riwayat(data));
-//
-//        cJSON_AddItemToArray(riwayat_array, riwayat_obj);
-//        riwayat_node = riwayat_node->next;
-//    }
-//
-//    cJSON_AddItemToObject(user_obj, "riwayat", riwayat_array);
-//
-//    // Step 4: Jika user ditemukan, ganti, jika tidak, tambahkan
-//    if (found_index != -1) {
-//        cJSON_ReplaceItemInArray(root, found_index, user_obj);
-//    } else {
-//        cJSON_AddItemToArray(root, user_obj);
-//    }
-//
-//    // Step 5: Simpan kembali ke file
-//    file = fopen(DATABASE_USER, "w");
-//    if (file) {
-//        char* json_output = cJSON_Print(root);
-//        fprintf(file, "%s", json_output);
-//        fclose(file);
-//        free(json_output);
-//    }
-//
-//    cJSON_Delete(root);
-//}
+void save_user_to_json(User* user) 
+{
+   FILE* file = fopen(DATABASE_USER, "r");
+   long file_size = 0;
+   char* file_content = NULL;
+   cJSON* root = NULL;
+
+   // Step 1: Baca file JSON jika ada
+   if (file)
+   {
+       fseek(file, 0, SEEK_END);
+       file_size = ftell(file);
+       rewind(file);
+
+       file_content = (char*)malloc(file_size + 1);
+       fread(file_content, 1, file_size, file);
+       file_content[file_size] = '\0';
+       fclose(file);
+
+       root = cJSON_Parse(file_content);
+       free(file_content);
+   }
+
+   if (!root) 
+   {
+       root = cJSON_CreateArray();  // buat array jika file belum ada atau kosong
+   }
+
+   // Step 2: Cari user dengan username yang sama
+   const char* target_username = get_username_user(user);
+   int found_index = -1;
+   for (int i = 0; i < cJSON_GetArraySize(root); ++i) 
+   {
+       cJSON* item = cJSON_GetArrayItem(root, i);
+       cJSON* username = cJSON_GetObjectItem(item, "username");
+       if (username && strcmp(username->valuestring, target_username) == 0) 
+       {
+           found_index = i;
+           break;
+       }
+   }
+
+   // Step 3: Buat objek user baru
+   cJSON* user_obj = cJSON_CreateObject();
+   cJSON_AddStringToObject(user_obj, "username", get_username_user(user));
+   cJSON_AddStringToObject(user_obj, "password", get_password_user(user));
+   cJSON_AddNumberToObject(user_obj, "saldo", get_saldo_user(user));
+   cJSON_AddNumberToObject(user_obj, "prioritas", get_prioritas_user(user)); // enum disimpan sebagai angka
+
+   // Step 3b: Tambahkan array riwayat
+   cJSON* riwayat_array = cJSON_CreateArray();
+   Riwayat* riwayat_node = get_pointer_to_riwayat(user);
+
+   while (riwayat_node != NULL) {
+       cJSON* riwayat_obj = cJSON_CreateObject();
+
+       cJSON_AddStringToObject(riwayat_obj, "judul_film", get_judul_film_riwayat(riwayat_node));
+       cJSON_AddStringToObject(riwayat_obj, "tanggal", get_tanggal_riwayat(riwayat_node));
+       cJSON_AddStringToObject(riwayat_obj, "jam", get_jam_riwayat(riwayat_node));
+       cJSON_AddNumberToObject(riwayat_obj, "harga_tiket", get_harga_tiket_riwayat(riwayat_node));
+       cJSON_AddStringToObject(riwayat_obj, "kursi", get_kursi_riwayat(riwayat_node));
+
+       cJSON_AddItemToArray(riwayat_array, riwayat_obj);
+       riwayat_node = get_next_riwayat(riwayat_node);
+   }
+
+   cJSON_AddItemToObject(user_obj, "riwayat", riwayat_array);
+
+   // Step 4: Jika user ditemukan, ganti, jika tidak, tambahkan
+   if (found_index != -1) {
+       cJSON_ReplaceItemInArray(root, found_index, user_obj);
+   } else {
+       cJSON_AddItemToArray(root, user_obj);
+   }
+
+   // Step 5: Simpan kembali ke file
+   file = fopen(DATABASE_USER, "w");
+   if (file) {
+       char* json_output = cJSON_Print(root);
+       fprintf(file, "%s", json_output);
+       fclose(file);
+       free(json_output);
+   }
+
+   cJSON_Delete(root);
+}

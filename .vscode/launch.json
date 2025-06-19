@@ -6,8 +6,8 @@
       "type": "lldb",
       "request": "launch",
       "args": [],
-      "cwd": "/Users/muhammadarrafi/Documents/SDA/SDA-Tubes/tugas_besar_sda_INCUBATOR/src/view",
-      "program": "/Users/muhammadarrafi/Documents/SDA/SDA-Tubes/tugas_besar_sda_INCUBATOR/src/view/build/Debug/outDebug"
+      "cwd": "/Users/muhammadarrafi/Documents/SDA/SDA-Tubes/tugas_besar_sda_INCUBATOR/src/controller",
+      "program": "/Users/muhammadarrafi/Documents/SDA/SDA-Tubes/tugas_besar_sda_INCUBATOR/src/controller/build/Debug/outDebug"
     }
   ]
 }

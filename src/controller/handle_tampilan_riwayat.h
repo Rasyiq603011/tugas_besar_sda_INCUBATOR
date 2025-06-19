@@ -5,6 +5,6 @@
 #include "../view/tampilan_riwayat.h"
 #include "../model/data_struct/riwayat.h"
 
-void handle_tampilan_riwayat(Riwayat* head);
+void handle_tampilan_riwayat(User* user);
 
 #endif

@@ -119,12 +119,13 @@ void hapus_riwayat(User** user)
 // ===============================================
 
 // Membuat objek user baru dengan username, password, dan prioritas tertentu
-User* create_user(String username, String password, Prioritas prioritas)
+User* create_user(String username, String password, Prioritas prioritas, int saldo)
 {
     User* user = (User*) malloc(sizeof(User));
     user->username = strdup(username);
     user->password = strdup(password);
     user->prioritas = prioritas;
+    user->saldo = saldo;
     user->riwayat = NULL;
     return user;
 }
