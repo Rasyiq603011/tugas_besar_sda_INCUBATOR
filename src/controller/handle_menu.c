@@ -50,32 +50,33 @@ int handle_display_menu(int jumlah_opsi, const char* options[], const char* head
 void handle_menu_admin(Tree bioskop)
 {
     int pilihan;
-    const int jumlah_opsi = 3;
-    const char* options[] = {
-        "MANAGEMENT JADWAL",
-        "MANAGEMENT EVENT",
-        "LOGOUT"
-    };
-    const char* header = "MENU UTAMA ADMIN";
-    pilihan = handle_display_menu(jumlah_opsi, options, header);
-
-    switch (pilihan)
+    do
     {
-    case 0:
-        navigasi_tree_for_admin(bioskop, TYPE_JADWAL);
-        break;
-    case 1:
-        navigasi_tree_for_admin(bioskop, TYPE_EVENT);
-        break;
-    case 2:
-        destroy_admin();
-        return;
-    default:
-        break;
-    }
+        const int jumlah_opsi = 3;
+        const char* options[] = {
+            "MANAGEMENT JADWAL",
+            "MANAGEMENT EVENT",
+            "LOGOUT"
+        };
+        const char* header = "MENU UTAMA ADMIN";
+        pilihan = handle_display_menu(jumlah_opsi, options, header);
 
+        switch (pilihan)
+        {
+        case 0:
+            navigasi_tree_for_admin(bioskop, TYPE_JADWAL);
+            break;
+        case 1:
+            navigasi_tree_for_admin(bioskop, TYPE_EVENT);
+            break;
+        case 2:
+            destroy_admin();
+            return;
+        default:
+            break;
+        }
+    } while (pilihan != 2);
 }
-
 // ===============================================
 // ============== MENU USER SECTION ==============
 // ===============================================
@@ -83,35 +84,37 @@ void handle_menu_admin(Tree bioskop)
 void handle_menu_user(User* user, Tree T)
 {
     int pilihan;
-    const int jumlah_opsi = 4;
-    const char* options[] = {
-        "PEMBELIAN TIKET",
-        "INFORMASI EVENT",
-        "RIWAYAT",
-        "LOGOUT"
-    };
-    const char* header = "MENU UTAMA USER";
-    pilihan = handle_display_menu(jumlah_opsi, options, header);
-
-    switch (pilihan)
+    do
     {
-    case 0:
-        handle_pemilihan_provinsi(T.root, user);
-        break;
-    case 1:
-        /* code */
-        break;
-    case 2:
-        handle_tampilan_riwayat(user);
-        break;
-    case 3:
-        destroy_user(user);
-        delete_tree(&T);
-        return; 
-    default:
-        break;
-    }
+        const int jumlah_opsi = 4;
+        const char* options[] = {
+            "PEMBELIAN TIKET",
+            "INFORMASI EVENT",
+            "RIWAYAT",
+            "LOGOUT"
+        };
+        const char* header = "MENU UTAMA USER";
+        pilihan = handle_display_menu(jumlah_opsi, options, header);
 
+        switch (pilihan)
+        {
+        case 0:
+            handle_pemilihan_provinsi(T.root, user);
+            break;
+        case 1:
+            /* code */
+            break;
+        case 2:
+            handle_tampilan_riwayat(user);
+            break;
+        case 3:
+            destroy_user(user);
+            delete_tree(&T);
+            return; 
+        default:
+            break;
+        }
+    } while (pilihan != 3);
 }
 
 void handle_menu_masuk_user()
