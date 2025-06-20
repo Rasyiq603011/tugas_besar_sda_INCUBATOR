@@ -198,6 +198,7 @@ void handle_signup_user()
     int pos, ch;
     
 start_input:
+    system("cls");
     tampilan_login_signup("SIGN UP");
 
     // === Input Username ===
@@ -304,6 +305,7 @@ void handle_login_user()
     int pos, ch;
     
 start_input:
+    system("cls");
     tampilan_login_signup("LOG IN");
 
     // === Input Username ===
@@ -414,6 +416,7 @@ void handle_login_admin()
     int pos, ch;
     
 start_input:
+    system("cls");
     tampilan_login_signup("LOG IN");
 
     // === Input Username ===
