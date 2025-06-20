@@ -18,7 +18,34 @@
 									"nama":	"Studio 1",
 									"pendapatan":	50000,
 									"jumlah_kursi":	100,
-									"jadwal":	[]
+									"jadwal":	[
+										{
+											"nama": "Studio 1",
+											"pendapatan": 50000,
+											"jumlah_kursi": 100,
+											"jadwal": [
+												{
+												"waktu_start": "10:00",
+												"waktu_end": "12:00",
+												"tanggal": "2025-06-20",
+												"film": "Dilan 1990",
+												"harga": 45000.0,
+												"jumlah_tiket": 3,
+												"kursi": [
+													{
+													"id_kursi": "A1",
+													"status": "terisi"
+													},
+													{
+													"id_kursi": "A2",
+													"status": "tersedia"
+													},
+													{
+													"id_kursi": "B1",
+													"status": "tersedia"
+													}
+												]
+												}]
 								}, {
 									"nama":	"Studio 2",
 									"pendapatan":	60000,
