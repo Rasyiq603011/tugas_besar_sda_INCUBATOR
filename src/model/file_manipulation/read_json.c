@@ -378,12 +378,16 @@ bool is_password_correct(const char* username, const char* password_input, const
     rewind(file);
 
     char* content = malloc(size + 1);
+    if (!content) { // Penanganan error untuk malloc
+        fclose(file);
+        return false;
+    }
     fread(content, 1, size, file);
     content[size] = '\0';
     fclose(file);
 
     cJSON* root = cJSON_Parse(content);
-    free(content);
+    free(content); // Bebaskan memori content setelah parsing
     if (!cJSON_IsArray(root)) 
     {
         cJSON_Delete(root);
@@ -400,15 +404,11 @@ bool is_password_correct(const char* username, const char* password_input, const
         if (uname && pass && strcmp(uname->valuestring, username) == 0) 
         {
             bool result = strcmp(pass->valuestring, password_input) == 0;
-            printf(pass->valuestring);
-            getch();
-            getch();
-            getch();
-            cJSON_Delete(root);
+            cJSON_Delete(root); // Bebaskan memori cJSON sebelum return
             return result;
         }
     }
 
-    cJSON_Delete(root);
+    cJSON_Delete(root); // Bebaskan memori cJSON jika username tidak ditemukan
     return false; // username tidak ditemukan
 }
