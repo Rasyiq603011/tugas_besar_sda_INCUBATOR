@@ -115,7 +115,7 @@ void deleteFilm(List *L) {
 }
 
 void save_to_file(List L) {
-    FILE *file = fopen(DATABASE_FILM, "wb");
+    FILE *file = fopen(DATABASE_FILM, "w");
     if (file == NULL) {
         printf("Error membuka file untuk menyimpan!\n");
         return;
@@ -141,7 +141,7 @@ void save_to_file(List L) {
 }
 
 void load_from_binary(List *L) {
-    FILE *file = fopen(DATABASE_FILM, "rb");
+    FILE *file = fopen(DATABASE_FILM, "r");
     if (file == NULL) {
         return;
     }

@@ -15,7 +15,7 @@ void handle_pemilihan_provinsi(address root, User* user)
 
         if (pilihan == -1) return;
         
-        next = handle_pemilihan_kota(get_selected_node(root, pilihan+1), user);
+        next = handle_pemilihan_kota(get_selected_node(root, pilihan), user);
     } while (next == -1);
     return;
 }
@@ -35,7 +35,7 @@ int handle_pemilihan_kota(address parent, User* user)
 
         if (pilihan == -1) return -1;
         
-        next = handle_pemilihan_bioskop(get_selected_node(parent, pilihan+1), user);
+        next = handle_pemilihan_bioskop(get_selected_node(parent, pilihan), user);
     } while (next == -1);
     return 0;
 }
@@ -55,7 +55,7 @@ int handle_pemilihan_bioskop(address parent, User* user)
 
         if (pilihan == -1) return -1;
         
-        next = handle_pemilihan_studio(get_selected_node(parent, pilihan+1), user);
+        next = handle_pemilihan_studio(get_selected_node(parent, pilihan), user);
     } while (next == -1);
     return 0;
 }
@@ -75,7 +75,7 @@ int handle_pemilihan_studio(address parent, User* user)
 
         if (pilihan == -1) return -1;
 
-        next = handle_pemilihan_kursi(get_selected_node(parent, pilihan+1), user);
+        next = handle_pemilihan_kursi(get_selected_node(parent, pilihan), user);
     } while (next == -1);
     return 0;
 }
