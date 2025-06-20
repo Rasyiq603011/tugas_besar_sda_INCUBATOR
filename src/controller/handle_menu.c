@@ -490,7 +490,8 @@ start_input:
 				tampilan_login_signup("LOG IN");
 				gotoxy(43, 14); printf("%s", username);
 				gotoxy(43, 16);
-				pos = 0; 	
+				pos = 0;
+				continue;	
 			}else{
 				break;
 			}

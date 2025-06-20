@@ -66,10 +66,6 @@ boolean handle_input_data_jadwal(Time* time_start, Time* time_end, date* date_ja
         return false;
     }
 
-    if (!isValidTime(*time_start) && !isValidTime(*time_end) && !isValid(*date_jadwal))
-    {
-        return false;
-    }
     free(waktu_start);
     free(waktu_end);
     free(tanggal_tayang);

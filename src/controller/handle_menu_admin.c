@@ -38,7 +38,7 @@ void navigasi_tree_for_admin(Tree bioskop, DataType nav_for)
         free(array);
 
         if (pilihan == -1) {
-            if (is_empty_stack(&stack)) break;
+            if (is_empty_stack(&stack)) return;
             current = pop_stack(&stack);
         } else {
             push_stack(&stack, current);
@@ -171,6 +171,7 @@ void handle_tambah_jadwal(Studio* current_studio)
 
         if (konfirmasi == 1) {
             gotoxy(35, 16); printf("Keluar dari menu tambah jadwal...");
+            set_jadwal_studio(current_studio, daftar_jadwal); 
             Sleep(1000);
             break;
         }

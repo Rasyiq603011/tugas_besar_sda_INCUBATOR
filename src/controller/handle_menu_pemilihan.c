@@ -70,7 +70,7 @@ int handle_pemilihan_studio(address parent, User* user)
     do {
         void** array;
         int jumlah = convert_children_to__array(parent, &array);
-        int pilihan = scrollable_menu(array, jumlah, tampilan_studio, "Tampilan Studio", 4, 4);
+        int pilihan = scrollable_menu(array, jumlah, tampilan_studio, "Tampilan Studio", 3, 4);
         free(array);
 
         if (pilihan == -1) return -1;
@@ -104,9 +104,8 @@ int handle_pemilihan_jadwal(List current_jadwal, pnode* out_node)
 
 int handle_pemilihan_kursi(address studio, User* user)
 {
-    List* current_jadwal = get_jadwal_studio(studio->info.studio);
+    List* current_jadwal = get_all_jadwal(studio->info.studio);
     pnode node_jadwal = NULL;
-
     int kembali = handle_pemilihan_jadwal(*current_jadwal, &node_jadwal);
 
     if (kembali == -1 || node_jadwal == NULL) return -1;

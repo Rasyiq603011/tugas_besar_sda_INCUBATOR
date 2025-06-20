@@ -8,8 +8,8 @@ void input_jadwal(char** waktu_start, char** waktu_end, char** tanggal_tayang, c
     gotoxy(30, start_vertikal + 1);  printf("|                        FORM INPUT JADWAL FILM                      |");
     gotoxy(30, start_vertikal + 2);  printf("|====================================================================|");
     gotoxy(30, start_vertikal + 3);  printf("| Judul Film:                                                        |");
-    gotoxy(30, start_vertikal + 4);  printf("| waktu Mulai (HH/MM/SS):                                            |");
-    gotoxy(30, start_vertikal + 5);  printf("| waktu Berakhir (HH/MM/SS):                                         |");
+    gotoxy(30, start_vertikal + 4);  printf("| waktu Mulai (HH:MM:SS):                                            |");
+    gotoxy(30, start_vertikal + 5);  printf("| waktu Berakhir (HH:MM:SS):                                         |");
     gotoxy(30, start_vertikal + 6);  printf("| Tanggal Tayang (dd/mm/yyyy):                                       |");
     gotoxy(30, start_vertikal + 7);  printf("| Harga Tiket:                                                       |");
     gotoxy(30, start_vertikal + 8);  printf("|====================================================================|");

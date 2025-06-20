@@ -45,11 +45,11 @@ int scrollable_menu(void** data_array, int jumlah_item, void (*render)(int idx, 
     int start = 0;
 
     do {
-        gotoxy(30, 2); printf("Tekan 'esc' untuk kembali");
+        gotoxy(50, 2); printf("Tekan 'esc' untuk kembali");
         system("cls");
-        gotoxy(30, 11); printf("=============================================================\n");
-        gotoxy(30, 12); printf("|%*s%s%*s|\n", (60 - strlen(header)) / 2, "", header, (60 - strlen(header)) / 2, "");
-        gotoxy(30, 13); printf("=============================================================\n");
+        gotoxy(50, 11); printf("=============================================================\n");
+        gotoxy(50, 12); printf("|%*s%s%*s|\n", (60 - strlen(header)) / 2, "", header, (60 - strlen(header)) / 2, "");
+        gotoxy(50, 13); printf("=============================================================\n");
 
         if (idx_terpilih < start)
             start = idx_terpilih;
@@ -226,11 +226,11 @@ int display_konfirmasi_menu(const char* header, const char* message, const char*
     while (1)
     {
         system("cls");
-        gotoxy(30, 11); printf("=============================================================\n");
-        gotoxy(30, 12); printf("|%*s%s%*s|\n", (60 - strlen(header)) / 2, "", header, (60 - strlen(header)) / 2, "");
-        gotoxy(30, 13); printf("=============================================================\n");
+        gotoxy(50, 11); printf("=============================================================\n");
+        gotoxy(50, 12); printf("|%*s%s%*s|\n", (60 - strlen(header)) / 2, "", header, (60 - strlen(header)) / 2, "");
+        gotoxy(50, 13); printf("=============================================================\n");
 
-        gotoxy(32, 15); printf("%-60s", message);
+        gotoxy(53, 15); printf("%-60s", message);
 
         for (int i = 0; i < jumlah_opsi; i++) {
             gotoxy(50, 17 + i);
