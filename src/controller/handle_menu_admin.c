@@ -140,10 +140,10 @@ void handle_tambah_jadwal(Studio* current_studio)
         boolean input_sukses = handle_input_data_jadwal(&waktu_start, &waktu_end, &tanggal, &judul_film, &harga_tiket);
 
         if (!input_sukses) {
-            gotoxy(35, 14); printf("❌ Input tidak valid!");
+            gotoxy(35, 14); printf("Input tidak valid!");
         }
         else if (is_exists_bentrok_for_jadwal(*daftar_jadwal, tanggal, waktu_start, waktu_end)) {
-            gotoxy(35, 14); printf("❌ Jadwal bentrok dengan jadwal lain!");
+            gotoxy(35, 14); printf("Jadwal bentrok dengan jadwal lain!");
         }
         else 
         {
@@ -152,13 +152,13 @@ void handle_tambah_jadwal(Studio* current_studio)
             judul_film = NULL;
 
             if (!jadwal_baru) {
-                gotoxy(35, 14); printf("❌ Gagal membuat jadwal!");
+                gotoxy(35, 14); printf("Gagal membuat jadwal!");
                 Sleep(1000);
                 continue;
             }
 
             insert_value_last(&daftar_jadwal->First, JADWAL_INFO(jadwal_baru), TYPE_JADWAL);
-            gotoxy(35, 14); printf("✅ Jadwal berhasil ditambahkan!");
+            gotoxy(35, 14); printf("Jadwal berhasil ditambahkan!");
             Sleep(1500);
         }
 

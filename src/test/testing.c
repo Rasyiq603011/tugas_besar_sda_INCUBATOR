@@ -158,3 +158,40 @@ void testing_pemilihan_kursi() {
     return;
 }
 
+void test_tambah_jadwal()
+{
+    // Inisialisasi studio
+    Studio* studio = constructor_studio("Studio 1", 0, 10);
+    assert(studio != NULL);
+    assert(get_jumlah_kursi_studio(studio) == 10);
+    
+    // Data jadwal
+    Time start = {10, 0, 0};
+    Time end = {12, 0, 0};
+    date tgl = {20, 6, 2025};
+    String judul = "Inception";
+    int harga = 50000;
+
+    // Tambahkan jadwal
+    Jadwal* jadwal_baru = constructor_jadwal(start, end, tgl, harga, judul, get_jumlah_kursi_studio(studio));
+    assert(jadwal_baru != NULL);
+
+    // Masukkan ke list jadwal studio
+    insert_value_last(&get_jadwal_studio(studio)->First, JADWAL_INFO(jadwal_baru), TYPE_JADWAL);
+
+    // Validasi: Jumlah jadwal = 1
+    assert(count_list(*get_jadwal_studio(studio)) == 1);
+
+    // Ambil jadwal yang baru dimasukkan
+    Jadwal* inserted = info_jadwal(get_jadwal_studio(studio)->First);
+
+    // Validasi isi data
+    assert(CompareTime(get_waktu_start(inserted), start) == 0);
+    assert(CompareTime(get_waktu_end(inserted), end) == 0);
+    assert(compare_date(get_tanggal_tayang(inserted), tgl));
+    assert(strcmp(get_film_name(inserted), judul) == 0);
+    assert(get_harga_tiket(inserted) == harga);
+    assert(get_jumlah_tiket(inserted) == 10);
+
+    printf("✅ Unit Test tambah jadwal ke studio berhasil!\n");
+}

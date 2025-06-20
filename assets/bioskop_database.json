@@ -18,34 +18,307 @@
 									"nama":	"Studio 1",
 									"pendapatan":	50000,
 									"jumlah_kursi":	100,
-									"jadwal":	[
-										{
-											"nama": "Studio 1",
-											"pendapatan": 50000,
-											"jumlah_kursi": 100,
-											"jadwal": [
-												{
-												"waktu_start": "10:00",
-												"waktu_end": "12:00",
-												"tanggal": "2025-06-20",
-												"film": "Dilan 1990",
-												"harga": 45000.0,
-												"jumlah_tiket": 3,
-												"kursi": [
-													{
-													"id_kursi": "A1",
-													"status": "terisi"
-													},
-													{
-													"id_kursi": "A2",
-													"status": "tersedia"
-													},
-													{
-													"id_kursi": "B1",
-													"status": "tersedia"
-													}
-												]
-												}]
+									"jadwal":	[]
+								}, {
+									"nama":	"Studio 2",
+									"pendapatan":	60000,
+									"jumlah_kursi":	120,
+									"jadwal":	[]
+								}, {
+									"nama":	"Studio 3",
+									"pendapatan":	70000,
+									"jumlah_kursi":	130,
+									"jadwal":	[]
+								}, {
+									"nama":	"Studio 4",
+									"pendapatan":	80000,
+									"jumlah_kursi":	150,
+									"jadwal":	[]
+								}]
+						}, {
+							"nama":	"XXI Ciwalk",
+							"pendapatan":	120000,
+							"alamat":	"Jl. Cihampelas 200",
+							"studio":	[{
+									"nama":	"Studio 1",
+									"pendapatan":	55000,
+									"jumlah_kursi":	90,
+									"jadwal":	[]
+								}, {
+									"nama":	"Studio 2",
+									"pendapatan":	65000,
+									"jumlah_kursi":	110,
+									"jadwal":	[]
+								}, {
+									"nama":	"Studio 3",
+									"pendapatan":	75000,
+									"jumlah_kursi":	130,
+									"jadwal":	[]
+								}, {
+									"nama":	"Studio 4",
+									"pendapatan":	85000,
+									"jumlah_kursi":	140,
+									"jadwal":	[]
+								}]
+						}, {
+							"nama":	"Cinepolis Bandung Indah",
+							"pendapatan":	90000,
+							"alamat":	"Jl. Merdeka 88",
+							"studio":	[{
+									"nama":	"Studio 1",
+									"pendapatan":	40000,
+									"jumlah_kursi":	80,
+									"jadwal":	[]
+								}, {
+									"nama":	"Studio 2",
+									"pendapatan":	50000,
+									"jumlah_kursi":	100,
+									"jadwal":	[]
+								}, {
+									"nama":	"Studio 3",
+									"pendapatan":	60000,
+									"jumlah_kursi":	120,
+									"jadwal":	[]
+								}, {
+									"nama":	"Studio 4",
+									"pendapatan":	70000,
+									"jumlah_kursi":	140,
+									"jadwal":	[]
+								}]
+						}, {
+							"nama":	"CGV Paskal 23",
+							"pendapatan":	110000,
+							"alamat":	"Jl. Pasir Kaliki 25",
+							"studio":	[{
+									"nama":	"Studio 1",
+									"pendapatan":	50000,
+									"jumlah_kursi":	100,
+									"jadwal":	[]
+								}, {
+									"nama":	"Studio 2",
+									"pendapatan":	60000,
+									"jumlah_kursi":	110,
+									"jadwal":	[]
+								}, {
+									"nama":	"Studio 3",
+									"pendapatan":	70000,
+									"jumlah_kursi":	120,
+									"jadwal":	[]
+								}, {
+									"nama":	"Studio 4",
+									"pendapatan":	80000,
+									"jumlah_kursi":	140,
+									"jadwal":	[]
+								}]
+						}, {
+							"nama":	"CGV Paris Van Java",
+							"pendapatan":	100000,
+							"alamat":	"Jl. Sukajadi 123",
+							"studio":	[{
+									"nama":	"Studio 1",
+									"pendapatan":	50000,
+									"jumlah_kursi":	100,
+									"jadwal":	[]
+								}, {
+									"nama":	"Studio 2",
+									"pendapatan":	60000,
+									"jumlah_kursi":	120,
+									"jadwal":	[]
+								}, {
+									"nama":	"Studio 3",
+									"pendapatan":	70000,
+									"jumlah_kursi":	130,
+									"jadwal":	[]
+								}, {
+									"nama":	"Studio 4",
+									"pendapatan":	80000,
+									"jumlah_kursi":	150,
+									"jadwal":	[]
+								}]
+						}, {
+							"nama":	"XXI Ciwalk",
+							"pendapatan":	120000,
+							"alamat":	"Jl. Cihampelas 200",
+							"studio":	[{
+									"nama":	"Studio 1",
+									"pendapatan":	55000,
+									"jumlah_kursi":	90,
+									"jadwal":	[]
+								}, {
+									"nama":	"Studio 2",
+									"pendapatan":	65000,
+									"jumlah_kursi":	110,
+									"jadwal":	[]
+								}, {
+									"nama":	"Studio 3",
+									"pendapatan":	75000,
+									"jumlah_kursi":	130,
+									"jadwal":	[]
+								}, {
+									"nama":	"Studio 4",
+									"pendapatan":	85000,
+									"jumlah_kursi":	140,
+									"jadwal":	[]
+								}]
+						}, {
+							"nama":	"Cinepolis Bandung Indah",
+							"pendapatan":	90000,
+							"alamat":	"Jl. Merdeka 88",
+							"studio":	[{
+									"nama":	"Studio 1",
+									"pendapatan":	40000,
+									"jumlah_kursi":	80,
+									"jadwal":	[]
+								}, {
+									"nama":	"Studio 2",
+									"pendapatan":	50000,
+									"jumlah_kursi":	100,
+									"jadwal":	[]
+								}, {
+									"nama":	"Studio 3",
+									"pendapatan":	60000,
+									"jumlah_kursi":	120,
+									"jadwal":	[]
+								}, {
+									"nama":	"Studio 4",
+									"pendapatan":	70000,
+									"jumlah_kursi":	140,
+									"jadwal":	[]
+								}]
+						}, {
+							"nama":	"CGV Paskal 23",
+							"pendapatan":	110000,
+							"alamat":	"Jl. Pasir Kaliki 25",
+							"studio":	[{
+									"nama":	"Studio 1",
+									"pendapatan":	50000,
+									"jumlah_kursi":	100,
+									"jadwal":	[]
+								}, {
+									"nama":	"Studio 2",
+									"pendapatan":	60000,
+									"jumlah_kursi":	110,
+									"jadwal":	[]
+								}, {
+									"nama":	"Studio 3",
+									"pendapatan":	70000,
+									"jumlah_kursi":	120,
+									"jadwal":	[]
+								}, {
+									"nama":	"Studio 4",
+									"pendapatan":	80000,
+									"jumlah_kursi":	140,
+									"jadwal":	[]
+								}]
+						}, {
+							"nama":	"CGV Paris Van Java",
+							"pendapatan":	100000,
+							"alamat":	"Jl. Sukajadi 123",
+							"studio":	[{
+									"nama":	"Studio 1",
+									"pendapatan":	50000,
+									"jumlah_kursi":	100,
+									"jadwal":	[]
+								}, {
+									"nama":	"Studio 2",
+									"pendapatan":	60000,
+									"jumlah_kursi":	120,
+									"jadwal":	[]
+								}, {
+									"nama":	"Studio 3",
+									"pendapatan":	70000,
+									"jumlah_kursi":	130,
+									"jadwal":	[]
+								}, {
+									"nama":	"Studio 4",
+									"pendapatan":	80000,
+									"jumlah_kursi":	150,
+									"jadwal":	[]
+								}]
+						}, {
+							"nama":	"XXI Ciwalk",
+							"pendapatan":	120000,
+							"alamat":	"Jl. Cihampelas 200",
+							"studio":	[{
+									"nama":	"Studio 1",
+									"pendapatan":	55000,
+									"jumlah_kursi":	90,
+									"jadwal":	[]
+								}, {
+									"nama":	"Studio 2",
+									"pendapatan":	65000,
+									"jumlah_kursi":	110,
+									"jadwal":	[]
+								}, {
+									"nama":	"Studio 3",
+									"pendapatan":	75000,
+									"jumlah_kursi":	130,
+									"jadwal":	[]
+								}, {
+									"nama":	"Studio 4",
+									"pendapatan":	85000,
+									"jumlah_kursi":	140,
+									"jadwal":	[]
+								}]
+						}, {
+							"nama":	"Cinepolis Bandung Indah",
+							"pendapatan":	90000,
+							"alamat":	"Jl. Merdeka 88",
+							"studio":	[{
+									"nama":	"Studio 1",
+									"pendapatan":	40000,
+									"jumlah_kursi":	80,
+									"jadwal":	[]
+								}, {
+									"nama":	"Studio 2",
+									"pendapatan":	50000,
+									"jumlah_kursi":	100,
+									"jadwal":	[]
+								}, {
+									"nama":	"Studio 3",
+									"pendapatan":	60000,
+									"jumlah_kursi":	120,
+									"jadwal":	[]
+								}, {
+									"nama":	"Studio 4",
+									"pendapatan":	70000,
+									"jumlah_kursi":	140,
+									"jadwal":	[]
+								}]
+						}, {
+							"nama":	"CGV Paskal 23",
+							"pendapatan":	110000,
+							"alamat":	"Jl. Pasir Kaliki 25",
+							"studio":	[{
+									"nama":	"Studio 1",
+									"pendapatan":	50000,
+									"jumlah_kursi":	100,
+									"jadwal":	[]
+								}, {
+									"nama":	"Studio 2",
+									"pendapatan":	60000,
+									"jumlah_kursi":	110,
+									"jadwal":	[]
+								}, {
+									"nama":	"Studio 3",
+									"pendapatan":	70000,
+									"jumlah_kursi":	120,
+									"jadwal":	[]
+								}, {
+									"nama":	"Studio 4",
+									"pendapatan":	80000,
+									"jumlah_kursi":	140,
+									"jadwal":	[]
+								}]
+						}, {
+							"nama":	"CGV Paris Van Java",
+							"pendapatan":	100000,
+							"alamat":	"Jl. Sukajadi 123",
+							"studio":	[{
+									"nama":	"Studio 1",
+									"pendapatan":	50000,
+									"jumlah_kursi":	100,
+									"jadwal":	[]
 								}, {
 									"nama":	"Studio 2",
 									"pendapatan":	60000,

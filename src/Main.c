@@ -29,6 +29,7 @@ int main(int argc, char *argv[])
             break;
         }
     } while (pilihan != 2);
+    testing_pemilihan_kursi();
 	return 0;
 }
 

@@ -14,7 +14,8 @@ void handle_saving_data(Tree* tree, List* list_film)
     save_tree_to_file(tree->root, DATABASE_BIOSKOP);
 }
 
-void linked_jadwal_to_film(address node, void* context) {
+void linked_jadwal_to_film(address node, void* context) 
+{
     if (get_tipe_node(node) != TYPE_STUDIO) return;
 
     List* list_film = (List*)context;
