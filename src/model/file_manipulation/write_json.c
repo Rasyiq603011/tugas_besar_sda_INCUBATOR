@@ -140,9 +140,6 @@ cJSON* tree_to_json(address node_tree)
     if (!node_tree) return NULL;
     switch (node_tree->tipe) {
         case TYPE_NEGARA:
-        	printf("masuk node negara\n");
-        	printf("%d", node_tree->tipe);
-        	printf("%d", get_name_negara(node_tree->info.negara));
             return negara_to_json(info_negara(node_tree), node_tree->first_son);
         case TYPE_PROVINSI:
             return provinsi_to_json(info_provinsi(node_tree), node_tree->first_son);
@@ -263,7 +260,7 @@ void save_user_to_json(User* user)
     const char* target_username = get_username_user(user);
     if (!target_username) return;
 
-    cJSON* root = load_users_from_file(DATABASE_USER);
+    cJSON* root = load_users_from_file(USER_FILE);
 
     // Cari jika user sudah ada
     int index = -1;
@@ -281,13 +278,18 @@ void save_user_to_json(User* user)
 
     // Replace atau tambahkan
     if (index != -1) {
+        if (!user_obj) 
+        {
+            cJSON_Delete(root);
+            return;
+        }
         cJSON_ReplaceItemInArray(root, index, user_obj);
     } else {
         cJSON_AddItemToArray(root, user_obj);
     }
 
     // Tulis ke file
-    write_users_to_file(DATABASE_USER, root);
+    write_users_to_file(USER_FILE, root);
 
     // Cleanup
     cJSON_Delete(root);

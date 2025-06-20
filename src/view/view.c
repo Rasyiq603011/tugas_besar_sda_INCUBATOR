@@ -73,7 +73,7 @@ int scrollable_menu(void** data_array, int jumlah_item, void (*render)(int idx, 
             if (key == 72 && idx_terpilih > 0) idx_terpilih--;
             else if (key == 80 && idx_terpilih < jumlah_item - 1) idx_terpilih++;
         }
-    } while (key != 13 || key != 27);
+    } while (key != 13 && key != 27);
 
     if (key == 13)
     {
@@ -94,26 +94,54 @@ void clear_line(int y)
     }
 }
 
-void input_text_field(int x, int y, char* buffer, int maxLen, bool isPassword) {
+void input_text_field(int x, int y, char** buffer, int maxLen, bool isPassword) {
+    if (buffer == NULL || maxLen <= 0) return;
+
+    // Alokasi buffer jika belum ada
+    if (*buffer == NULL) {
+        *buffer = (char*)malloc((maxLen + 1) * sizeof(char)); // +1 untuk '\0'
+        if (*buffer == NULL) {
+            printf("? Gagal mengalokasikan memori untuk input teks.\n");
+            return;
+        }
+    }
+
     int pos = 0;
     char ch;
     gotoxy(x, y);
+    
     while (1) {
         ch = getch();
+
+        // Tangani karakter fungsi seperti arrow key, F1-F12, dsb
+        if (ch == 0 || ch == 224) {
+            getch(); // buang karakter berikutnya
+            continue;
+        }
+
         if (ch == 13) { // ENTER
-            buffer[pos] = '\0';
+            (*buffer)[pos] = '\0';
             break;
-        } else if (ch == 8 && pos > 0) { // BACKSPACE
+        } 
+        else if (ch == 27) { // ESC = batal input
+            (*buffer)[0] = '\0';
+            break;
+        } 
+        else if (ch == 8 && pos > 0) { // BACKSPACE
             pos--;
             gotoxy(x + pos, y);
             printf(" ");
             gotoxy(x + pos, y);
-        } else if (ch >= 32 && ch <= 126 && pos < maxLen - 1) {
-            buffer[pos++] = ch;
+        } 
+        else if (ch >= 32 && ch <= 126 && pos < maxLen) {
+            (*buffer)[pos++] = ch;
             printf("%c", isPassword ? '*' : ch);
         }
     }
+
+    (*buffer)[pos] = '\0'; // pastikan null-terminated
 }
+
 
 int input_integer_field(int x, int y, int maxDigit) {
     char buffer[10] = {0};
@@ -207,7 +235,7 @@ int display_konfirmasi_menu(const char* header, const char* message, const char*
         for (int i = 0; i < jumlah_opsi; i++) {
             gotoxy(50, 17 + i);
             if (i == selected) {
-                printf("\033[1;30;47m>> %-24s <<\033[0m", options[i]);
+                printf(">> %-24s <<", options[i]);
             } else {
                 printf("   %-24s", options[i]);
             }

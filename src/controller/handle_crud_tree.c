@@ -29,7 +29,11 @@ void linked_jadwal_to_film(address node, void* context) {
         for ( current_film = First(*list_film); current_film != NULL; current_film = Next(current_film)) 
         {
             Film* film = info_film(current_film);
-            if (strcmp(get_judul_film(film), get_film_name(jadwal)) == 0) 
+            const char* judul_film = get_judul_film(film);
+            const char* nama_jadwal = get_film_name(jadwal);
+            if (!judul_film || !nama_jadwal) continue;
+
+            if (strcmp(judul_film, nama_jadwal) == 0)
             {
                 set_film_object(jadwal, film);
                 break;
@@ -38,11 +42,11 @@ void linked_jadwal_to_film(address node, void* context) {
     }
 }
 
-boolean handle_input_data_jadwal(Time* time_start, Time* time_end, date* date_jadwal, String judul_film, int* harga_tiket) 
+boolean handle_input_data_jadwal(Time* time_start, Time* time_end, date* date_jadwal, String* judul_film, int* harga_tiket) 
 {
-    String waktu_start, waktu_end, tanggal_tayang;
+    String waktu_start = NULL, waktu_end = NULL, tanggal_tayang = NULL;
 
-    input_jadwal(waktu_start, waktu_end, tanggal_tayang, judul_film, harga_tiket);
+    input_jadwal(&waktu_start, &waktu_end, &tanggal_tayang, judul_film, harga_tiket);
 
     if (string_to_time(waktu_start, time_start) || string_to_time(waktu_end, time_end)) 
     {
@@ -61,29 +65,38 @@ boolean handle_input_data_jadwal(Time* time_start, Time* time_end, date* date_ja
         printf("harga yang dimasukan tidak valid");
         return false;
     }
-}
 
-boolean handle_input_data_event(Time* time_start, Time* time_end, date* date_jadwal, String judul_film, int* harga_tiket) 
-{
-    String waktu_start, waktu_end, tanggal_tayang;
-
-    input_jadwal(waktu_start, waktu_end, tanggal_tayang, judul_film, harga_tiket);
-
-    if (string_to_time(waktu_start, time_start) || string_to_time(waktu_end, time_end)) 
+    if (!isValidTime(*time_start) && !isValidTime(*time_end) && !isValid(*date_jadwal))
     {
-        printf("waktu tidak valid");
         return false;
     }
+    free(waktu_start);
+    free(waktu_end);
+    free(tanggal_tayang);
+    return true;
+}
 
-    if (string_to_date(tanggal_tayang, date_jadwal))
+boolean handle_input_data_event(char** nama_event, char** judul_film, date* tanggal_mulai, date* tanggal_akhir, int* jumlah_sesi, int* jumlah_kuota_sesi) 
+{
+    char* date_start = NULL, *date_end = NULL;
+
+    input_event(nama_event, judul_film, &date_start, &date_end, jumlah_sesi, jumlah_kuota_sesi);
+
+    if (string_to_date(date_start, tanggal_mulai) || string_to_date(date_start, tanggal_mulai))
     {
         printf("tanggal tidak valid");
         return false; 
     }
 
-        if (*harga_tiket < 0)
+    if (*jumlah_kuota_sesi < 0 || *jumlah_sesi < 0)
     {
-        printf("harga yang dimasukan tidak valid");
+        printf("sesi yang dimasukan tidak valid");
         return false;
     }
+
+    if (!isValid(*tanggal_mulai) && !isValid(*tanggal_akhir))
+    {
+        return false;
+    }
+    return true;
 }

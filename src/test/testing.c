@@ -91,9 +91,6 @@ void test_tree_json_roundtrip()
 
     printf(">> Validasi data berhasil.\n");
 
-    remove("output.json");
-    printf(">> File sementara dihapus.\n");
-
     printf("? CRUD TREE JSON TEST PASSED ?\n");
 }
 

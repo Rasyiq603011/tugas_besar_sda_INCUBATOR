@@ -61,32 +61,17 @@ void handle_menu_admin(Tree* bioskop, List* film)
         const char* header = "MENU UTAMA ADMIN";
         pilihan = handle_display_menu(jumlah_opsi, options, header);
 
-    switch (pilihan)
-    {
-    case 0:
-        navigasi_tree_for_admin(*bioskop, TYPE_JADWAL);
-        handle_saving_data(bioskop, &film);
-        break;
-    case 1:
-        navigasi_tree_for_admin(*bioskop, TYPE_EVENT);
-        handle_saving_data(bioskop, &film);
-        break;
-    case 2:
-        return;
-    default:
-        break;
-    }
-
         switch (pilihan)
         {
         case 0:
-            navigasi_tree_for_admin(bioskop, TYPE_JADWAL);
+            navigasi_tree_for_admin(*bioskop, TYPE_JADWAL);
+            handle_saving_data(bioskop, film);
             break;
         case 1:
-            navigasi_tree_for_admin(bioskop, TYPE_EVENT);
+            navigasi_tree_for_admin(*bioskop, TYPE_EVENT);
+            handle_saving_data(bioskop, film);
             break;
         case 2:
-            destroy_admin();
             return;
         default:
             break;
@@ -100,15 +85,6 @@ void handle_menu_admin(Tree* bioskop, List* film)
 void handle_menu_user(User* user, Tree T)
 {
     int pilihan;
-    const int jumlah_opsi = 4;
-    const char* options[] = {
-        "PEMBELIAN TIKET",
-        "EVENT BIOSKOP",
-        "RIWAYAT",
-        "LOGOUT"
-    };
-    const char* header = "MENU UTAMA USER";
-    pilihan = handle_display_menu(jumlah_opsi, options, header);
     do
     {
         const int jumlah_opsi = 4;
@@ -121,32 +97,13 @@ void handle_menu_user(User* user, Tree T)
         const char* header = "MENU UTAMA USER";
         pilihan = handle_display_menu(jumlah_opsi, options, header);
 
-    switch (pilihan)
-    {
-    case 0:
-        handle_pemilihan_provinsi(T.root, user);
-        break;
-    case 1:
-        handle_event_bioskop(T.root, user);
-        break;
-    case 2:
-        handle_tampilan_riwayat(user);
-        break;
-    case 3:
-        destroy_user(user);
-        delete_tree(&T);
-        return; 
-    default:
-        break;
-    }
-
         switch (pilihan)
         {
         case 0:
             handle_pemilihan_provinsi(T.root, user);
             break;
         case 1:
-            /* code */
+            handle_event_bioskop(T.root, user);
             break;
         case 2:
             handle_tampilan_riwayat(user);
@@ -257,7 +214,7 @@ start_input:
         else if (ch == 13) 
         { 
             username[pos] = '\0';
-            if (is_username_available(username, USER_FILE)) 
+            if (!is_username_available(username, USER_FILE)) 
             {
             	system("cls");
                 gotoxy(30, 20);
@@ -341,7 +298,8 @@ start_input:
 
 void handle_login_user()
 {
-    Tree T;
+    Tree tree_data;
+    List film;
     char username[46], password[46];
     int pos, ch;
     
@@ -362,7 +320,7 @@ start_input:
         else if (ch == 13) 
         { 
             username[pos] = '\0';
-            if (!is_username_available(username, USER_FILE)) {
+            if (is_username_available(username, USER_FILE)) {
             	system("cls");
                 gotoxy(30, 20);
                 printf("Username tidak ditemukan! Masukkan ulang username dengan benar");
@@ -443,9 +401,9 @@ start_input:
             printf("*");
         }
     }
-    // T.root = load_tree_from_file()
+     handle_inisialisasi_data(&tree_data, &film);
     User* user = load_user_from_json(username);
-    handle_menu_user(user, T);
+    handle_menu_user(user, tree_data);
 }
 
 void handle_login_admin()
@@ -472,7 +430,7 @@ start_input:
         else if (ch == 13) 
         { 
             username[pos] = '\0';
-            if (!is_username_available(username, ADMIN_FILE)) {
+            if (is_username_available(username, ADMIN_FILE)) {
             	system("cls");
                 gotoxy(30, 20);
                 printf("Username tidak ditemukan! Masukkan ulang username dengan benar");
@@ -550,9 +508,12 @@ start_input:
         else if (ch >= 32 && ch <= 126 && pos < 45) 
         {
             password[pos++] = ch;
+            fflush(stdin);
             printf("*");
         }
     }
-    handle_inisialisasi_data(&tree_data, &film);
+	printf("Memulai inisialisasi...\n");
+	handle_inisialisasi_data(&tree_data, &film);
+	printf("Inisialisasi selesai.\n");
     handle_menu_admin(&tree_data, &film);
 }

@@ -32,7 +32,7 @@ const char* get_title_for_type(DataType type);
  * F.S.  : Menampilkan menu untuk menambah atau menghapus jadwal, serta kembali ke menu utama.
  * Fungsi: Menyediakan antarmuka interaktif bagi admin untuk mengelola daftar jadwal pada studio tertentu.
  */
-void management_jadwal(Studio* current_studio);
+int management_jadwal(Studio* current_studio);
 
 /*
  * I.S.  : Pointer ke Studio valid, user diarahkan untuk mengisi input jadwal.

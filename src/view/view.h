@@ -39,7 +39,7 @@ void clear_line(int y);
  * F.S.  : Buffer terisi string dari input pengguna.
  * Fungsi: Mengambil input string dari pengguna, bisa sebagai password (disamarkan).
  */
-void input_text_field(int x, int y, char* buffer, int maxLen, bool isPassword);
+void input_text_field(int x, int y, char** buffer, int maxLen, bool isPassword);
 
 /*
  * I.S.  : Pengguna belum mengisi input angka.

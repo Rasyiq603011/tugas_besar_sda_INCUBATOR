@@ -26,6 +26,10 @@ if (id < 0) return NULL;
 
 void create_new_kursi(Kursi** new_kursi, int id, boolean status, KursiType tipe)
 {
+    if (!*new_kursi) 
+    {
+        printf("❌ Gagal membuat kursi\n");
+    }
     *new_kursi = constructor_kursi(id, status, tipe);
 }
 
@@ -35,7 +39,7 @@ void create_new_kursi(Kursi** new_kursi, int id, boolean status, KursiType tipe)
 
 int get_id_kursi(Kursi* current_kursi)
 {
-    assert(current_kursi != NULL);
+    if (!current_kursi) return -1;
     return current_kursi->id;
 }
 
@@ -92,11 +96,12 @@ void destructor_kursi(Kursi* current_kursi)
 
 int compare_kursi_value(const Kursi* kursi_pertama, const Kursi* kursi_kedua)
 {
-    assert(kursi_pertama != NULL && kursi_kedua != NULL);
+    if (!kursi_pertama || !kursi_kedua) return 0;
     return 
     (
         kursi_pertama->id == kursi_kedua->id &&
         kursi_pertama->status == kursi_kedua->status &&
-        kursi_pertama->tipe == kursi_kedua->status
+        kursi_pertama->tipe == kursi_kedua->tipe
     );
 }
+

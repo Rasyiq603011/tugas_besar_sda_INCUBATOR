@@ -1,6 +1,6 @@
 #include "tambah_jadwal_view.h"
 
-void input_jadwal(char* waktu_start, char* waktu_end, char* tanggal_tayang, char* judul_film, int* harga_tiket) 
+void input_jadwal(char** waktu_start, char** waktu_end, char** tanggal_tayang, char** judul_film, int* harga_tiket) 
 {
     system("cls");
     int start_vertikal = 10;
@@ -16,18 +16,18 @@ void input_jadwal(char* waktu_start, char* waktu_end, char* tanggal_tayang, char
 
     gotoxy(44, start_vertikal + 3); input_text_field(44, start_vertikal + 3, judul_film, 50, false);
     
-    gotoxy(60, start_vertikal + 4); input_text_field(60, start_vertikal + 4, waktu_start,12 , false);
+    gotoxy(60, start_vertikal + 4); input_text_field(56, start_vertikal + 4, waktu_start,12 , false);
     
-    gotoxy(63, start_vertikal + 5); input_text_field(63, start_vertikal + 5, waktu_end, 12, false);
+    gotoxy(63, start_vertikal + 5); input_text_field(59, start_vertikal + 5, waktu_end, 12, false);
     
-    gotoxy(44, start_vertikal + 6); input_text_field(44, start_vertikal + 6, tanggal_tayang, 12, false);
+    gotoxy(60, start_vertikal + 6); input_text_field(60, start_vertikal + 6, tanggal_tayang, 12, false);
 
     gotoxy(45, start_vertikal + 7); *harga_tiket = input_integer_field(45, start_vertikal + 7, 4);
 
 }
 
 // Fungsi utama untuk input event
-void input_event(char* nama_event, char* judul_film, char* tanggal_mulai, char* tanggal_akhir, int* jumlah_sesi, int* jumlah_kuota_sesi) 
+void input_event(char** nama_event, char** judul_film, char** tanggal_mulai, char** tanggal_akhir, int* jumlah_sesi, int* jumlah_kuota_sesi) 
 {
     system("cls");
     int start_vertikal = 10;

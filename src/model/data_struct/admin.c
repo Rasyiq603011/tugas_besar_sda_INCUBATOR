@@ -1,10 +1,11 @@
 #include "admin.h"
+#include <stdlib.h>
+#include <string.h>
 
 // ===================================================
 // ============== STRUCT DEFINITIONS =================
 // ===================================================
 
-// Struktur data untuk menyimpan informasi admin
 struct DataAdmin {
     String username;
     String password;
@@ -14,44 +15,46 @@ struct DataAdmin {
 // ================ ACCESSOR SECTION =================
 // ===================================================
 
-// Mengembalikan username admin
-String get_username_admin(Admin* admin)
+String get_username_admin(const Admin* admin)
 {
-    return admin->username;
+    return (admin && admin->username) ? admin->username : "";
 }
 
-// Mengembalikan password admin
-String get_password_admin(Admin* admin)
+String get_password_admin(const Admin* admin)
 {
-    return admin->password;
+    return (admin && admin->password) ? admin->password : "";
 }
 
 // ===================================================
 // ================= MUTATOR SECTION =================
 // ===================================================
 
-// Mengatur username admin
-void set_username_admin(Admin* admin, String username)
+void set_username_admin(Admin* admin, const String username)
 {
-    admin->username = username;
+    if (!admin) return;
+    if (admin->username) free(admin->username);
+    admin->username = (username) ? strdup(username) : NULL;
 }
 
-// Mengatur password admin
-void set_password_admin(Admin* admin, String password)
+void set_password_admin(Admin* admin, const String password)
 {
-    admin->password = password;
+    if (!admin) return;
+    if (admin->password) free(admin->password);
+    admin->password = (password) ? strdup(password) : NULL;
 }
 
 // ===================================================
 // ================ CONSTRUCTOR SECTION ==============
 // ===================================================
 
-// Membuat objek admin baru dengan username dan password
-Admin* create_admin(String username, String password)
+Admin* create_admin(const String username, const String password)
 {
     Admin* new_admin = (Admin*) malloc(sizeof(Admin));
-    new_admin->username = username;
-    new_admin->password = password;
+    if (!new_admin) return NULL;
+
+    new_admin->username = (username) ? strdup(username) : NULL;
+    new_admin->password = (password) ? strdup(password) : NULL;
+
     return new_admin;
 }
 
@@ -59,13 +62,11 @@ Admin* create_admin(String username, String password)
 // ================ DESTRUCTOR SECTION ===============
 // ===================================================
 
-// Menghapus objek admin dan membebaskan memori yang digunakan
 void destroy_admin(Admin* admin)
 {
-    if (admin != NULL)
-    {
-        free(admin->username);  // membebaskan memori username
-        free(admin->password);  // membebaskan memori password
-        free(admin);            // membebaskan memori objek admin
-    }
+    if (!admin) return;
+
+    if (admin->username) free(admin->username);
+    if (admin->password) free(admin->password);
+    free(admin);
 }

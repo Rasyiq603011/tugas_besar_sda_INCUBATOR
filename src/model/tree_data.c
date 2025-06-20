@@ -233,7 +233,7 @@ void delete_tree_rekursif(address P)
 // Fungsi untuk traversal secara pre-order
 void traversal_preorder(Tree T, void (*Process) (address))
 {
-    if (!is_tree_empty)
+    if (!is_tree_empty(T))
     {
         traversal_preorder_rekursif(T.root, Process);
     }
@@ -288,7 +288,7 @@ void TraverseBFS(Tree T, void (*Process)(address)) {
 
 void mutator_traversal_preorder(Tree T, void (*Process)(address, void*), void* accessible)
 {
-    if (!is_tree_empty)
+    if (!is_tree_empty(T))
     {
         mutator_traversal_preorder_rekursif(T.root, Process, accessible);
     }

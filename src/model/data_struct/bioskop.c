@@ -57,7 +57,7 @@ void create_bioskop(Bioskop** new_bioskop, const String nama, int total_pendapat
 const String get_name_bioskop(const Bioskop* bioskop)
 {
     if (!bioskop) return NULL;
-    return bioskop->nama_bioskop;
+    return bioskop->nama_bioskop ? bioskop->nama_bioskop : "";
 }
 
 int get_pendapatan_bioskop(const Bioskop* bioskop) 

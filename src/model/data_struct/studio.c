@@ -78,8 +78,10 @@ int get_jumlah_kursi_studio(const Studio* current_studio)
 void set_name_studio(Studio* current_studio, String name) 
 {
     if (!current_studio || !name) return;
+    char* temp = strdup(name);
+    if (!temp) return;
     free(current_studio->nama_studio);
-    current_studio->nama_studio = strdup(name);
+    current_studio->nama_studio = temp;
 }
 
 void set_pendapatan_studio(Studio* current_studio, int pendapatan) 
@@ -143,8 +145,10 @@ List* get_jadwal_by_film(Studio* studio, const char* keyword)
 {
     if (!studio || !keyword || !studio->jadwal_studio) return NULL;
 
-	List* hasil;
-    CreateList(hasil);  
+    List* hasil = (List*)malloc(sizeof(List));
+    if (!hasil) return NULL;
+    CreateList(hasil);
+
     pnode current = studio->jadwal_studio->First;
 
     while (current) 
@@ -271,7 +275,7 @@ int compare_studio_value(const Studio* studio_pertama, const Studio* studio_kedu
     (
     strcmp(studio_pertama->nama_studio, studio_kedua->nama_studio) == 0 &&
     studio_pertama->jumlah_kursi_studio == studio_kedua->jumlah_kursi_studio &&
-    studio_pertama->total_pendapatan_studio == studio_pertama->total_pendapatan_studio &&
+    studio_pertama->total_pendapatan_studio == studio_kedua->total_pendapatan_studio &&
     compare_list(*(studio_pertama->jadwal_studio), *(studio_kedua->jadwal_studio))
     );
 }
@@ -386,12 +390,12 @@ int is_exists_bentrok_for_event(const List jadwal, date tanggal_mulai, date tang
 
         if (Type(current) == TYPE_EVENT)
         {
-            date tanggal_mulai = get_event_start(info_event(current));
-            if (compare_date(tanggal_mulai, tanggal_mulai)) return 1;
-            if (compare_date(tanggal_mulai, tanggal_selesai)) return 1;
-            date tanggal_selesai = get_event_end(info_event(current));
-            if (compare_date(tanggal_selesai, tanggal_mulai)) return 1;
-            if (compare_date(tanggal_selesai, tanggal_selesai)) return 1;
+            date tanggal_start = get_event_start(info_event(current));
+            if (compare_date(tanggal_start, tanggal_mulai)) return 1;
+            if (compare_date(tanggal_start, tanggal_selesai)) return 1;
+            date tanggal_end = get_event_end(info_event(current));
+            if (compare_date(tanggal_end, tanggal_mulai)) return 1;
+            if (compare_date(tanggal_end, tanggal_selesai)) return 1;
         }
     }
     return 0;

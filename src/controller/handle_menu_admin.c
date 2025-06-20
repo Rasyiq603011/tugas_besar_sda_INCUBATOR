@@ -35,7 +35,6 @@ void navigasi_tree_for_admin(Tree bioskop, DataType nav_for)
         const char* title = get_title_for_type(type);
 
         int pilihan = scrollable_menu(array, jumlah, render, title, 3, 4);
-        if (pilihan == -1) return;
         free(array);
 
         if (pilihan == -1) {
@@ -102,7 +101,7 @@ int management_jadwal(Studio* current_studio)
             "KEMBALI KE MENU UTAMA",
             "KEMBALI"
         };
-        const char* header = "MANAGEMENT EVENT";
+        const char* header = "MANAGEMENT JADWAL";
         pilihan = handle_display_menu(jumlah_opsi, options, header);
     
         switch (pilihan) 
@@ -114,7 +113,6 @@ int management_jadwal(Studio* current_studio)
             case 1:
                 handle_hapus_jadwal(current_studio);
                 break;
-                
             case 2: 
                 return 0;
             case 3: 
@@ -139,7 +137,7 @@ void handle_tambah_jadwal(Studio* current_studio)
     {
         system("cls");
 
-        boolean input_sukses = handle_input_data_jadwal(&waktu_start, &waktu_end, &tanggal, judul_film, &harga_tiket);
+        boolean input_sukses = handle_input_data_jadwal(&waktu_start, &waktu_end, &tanggal, &judul_film, &harga_tiket);
 
         if (!input_sukses) {
             gotoxy(35, 14); printf("❌ Input tidak valid!");
@@ -147,7 +145,8 @@ void handle_tambah_jadwal(Studio* current_studio)
         else if (is_exists_bentrok_for_jadwal(*daftar_jadwal, tanggal, waktu_start, waktu_end)) {
             gotoxy(35, 14); printf("❌ Jadwal bentrok dengan jadwal lain!");
         }
-        else {
+        else 
+        {
             Jadwal* jadwal_baru = constructor_jadwal(waktu_start, waktu_end, tanggal, harga_tiket, judul_film, jumlah_kursi);
             free(judul_film);
             judul_film = NULL;
@@ -161,11 +160,6 @@ void handle_tambah_jadwal(Studio* current_studio)
             insert_value_last(&daftar_jadwal->First, JADWAL_INFO(jadwal_baru), TYPE_JADWAL);
             gotoxy(35, 14); printf("✅ Jadwal berhasil ditambahkan!");
             Sleep(1500);
-        }
-
-        if (judul_film) {
-            free(judul_film);
-            judul_film = NULL;
         }
 
         const char* opsi[] = { "LANJUT TAMBAH JADWAL", "BATALKAN" };
@@ -188,7 +182,7 @@ void handle_hapus_jadwal(Studio* current_studio)
     pnode selected_jadwal;
 	int pilihan = handle_pemilihan_jadwal(*get_all_jadwal(current_studio), &selected_jadwal);
 
-    if (selected_jadwal == NULL) return;
+    if (selected_jadwal == 0) return;
     
     delete_by_address(&(get_all_jadwal(current_studio)->First), selected_jadwal);
     
@@ -240,25 +234,64 @@ int management_event(Studio* Studio)
 
 void handle_tambah_event(Studio* current_studio)
 {
-    String nama_event, waktu_start, waktu_end, judul_film;
-    int jumlah_kuota_sesi, jumlah_sesi;
+    if (!current_studio) return;
 
-    input_event(nama_event, judul_film, waktu_start, waktu_end, &jumlah_sesi, &jumlah_kuota_sesi);
-    date start, end;
-    if (!string_to_date(waktu_start, &start))
-    {
-        start = getTodayDate();
-    }
-    if (!string_to_date(waktu_end, &end))
-    {
-        end = getTodayDate();
-    }
+    String nama_event = NULL, judul_film = NULL;
+    date tanggal_mulai, tanggal_akhir;
+    int jumlah_sesi, jumlah_kuota_sesi;
+    List* daftar_jadwal = get_jadwal_studio(current_studio);
 
-    Event* new_event = constructor_event(nama_event, start ,end , judul_film, jumlah_kuota_sesi, jumlah_sesi);
-    if (!new_event) return;
-    
-    insert_value_last(&(First(*get_jadwal_studio(current_studio))), EVENT_INFO(new_event), TYPE_EVENT);
+    while (1)
+    {
+        system("cls");
+
+        // Input dan validasi
+        boolean input_sukses = handle_input_data_event(
+            &nama_event, &judul_film, &tanggal_mulai, &tanggal_akhir,
+            &jumlah_sesi, &jumlah_kuota_sesi
+        );
+
+        if (!input_sukses) {
+            gotoxy(35, 14); printf("❌ Input tidak valid!");
+        }
+        else if (is_exists_bentrok_for_event(*daftar_jadwal, tanggal_mulai, tanggal_akhir)) {
+            gotoxy(35, 14); printf("❌ Event bentrok dengan event lain!");
+        }
+        else
+        {
+            Event* event_baru = constructor_event(nama_event, tanggal_mulai, tanggal_akhir, judul_film, jumlah_kuota_sesi, jumlah_sesi);
+            
+            free(nama_event);
+            free(judul_film);
+            nama_event = NULL;
+            judul_film = NULL;
+
+            if (!event_baru) {
+                gotoxy(35, 14); printf("❌ Gagal membuat event!");
+                Sleep(1000);
+                continue;
+            }
+
+            insert_value_last(&daftar_jadwal->First, EVENT_INFO(event_baru), TYPE_EVENT);
+            gotoxy(35, 14); printf("✅ Event berhasil ditambahkan!");
+            Sleep(1500);
+        }
+
+        const char* opsi[] = { "LANJUT TAMBAH EVENT", "BATALKAN" };
+        int konfirmasi = display_konfirmasi_menu(
+            "KONFIRMASI PENAMBAHAN EVENT",
+            "Apakah Anda ingin menambahkan event lainnya?",
+            opsi, 2
+        );
+
+        if (konfirmasi == 1) {
+            gotoxy(35, 16); printf("Keluar dari menu tambah event...");
+            Sleep(1000);
+            break;
+        }
+    }
 }
+
 
 void handle_proses_antrian_event(Studio* current_studio)
 {

@@ -13,6 +13,7 @@ struct DataNegara {
 // ===============================================
 
 Negara* constructor_negara(const String nama, int total_pendapatan, int jumlah_bioskop) {
+    if (!nama || total_pendapatan < 0 || jumlah_bioskop < 0) return NULL;
     Negara* new_negara = (Negara*) malloc(sizeof(Negara));
     if (!new_negara) return NULL;
 
@@ -39,7 +40,7 @@ void create_negara(Negara** new_negara, const String nama, int total_pendapatan,
 
 String get_name_negara(Negara* current_negara)
 {
-    return current_negara ? current_negara->nama_negara : "Hello";
+    return current_negara && current_negara->nama_negara ? current_negara->nama_negara : "";
 }
 
 int get_pendapatan_negara(Negara* current_negara)
@@ -99,9 +100,9 @@ void destructor(Negara* current_negara)
 
 int compare_value_negara(const Negara* negara_pertama, const Negara* negara_kedua) 
 {
-    if (!negara_pertama || !negara_kedua) {
-        return 0; 
-    }
+    if (!negara_pertama || !negara_kedua) return 0;
+    if (!negara_pertama->nama_negara || !negara_kedua->nama_negara) return 0; 
+  
     return (strcmp(negara_pertama->nama_negara, negara_kedua->nama_negara) == 0 &&
             negara_pertama->total_pendapatan_negara== negara_kedua->total_pendapatan_negara &&
             negara_pertama->jumlah_bioskop_negara== negara_kedua->jumlah_bioskop_negara);

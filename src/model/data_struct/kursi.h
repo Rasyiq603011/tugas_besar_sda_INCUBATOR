@@ -2,6 +2,7 @@
 #define KURSI_H
 #include "../boolean.h"
 #include <stdlib.h>
+#include <stdio.h>
 #include <assert.h>
 
 typedef char* String;

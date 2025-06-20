@@ -9,7 +9,8 @@
 #include "../linked.h"
 #include "../tree_data.h"
 
-#define DATABASE_USER "../../../assets/users.json"
+#define USER_FILE "assets/users.json"
+#define ADMIN_FILE "assets/admin.json"
 
 // === INTERFACE ===
 address load_tree_from_file(const char* filename);

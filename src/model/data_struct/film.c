@@ -66,6 +66,7 @@ void update_jumlah_penonton_film(Film* film)
 // Mengatur total pendapatan film
 void set_total_pendapatan_film(Film* film, int total_pendapatan)
 {
+    if (!film || total_pendapatan < 0) return;
     film->total_pendapatan = total_pendapatan;
 }
 
@@ -121,7 +122,8 @@ void destroy_film(Film* film)
 
 int compare_film_value(Film* film_pertama, Film* film_kedua)
 {
-    return (strcmp(film_pertama->judul, film_kedua->judul) == 0);
+    if (!film_pertama || !film_kedua || !film_pertama->judul || !film_kedua->judul) return 0;
+    return strcmp(film_pertama->judul, film_kedua->judul) == 0;
 }
 
 // ===================================================

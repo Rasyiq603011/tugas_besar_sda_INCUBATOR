@@ -3,12 +3,13 @@
 #include "../view/view.h"
 #include "handle_menu_admin.h"
 #include "handle_menu_pemilihan.h"
+#include "handle_crud_tree.h"
 #include "handle_tampilan_riwayat.h"
 #include "../view/tampilan_login_signup.h"
 #include "../model/file_manipulation/write_json.h"
 #include "../model/file_manipulation/read_json.h"
-#define USER_FILE "../../../assets/users.json"
-#define ADMIN_FILE "../../../assets/admin.json"
+#define USER_FILE "assets/users.json"
+#define ADMIN_FILE "assets/admin.json"
 
 // ===============================================
 // ============= OPTION SECTION ==================

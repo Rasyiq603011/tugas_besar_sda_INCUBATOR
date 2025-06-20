@@ -87,8 +87,10 @@ List* get_all_jadwal_by_film_from_node(address node_mulai, const char* keyword)
 {
     if (!node_mulai || !keyword) return NULL;
 
-    List* hasil;
-    CreateList(hasil);  
+    List* hasil = malloc(sizeof(List));
+    if (!hasil) return NULL;
+    CreateList(hasil);
+
     StackTree stack;
     init_stack(&stack);
     push_stack(&stack, node_mulai);
@@ -120,8 +122,10 @@ List* get_all_event_from_tree_node(address node_mulai)
 {
     if (!node_mulai) return NULL;
 
-    List* hasil;
-    CreateList(hasil);  
+    List* hasil = malloc(sizeof(List));
+    if (!hasil) return NULL;
+    CreateList(hasil);
+
     StackTree stack;
     init_stack(&stack);
     push_stack(&stack, node_mulai);

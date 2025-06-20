@@ -29,7 +29,7 @@ IncludeVersionInfo=0
 SupportXPThemes=0
 CompilerSet=0
 CompilerSettings=10000000a0000010000000000
-UnitCount=74
+UnitCount=80
 
 [VersionInfo]
 Major=1
@@ -111,9 +111,9 @@ OverrideBuildCmd=0
 BuildCmd=
 
 [Unit75]
-FileName=src\controller\handle_database.h
+FileName=src\test\data_struct_test.c
 CompileCpp=0
-Folder=controller
+Folder=test
 Compile=1
 Link=1
 Priority=1000
@@ -121,19 +121,9 @@ OverrideBuildCmd=0
 BuildCmd=
 
 [Unit76]
-FileName=src\controller\handle_menu.c
+FileName=src\test\data_struct_test.h
 CompileCpp=0
-Folder=controller
-Compile=1
-Link=1
-Priority=1000
-OverrideBuildCmd=0
-BuildCmd=
-
-[Unit77]
-FileName=src\controller\handle_menu.h
-CompileCpp=0
-Folder=controller
+Folder=test
 Compile=1
 Link=1
 Priority=1000
@@ -141,9 +131,9 @@ OverrideBuildCmd=0
 BuildCmd=
 
 [Unit78]
-FileName=src\controller\handle_menu_pemilihan.c
+FileName=src\test\test_linked_list.h
 CompileCpp=0
-Folder=controller
+Folder=test
 Compile=1
 Link=1
 Priority=1000
@@ -151,9 +141,9 @@ OverrideBuildCmd=0
 BuildCmd=
 
 [Unit79]
-FileName=src\controller\handle_menu_pemilihan.h
+FileName=src\test\testing.c
 CompileCpp=0
-Folder=controller
+Folder=test
 Compile=1
 Link=1
 Priority=1000
@@ -161,9 +151,9 @@ OverrideBuildCmd=0
 BuildCmd=
 
 [Unit80]
-FileName=src\controller\handle_pemilihan_kursi.c
+FileName=src\test\testing.h
 CompileCpp=0
-Folder=controller
+Folder=test
 Compile=1
 Link=1
 Priority=1000
@@ -171,9 +161,9 @@ OverrideBuildCmd=0
 BuildCmd=
 
 [Unit81]
-FileName=src\controller\handle_pemilihan_kursi.h
+FileName=src\test\testing.c
 CompileCpp=0
-Folder=controller
+Folder=test
 Compile=1
 Link=1
 Priority=1000
@@ -181,19 +171,9 @@ OverrideBuildCmd=0
 BuildCmd=
 
 [Unit82]
-FileName=src\controller\handle_pemilihan_pengguna.c
+FileName=src\test\testing.h
 CompileCpp=0
-Folder=controller
-Compile=1
-Link=1
-Priority=1000
-OverrideBuildCmd=0
-BuildCmd=
-
-[Unit83]
-FileName=src\controller\handle_pemilihan_pengguna.h
-CompileCpp=0
-Folder=controller
+Folder=test
 Compile=1
 Link=1
 Priority=1000
@@ -201,9 +181,9 @@ OverrideBuildCmd=0
 BuildCmd=
 
 [Unit84]
-FileName=src\controller\handle_tampilan_riwayat.c
+FileName=src\test\testing_queue.h
 CompileCpp=0
-Folder=controller
+Folder=test
 Compile=1
 Link=1
 Priority=1000
@@ -934,6 +914,16 @@ BuildCmd=
 FileName=src\view\tampilan_login_signup.c
 CompileCpp=0
 Folder=view
+Compile=1
+Link=1
+Priority=1000
+OverrideBuildCmd=0
+BuildCmd=
+
+[Unit77]
+FileName=src\test\test_linked_list.c
+CompileCpp=0
+Folder=test
 Compile=1
 Link=1
 Priority=1000

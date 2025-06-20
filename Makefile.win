@@ -4,8 +4,8 @@
 CPP      = g++.exe
 CC       = gcc.exe
 WINDRES  = windres.exe
-OBJ      = bin/handle_crud_tree.o bin/handle_menu.o bin/handle_menu_admin.o bin/handle_menu_pemilihan.o bin/handle_pemilihan_kursi.o bin/handle_tampilan_riwayat.o bin/date.o bin/linked.o bin/queue.o bin/stack_tree.o bin/time_adt.o bin/tree_data.o bin/cJSON.o bin/crud_film.o bin/read_json.o bin/write_json.o bin/admin.o bin/bioskop.o bin/event.o bin/film.o bin/jadwal.o bin/kota.o bin/kursi.o bin/negara.o bin/provinsi.o bin/riwayat.o bin/studio.o bin/user.o bin/kursi_view.o bin/message_view.o bin/tambah_jadwal_view.o bin/tampilan_data_struct.o bin/tampilan_jadwal.o bin/tampilan_login_signup.o bin/tampilan_riwayat.o bin/view.o bin/Main.o
-LINKOBJ  = bin/handle_crud_tree.o bin/handle_menu.o bin/handle_menu_admin.o bin/handle_menu_pemilihan.o bin/handle_pemilihan_kursi.o bin/handle_tampilan_riwayat.o bin/date.o bin/linked.o bin/queue.o bin/stack_tree.o bin/time_adt.o bin/tree_data.o bin/cJSON.o bin/crud_film.o bin/read_json.o bin/write_json.o bin/admin.o bin/bioskop.o bin/event.o bin/film.o bin/jadwal.o bin/kota.o bin/kursi.o bin/negara.o bin/provinsi.o bin/riwayat.o bin/studio.o bin/user.o bin/kursi_view.o bin/message_view.o bin/tambah_jadwal_view.o bin/tampilan_data_struct.o bin/tampilan_jadwal.o bin/tampilan_login_signup.o bin/tampilan_riwayat.o bin/view.o bin/Main.o
+OBJ      = bin/handle_crud_tree.o bin/handle_menu.o bin/handle_menu_admin.o bin/handle_menu_pemilihan.o bin/handle_pemilihan_kursi.o bin/handle_tampilan_riwayat.o bin/date.o bin/linked.o bin/queue.o bin/stack_tree.o bin/time_adt.o bin/tree_data.o bin/cJSON.o bin/crud_film.o bin/read_json.o bin/write_json.o bin/admin.o bin/bioskop.o bin/event.o bin/film.o bin/jadwal.o bin/kota.o bin/kursi.o bin/negara.o bin/provinsi.o bin/riwayat.o bin/studio.o bin/user.o bin/kursi_view.o bin/message_view.o bin/tambah_jadwal_view.o bin/tampilan_data_struct.o bin/tampilan_jadwal.o bin/tampilan_login_signup.o bin/tampilan_riwayat.o bin/view.o bin/Main.o bin/data_struct_test.o bin/test_linked_list.o bin/testing.o
+LINKOBJ  = bin/handle_crud_tree.o bin/handle_menu.o bin/handle_menu_admin.o bin/handle_menu_pemilihan.o bin/handle_pemilihan_kursi.o bin/handle_tampilan_riwayat.o bin/date.o bin/linked.o bin/queue.o bin/stack_tree.o bin/time_adt.o bin/tree_data.o bin/cJSON.o bin/crud_film.o bin/read_json.o bin/write_json.o bin/admin.o bin/bioskop.o bin/event.o bin/film.o bin/jadwal.o bin/kota.o bin/kursi.o bin/negara.o bin/provinsi.o bin/riwayat.o bin/studio.o bin/user.o bin/kursi_view.o bin/message_view.o bin/tambah_jadwal_view.o bin/tampilan_data_struct.o bin/tampilan_jadwal.o bin/tampilan_login_signup.o bin/tampilan_riwayat.o bin/view.o bin/Main.o bin/data_struct_test.o bin/test_linked_list.o bin/testing.o
 LIBS     = -L"C:/Program Files (x86)/Dev-Cpp/MinGW64/lib" -L"C:/Program Files (x86)/Dev-Cpp/MinGW64/x86_64-w64-mingw32/lib" -static-libgcc
 INCS     = -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/include" -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/x86_64-w64-mingw32/include" -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/lib/gcc/x86_64-w64-mingw32/4.9.2/include"
 CXXINCS  = -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/include" -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/x86_64-w64-mingw32/include" -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/lib/gcc/x86_64-w64-mingw32/4.9.2/include" -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/lib/gcc/x86_64-w64-mingw32/4.9.2/include/c++"
@@ -134,3 +134,12 @@ bin/view.o: src/view/view.c
 
 bin/Main.o: src/Main.c
 	$(CC) -c src/Main.c -o bin/Main.o $(CFLAGS)
+
+bin/data_struct_test.o: src/test/data_struct_test.c
+	$(CC) -c src/test/data_struct_test.c -o bin/data_struct_test.o $(CFLAGS)
+
+bin/test_linked_list.o: src/test/test_linked_list.c
+	$(CC) -c src/test/test_linked_list.c -o bin/test_linked_list.o $(CFLAGS)
+
+bin/testing.o: src/test/testing.c
+	$(CC) -c src/test/testing.c -o bin/testing.o $(CFLAGS)

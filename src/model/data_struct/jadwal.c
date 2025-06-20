@@ -39,13 +39,8 @@ Jadwal* constructor_jadwal(Time waktu_start, Time Waktu_end, date tanggal, int h
     new_jadwal->jumlah_tiket = jumlah_kursi;
 
     new_jadwal->daftar_kursi = (Kursi**)calloc(jumlah_kursi, sizeof(Kursi*));
-    if (!new_jadwal->daftar_kursi) 
-    {
-        free(new_jadwal);
-        return NULL;
-    }
-
-    for (int i = 0; i < jumlah_kursi; i++) {
+    int i;
+    for (i = 0; i < jumlah_kursi; i++) {
         int tipe = (i <= jumlah_kursi / 3) ? 2 : (i <= jumlah_kursi * 2 / 3 ? 1 : 0);
         new_jadwal->daftar_kursi[i] = constructor_kursi(i + 1, true, tipe);
     }

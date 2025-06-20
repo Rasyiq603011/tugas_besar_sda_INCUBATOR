@@ -107,6 +107,10 @@ void deleteFilm(List *L) {
     } else {
         delete_by_value(&L->First, FILM_INFO(info_film(current)), TYPE_FILM);
     }
+
+    if (info.film != NULL)
+    destroy_film(info.film);
+
     printf("\nFilm berhasil dihapus!\n");
 }
 

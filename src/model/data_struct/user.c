@@ -53,13 +53,22 @@ Riwayat* get_pointer_to_riwayat(User* user)
 // Mengatur username baru untuk user
 void set_username_user(User* user, String username)
 {
-    user->username = strdup(username);
+    if (!user || !username) return;
+    char* temp = strdup(username);
+    if (!temp) return;
+    free(user->username);
+    user->username = temp;
 }
+
 
 // Mengatur password baru untuk user
 void set_password_user(User* user, String password)
 {
-    user->password = strdup(password);
+    if (!user || !password) return;
+    char* temp = strdup(password);
+    if (!temp) return;
+    free(user->password);
+    user->password = temp;
 }
 
 // Mengatur saldo baru untuk user
@@ -77,7 +86,7 @@ void set_prioritas_user(User* user, Prioritas prioritas)
 // Mengurangi saldo user sesuai harga tiket
 void kurangi_saldo_user(User* user, int harga_tiket)
 {
-    user->saldo -= harga_tiket;
+    if (user->saldo >= harga_tiket) user->saldo -= harga_tiket;
 }
 
 void add_riwayat_user(User* user, Riwayat* new_riwayat)
@@ -109,6 +118,7 @@ void hapus_riwayat(User* user)
             if (temp != NULL)
             {
                 free(temp);
+                // destroy_riwayat(temp);
             }
         }
     }

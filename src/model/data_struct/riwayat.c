@@ -62,6 +62,7 @@ Riwayat* get_next_riwayat(Riwayat* riwayat)
 // Mengatur judul film dalam riwayat
 void set_judul_film_riwayat(Riwayat* riwayat, String judul_film)
 {
+    free(riwayat->judul_film);
     riwayat->judul_film = strdup(judul_film);
 }
 
@@ -119,6 +120,8 @@ void destroy_riwayat(Riwayat* riwayat)
 {
     if (riwayat != NULL)
     {
+        free(riwayat->tanggal);
+        free(riwayat->jam);
         free(riwayat->judul_film); // membebaskan memori string judul film
         free(riwayat->kursi);      // membebaskan memori string kursi
         free(riwayat);             // membebaskan memori objek riwayat

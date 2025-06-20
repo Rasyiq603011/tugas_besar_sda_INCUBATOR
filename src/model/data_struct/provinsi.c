@@ -42,8 +42,7 @@ void create_provinsi(Provinsi** new_provinsi, const String nama, int total_penda
 
 String get_name_provinsi(Provinsi* current_provinsi)
 {
-    if (current_provinsi == NULL) { return NULL;}
-    return current_provinsi->nama_provinsi;
+    return (current_provinsi && current_provinsi->nama_provinsi) ? current_provinsi->nama_provinsi : "";
 }
 
 int get_pendapatan_provinsi(Provinsi* current_provinsi)
@@ -103,6 +102,7 @@ void destructor_provinsi(Provinsi* current_provinsi)
 int compare_provinsi_value(const Provinsi* provinsi_pertama, const Provinsi* provinsi_kedua) 
 {
     if (provinsi_pertama == NULL || provinsi_kedua == NULL) { return 0;}
+    if (!provinsi_pertama->nama_provinsi || !provinsi_kedua->nama_provinsi) return 0;
     return (strcmp(provinsi_pertama->nama_provinsi, provinsi_kedua->nama_provinsi) == 0 &&
             provinsi_pertama->total_pendapatan_provinsi == provinsi_kedua->total_pendapatan_provinsi &&
             provinsi_pertama->jumlah_bioskop_provinsi == provinsi_kedua->jumlah_bioskop_provinsi);

@@ -102,8 +102,10 @@ void destructor_kota(Kota* current_kota)
 
 int compare_kota_value(const Kota* kota_pertama, const Kota* kota_kedua) 
 {
-    if (kota_pertama == NULL || kota_kedua == NULL) { return 0;}
-    return (strcmp(kota_pertama->nama_kota, kota_kedua->nama_kota) == 0 &&
-            kota_pertama->total_pendapatan_kota == kota_kedua->total_pendapatan_kota &&
-            kota_pertama->jumlah_bioskop_kota == kota_kedua->jumlah_bioskop_kota);
+    if (!kota_pertama || !kota_kedua || !kota_pertama->nama_kota || !kota_kedua->nama_kota) return 0;
+    return (
+        strcmp(kota_pertama->nama_kota, kota_kedua->nama_kota) == 0 &&
+        kota_pertama->total_pendapatan_kota == kota_kedua->total_pendapatan_kota &&
+        kota_pertama->jumlah_bioskop_kota == kota_kedua->jumlah_bioskop_kota
+    );
 }
